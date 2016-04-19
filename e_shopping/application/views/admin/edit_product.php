@@ -46,12 +46,29 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category Name <span class="required">*</span>
                     </label>
                     <div class="col-md-7 col-sm-7 col-xs-12">
+                    <?php 
+                      if($product['category_id'])
+                      { ?>
+                        <input type="text" id="category_id" name="category_id" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['category_id'] ?>">
+                        <label class="col-md-8 text-danger">
+                          <?php echo form_error('category_id'); ?>
+                        </label>
+                    <?php  
+                      }
+                      else
+                      { ?>
                         <select id="category_id"  name="category_id" class="form-control" required>
                           <option value="">--none--</option>
                         <?php foreach($category as $row):?>
                           <option value="<?php echo $row->category_id ?>"><?php echo $row->category_name ?></option>
                         <?php endforeach?>
                         </select>
+                        <label class="col-md-8 text-danger">
+                          <?php echo form_error('product_name'); ?>
+                        </label>
+                    <?php 
+                      }
+                    ?>
                     </div>
                   </div>
 
@@ -59,7 +76,11 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product Name <span class="required">*</span>
                     </label>
                     <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="text" id="product_name" name="product_name" required="required" class="form-control col-md-7 col-xs-12">
+                      <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['product_id'] ?>">
+                      <input type="text" id="product_name" name="product_name" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['product_name'] ?>">
+                      <label class="col-md-8 text-danger">
+                        <?php echo form_error('product_name'); ?>
+                      </label>
                     </div>
                   </div>
 
@@ -67,7 +88,10 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Description <span class="required">*</span>
                     </label>
                     <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
+                      <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['description'] ?>">
+                      <label class="col-md-8 text-danger">
+                        <?php echo form_error('description'); ?>
+                      </label>
                     </div>
                   </div>
 
@@ -75,7 +99,10 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Price <span class="required">*</span>
                     </label>
                     <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="number" id="price" name="price" required="required" class="form-control col-md-7 col-xs-12">
+                      <input type="text" id="price" name="price" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['product_price'] ?>">
+                      <label class="col-md-8 text-danger">
+                        <?php echo form_error('price'); ?>
+                      </label>
                     </div>
                   </div>
 
@@ -84,12 +111,14 @@
                     </label>
                     <div class="col-md-7 col-sm-7 col-xs-12">
                       <input type="file" id="image" name="image" required="required" class="form-control col-md-7 col-xs-12">
+                      <label class="col-md-8 text-danger">
+                        <?php echo form_error('image'); ?>
+                      </label>
                     </div>
                   </div>
                 <div class="ln_solid"></div>
                 <div class="form-group">
                   <div class="col-md-7 col-sm-7 col-xs-12 col-md-offset-3">
-                    <button type="submit" class="btn btn-primary">Cancel</button>
                     <button type="submit" class="btn btn-success">Submit</button>
                   </div>
                 </div>
@@ -98,6 +127,7 @@
                  <img height="200" width="200">
               </div>
               <?php echo form_close();?>
+              <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo base_url('index.php/admin_products/index').'/0'; ?>'"><i class="fa fa-backward">  Back</i></button>
                 </div>
               </div>
             </div>

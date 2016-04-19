@@ -14,6 +14,9 @@
             <div class="x_panel">
               <div class="x_title">
                 <h2>Product List</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                  <a type="submit" class="btn btn-primary" href="<?php echo base_url('index.php/admin_products/edit_products/0')?>">Add new product</a>
+                </ul>
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
@@ -39,18 +42,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                <?php foreach($products as $row):?>
-                  <tr>
-                    <td><?php echo $row->product_id ?></td>
-                    <td><?php echo $row->category_id ?></td>
-                    <td><?php echo $row->product_name ?></td>
-                    <td><?php echo $row->description ?></td>
-                    <td><?php echo $row->product_price ?></td>
-                    <td><?php echo $row->product_img ?></td>
-                    <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo base_url('index.php/admin_products/edit_products') ?>"></a></td>
-                    <td><a class="fa fa-trash fa-2x" href="<?php echo base_url('index.php/admin_products/delete_product'). '/' . $row->product_id ?>"></a></td>
-                  </tr>
-                <?php endforeach ?>                     
+                <?php
+                if($products)
+                { ?>
+                  <?php foreach($products as $row):?>
+                    <tr>
+                      <td><?php echo $row->product_id ?></td>
+                      <td><?php echo $row->category_id ?></td>
+                      <td><?php echo $row->product_name ?></td>
+                      <td><?php echo $row->description ?></td>
+                      <td><?php echo $row->product_price ?></td>
+                      <td><?php echo $row->product_img ?></td>
+                      <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo base_url('index.php/admin_products/edit_products').'/'. $row->product_id ?>"></a></td>
+                      <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->product_name ?> \'?');" href="<?php echo base_url('index.php/admin_products/delete_product'). '/' . $row->product_id ?>"></a></td>
+                    </tr>
+                  <?php endforeach ?> 
+                <?php
+                }
+                else
+                {
+                  echo '<tr><td colspan="8"><span class="text-info">Sorry no products available for this category.</span></td></tr>';
+                } ?>               
                 </tbody>
                 </table>
               </div>
@@ -58,74 +70,6 @@
           </div>
         </div>
         <!-- /page content -->
-
-      <div class="clearfix"></div>
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>Add new Product</h2>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-              <br />
-              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category Name <span class="required">*</span>
-                    </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product Name <span class="required">*</span>
-                    </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Description <span class="required">*</span>
-                    </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Price <span class="required">*</span>
-                    </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="number" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Image <span class="required">*</span>
-                    </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="file" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-                <div class="ln_solid"></div>
-                <div class="form-group">
-                  <div class="col-md-7 col-sm-7 col-xs-12 col-md-offset-3">
-                    <button type="submit" class="btn btn-primary">Cancel</button>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-3">
-                 <img height="200" width="200">
-              </div>
-              </form>
-            </div>                  
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </body>

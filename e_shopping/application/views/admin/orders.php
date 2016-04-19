@@ -24,21 +24,33 @@
                     <th>User id</th>
                     <th>Order date</th>
                     <th>Shipping cost</th>
+                    <th>View Details</th>
                     <th>Edit</th>
                     <th>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
-                <?php foreach($orders as $row):?>
-                  <tr>
-                    <td><?php echo $row->order_id ?></td>
-                    <td><?php echo $row->user_id ?></td>
-                    <td><?php echo $row->order_date ?></td>
-                    <td><?php echo $row->shipping_cost ?></td>
-                    <td><a class="fa fa-pencil-square-o fa-2x"></a></td>
-                    <td><a class="fa fa-trash fa-2x"></a></td>
-                  </tr>
-                <?php endforeach ?>                     
+                <?php
+                if($orders)
+                {
+                ?>
+                  <?php foreach($orders as $row):?>
+                    <tr>
+                      <td><?php echo $row->order_id ?></td>
+                      <td><?php echo $row->user_id ?></td>
+                      <td><?php echo $row->order_date ?></td>
+                      <td><?php echo $row->shipping_cost ?></td>
+                      <td><a>View Details</a></td>
+                      <td><a class="fa fa-pencil-square-o fa-2x"></a></td>
+                      <td><a class="fa fa-trash fa-2x"></a></td>
+                    </tr>
+                  <?php endforeach ?>
+                <?php
+                }
+                else
+                {
+                  echo '<tr><td colspan="8"><span class="text-info">Sorry no orders available.</span></td></tr>';
+                } ?>                         
                 </tbody>
                 </table>
               </div>

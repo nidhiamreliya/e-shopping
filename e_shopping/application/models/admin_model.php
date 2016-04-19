@@ -6,6 +6,31 @@ class Admin_model extends CI_Model
         // Call the Model constructor
         parent::__construct();
     }
+
+
+	/*Check user data and retrive user data from database.
+     *@params string $user_name user name or email_id 
+     *@params string $password 
+     *@returns array row
+	*/
+	public function user_login($user_name, $password)
+	{
+		$query = $this->db
+				->select('user_id, privilege')
+				->from('users')
+			    ->where('email_id', $user_name)
+			    ->where('password', $password)
+			   	->get();
+
+		if ($query->num_rows() > 0) 
+		{
+			return $query->row_array();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
     /*Inseart user data for register user.
      *@params array $data data entered by user
      *@return int user id
@@ -16,6 +41,75 @@ class Admin_model extends CI_Model
 		if ($result->num_rows() > 0) 
 		{
 			return $result->result();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+	/*Inseart user data for register user.
+     *@params array $data data entered by user
+     *@return int user id
+	*/
+	public function get_rows($table, $condition)
+	{
+		$result = $this->db->get_where($table, $condition);
+		if ($result->num_rows() > 0) 
+		{
+			return $result->result();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+
+	public function update_row($table, $data, $condition)
+	{
+		$this->db->where($condition);
+		$this->db->update($table, $data);
+
+		if ($this->db->trans_status() === true) 
+		{
+    		return true;
+		} 
+		else 
+		{
+   			return 	false;
+    	}
+	}
+	/*Inseart user data for register user.
+     *@params array $data data entered by user
+     *@return int user id
+	*/
+	public function getwhere_data($table, $condition)
+	{
+		$result = $this->db->get_where($table, $condition);
+		if ($result->num_rows() > 0) 
+		{
+			return $result->row_array();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+
+	/*Inseart user data for register user.
+     *@params array $data data entered by user
+     *@return int user id
+	*/
+	public function get_fields($table, $fields, $condition)
+	{
+		$query = $this->db
+				->select($fields)
+				->from($table)
+			    ->where($condition)
+			   	->get();
+
+		if ($query->num_rows() > 0) 
+		{
+			return $query->row_array();
 		} 
 		else 
 		{

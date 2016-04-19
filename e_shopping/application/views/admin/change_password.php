@@ -18,13 +18,31 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
+              <span class="text-success col-md-offset-2">
+                <?php
+                  if($this->session->flashdata('successful'))
+                  {
+                    echo $this->session->flashdata('successful');
+                  }
+                ?>
+              </span>
               <br />
-              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+              <?php
+                  $data = array(
+                        'name'  => 'edit_password',
+                        'id' => 'edit_password',
+                        'class' => "form-horizontal form-label-left"
+                      );
+                ?> 
+                <?php echo form_open('admin_control/edit_password', $data);?>
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Old password <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                      <input type="text" id="old_password" name="old_password" required="required" class="form-control col-md-7 col-xs-12">
+                      <label class="col-md-8 has-error error_class">
+                      <?php echo form_error('old_password'); ?>
+                    </label>
                     </div>
                   </div>
 
@@ -32,7 +50,10 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">New password <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                      <input type="text" id="password" name="password" required="required" class="form-control col-md-7 col-xs-12">
+                      <label class="col-md-8 has-error error_class">
+                      <?php echo form_error('password'); ?>
+                      </label>
                     </div>
                   </div>
 
@@ -40,7 +61,10 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Confirm password <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                      <input type="text" id="confirm_password" name="confirm_password" required="required" class="form-control col-md-7 col-xs-12">
+                      <label class="col-md-8 has-error error_class">
+                      <?php echo form_error('confirm_password'); ?>
+                    </label>
                     </div>
                   </div>
 

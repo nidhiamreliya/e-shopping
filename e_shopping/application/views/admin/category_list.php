@@ -7,55 +7,27 @@
         <div class="title_left">
           <h3>Categorys</h3>
         </div>
-      </div>
-      <div class="clearfix"></div>
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>Add new Category</h2>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-              <br />
-               <br />
-              <?php
-                $data = array(
-                      'name'  => 'category_name',
-                      'id' => 'category_name',
-                      'class' => "form-horizontal form-label-left"
-                    );
-              ?> 
-             <?php echo form_open('admin_categorys/edit_category', $data);?>
-                <div class="form-group">
-                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category Name <span class="required">*</span>
-                  </label>
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                  </div>
-                </div>
-                <div class="ln_solid"></div>
-                <div class="form-group">
-                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                    <button type="submit" class="btn btn-primary">Cancel</button>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                  </div>
-                </div>
-               <?php echo form_close();?>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-   <!--  <div class="clearfix"></div>
+      </div>      
+    <div class="clearfix"></div>
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
               <h2>Category List</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <a type="submit" class="btn btn-primary" href="<?php echo base_url('index.php/admin_categorys/edit_category/0')?>">Add new Category</a>
+              </ul>
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
+            <span class="text-success col-md-offset-2">
+              <?php
+                if($this->session->flashdata('successful'))
+                {
+                  echo $this->session->flashdata('successful');
+                }
+              ?>
+              </span>
               <table id="datatable" class="table table-striped table-bordered">
                 <thead>
                   <tr>
@@ -71,9 +43,11 @@
                   <tr>
                     <td><?php echo $row->category_id ?></td>
                     <td><?php echo $row->category_name ?></td>
-                    <td><a>View products</a></td>
-                    <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo base_url('index.php/admin_categorys/edit_product') ?>"></a></td>
-                    <td><a class="fa fa-trash fa-2x" href="<?php echo base_url('index.php/admin_categorys/delete_product'). '/' . $row->category_id?>"></a></td>
+                    <td><a href="<?php echo base_url('index.php/admin_products/index').'/'.$row->category_id ?>">View products</a></td>
+                    
+                    <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo base_url('index.php/admin_categorys/edit_category').'/'. $row->category_id ?>"></a></td>
+                    
+                    <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->category_name ?> \'?');" href="<?php echo base_url('index.php/admin_categorys/delete_category'). '/' . $row->category_id?>"></a></td>
                   </tr>
                 <?php endforeach ?>                     
                 </tbody>
@@ -83,7 +57,7 @@
         </div>
       </div>
       <!-- /page content -->
-    </div> -->
+    </div> 
   </div>
 </body>
        <!-- Datatables -->

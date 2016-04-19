@@ -7,18 +7,35 @@ class Admin_products extends CI_Controller
     }
 
     //Show product list
-	public function index()
+	public function index($category_id)
 	{
-		$data['products'] = $this->admin_model->get_data('product');
+		if($category_id != 0)
+		{
+			$category = array('category_id' => $category_id);
+			$data['products'] = $this->admin_model->get_rows('product', $category);
+		}
+		else
+		{
+			$data['products'] = $this->admin_model->get_data('product');
+		}
 		$this->load->view('admin/includes/header');
 		$this->load->view('admin/includes/side_menu');
 		$this->load->view('admin/products', $data);
 		$this->load->view('admin/includes/footer');
 	}
 	//Show edit product
-	public function edit_products()
+	public function edit_products($product_id)
 	{
-		$data['category'] = $this->admin_model->get_data('category');
+		if($product_id != 0)
+		{
+			$condition = array('product_id' => $product_id);
+			$data['product'] = $this->admin_model->getwhere_data('product', $condition);
+		}
+		else
+		{
+			$data['product'] = null;
+			$data['category'] = $this->admin_model->get_data('category');
+		}
 		$this->load->view('admin/includes/header');
 		$this->load->view('admin/includes/side_menu');
 		$this->load->view('admin/edit_product', $data);
@@ -33,7 +50,7 @@ class Admin_products extends CI_Controller
 		{
 			$this->session->set_flashdata('successful', 'Your data deleted successfully.');
 		}
-		redirect('admin_products');
+		redirect('admin_products/index/0');
 	}
 
 
@@ -41,28 +58,36 @@ class Admin_products extends CI_Controller
 	{
 		if ($this->form_validation->run() == FALSE )
 		{
-			$this->edit_products();
+			$this->edit_category();
 		}
 		else
 		{
 			$data = array(
-					'product_name' => $this->input->post('product_name'), 
+					'product_name' => $this->input->post('product_name'),
 					'category_id' => $this->input->post('category_id'),
-					'description' =>  $this->input->post('description'),
+					'description' => $this->input->post('description'),
 					'product_price' => $this->input->post('price'),
 					'product_img' => 'default_profile.jpg'
 				);
-			$result = $this->admin_model->insert_row('product', $data);
-			if($result)
+			if($this->input->post('product_id') != null)
 			{
-				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
-				redirect('admin_products/edit_products');
+				$condition = array(
+					'product_id' => $this->input->post('product_id'),
+				);
+				$result = $this->admin_model->update_row('product', $data, $condition);
+				$product_id = $this->input->post('product_id');
 			}
 			else
 			{
-				$this->session->set_flashdata('error', 'sorry your data not inserted in database.');
-				redirect('admin_products/edit_products');
+				$result = $this->admin_model->insert_row('product', $data);
+				$product_id = $result;
 			}
+			if($result)
+			{
+				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
+				redirect('admin_products/edit_products/'.$product_id);
+			}
+			
 		}
 	}
 }
