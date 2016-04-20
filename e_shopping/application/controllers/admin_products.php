@@ -67,28 +67,58 @@ class Admin_products extends CI_Controller
 					'category_id' => $this->input->post('category_id'),
 					'description' => $this->input->post('description'),
 					'product_price' => $this->input->post('price'),
-					'product_img' => 'default_profile.jpg'
 				);
 			if($this->input->post('product_id') != null)
 			{
 				$condition = array(
-					'product_id' => $this->input->post('product_id'),
+					'product_id' => $this->input->post('product_id')
 				);
-				$result = $this->admin_model->update_row('product', $data, $condition);
 				$product_id = $this->input->post('product_id');
+				$data['product_img'] = $this->product_pic($product_id);
+				$result = $this->admin_model->update_row('product', $data, $condition);
+				
 			}
 			else
 			{
 				$result = $this->admin_model->insert_row('product', $data);
 				$product_id = $result;
+				$condition = array(
+					'product_id' => $product_id
+				);
+				$data['product_img'] = $this->product_pic($product_id);
+				$result = $this->admin_model->update_row('product', $data, $condition);
 			}
 			if($result)
 			{
+				
 				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
 				redirect('admin_products/edit_products/'.$product_id);
 			}
 			
 		}
 	}
+
+	//Upadate user's profile picture
+	public function product_pic($product_id)
+	{
+		
+		$values = $this->config->config;
+		$values['file_name'] = $product_id;
+		$this->load->library('upload', $values);
+
+		if ( ! $this->upload->do_upload('image'))
+		{
+			echo $this->upload->display_errors();
+			$error = array('error' => $this->upload->display_errors());
+			$this->session->set_flashdata('error', $error);
+			redirect('admin_products/edit_products/' . $product_id);
+		}
+		else
+   		{   
+   			$upload_data = $this->upload->data(); 
+			$file_name = $upload_data['file_name'];
+			return $file_name;
+   		}
+    }
 }
 ?>

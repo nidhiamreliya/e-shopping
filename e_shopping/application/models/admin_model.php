@@ -16,12 +16,11 @@ class Admin_model extends CI_Model
 	public function user_login($user_name, $password)
 	{
 		$query = $this->db
-				->select('user_id, privilege')
+				->select('user_id, privilege, first_name')
 				->from('users')
 			    ->where('email_id', $user_name)
 			    ->where('password', $password)
 			   	->get();
-
 		if ($query->num_rows() > 0) 
 		{
 			return $query->row_array();
@@ -31,6 +30,7 @@ class Admin_model extends CI_Model
 			return false;
 		}
 	}
+
     /*Inseart user data for register user.
      *@params array $data data entered by user
      *@return int user id
@@ -68,7 +68,6 @@ class Admin_model extends CI_Model
 	{
 		$this->db->where($condition);
 		$this->db->update($table, $data);
-
 		if ($this->db->trans_status() === true) 
 		{
     		return true;

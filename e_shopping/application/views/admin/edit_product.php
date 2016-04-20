@@ -40,7 +40,7 @@
                           'class' => "form-horizontal form-label-left"
                         );
                   ?> 
-                 <?php echo form_open('admin_products/insert_product', $data);?>
+                 <?php echo form_open_multipart('admin_products/insert_product', $data);?>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category Name <span class="required">*</span>
@@ -109,10 +109,15 @@
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Image <span class="required">*</span>
                     </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
+                    <div class="col-md-6 col-sm-6 col-xs-11">
                       <input type="file" id="image" name="image" required="required" class="form-control col-md-7 col-xs-12">
                       <label class="col-md-8 text-danger">
-                        <?php echo form_error('image'); ?>
+                        <?php 
+                          if($this->session->flashdata('error'))
+                          {
+                            echo $this->session->flashdata('error');
+                          }
+                        ?>
                       </label>
                     </div>
                   </div>
@@ -124,7 +129,8 @@
                 </div>
               </div>
               <div class="col-md-3 col-sm-3">
-                 <img height="200" width="200">
+
+                 <img height="200" width="200" src="<?php echo base_url('assets/images/products').'/'.$product['product_img']?>">
               </div>
               <?php echo form_close();?>
               <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo base_url('index.php/admin_products/index').'/0'; ?>'"><i class="fa fa-backward">  Back</i></button>

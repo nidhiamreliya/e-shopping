@@ -9,7 +9,7 @@ class Admin_users extends CI_Controller
     //Show login form
 	public function index()
 	{
-		$data['users'] = $this->admin_model->get_data('users');
+		$data['users'] = $this->admin_model->get_rows('users', array('privilege' => 1));
 		$this->load->view('admin/includes/header');
 		$this->load->view('admin/includes/side_menu');
 		$this->load->view('admin/users', $data);

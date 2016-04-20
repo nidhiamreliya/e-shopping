@@ -1,11 +1,11 @@
 <?php  if(!defined('BASEPATH')) exit('No direct script access allowed');
 
 $config = array(
-    		'login/check_data' => array(
+    		'user_control/check_user' => array(
 							array(
-							    'field' => 'user_name',
-							    'label' => 'User name',
-							    'rules' => 'trim|required|xss_clean'
+							    'field' => 'email_id',
+							    'label' => 'user name',
+							    'rules' => 'trim|required|valid_email|xss_clean'
 							),
 							array(
 							    'field' => 'password',
@@ -37,7 +37,7 @@ $config = array(
 							    'rules' => 'trim|required|xss_clean'
 							)
 			),
-			'admin_users/insert_user' => array(
+			'user_control/insert_user' => array(
 							array(
 							    'field' => 'first_name',
 							    'label' => 'First name',
@@ -49,10 +49,20 @@ $config = array(
 							    'rules' => 'required|alpha|xss_clean'
 							),
 							array(
-								    'field' => 'email_id',
-								    'label' => 'Email id',
-								    'rules' => 'required|valid_email|xss_clean'
+							    'field' => 'email_id',
+							    'label' => 'Email id',
+							    'rules' => 'required|valid_email|xss_clean'
 								),
+							array(
+							    'field' => 'password',
+							    'label' => 'Password',
+							    'rules' => 'trim|required|min_length[6]|xss_clean'
+							),
+							array(
+							    'field' => 'confirm_password',
+							    'label' => 'confirm password',
+							    'rules' => 'trim|required|matches[password]|xss_clean'
+							),
 							array(
 							    'field' => 'contect_no',
 							    'label' => 'Contect no',
@@ -100,6 +110,6 @@ $config = array(
 							    'label' => 'confirm password',
 							    'rules' => 'trim|required|matches[password]|xss_clean'
 							)
-		    ),
+		    )
 );
 ?>

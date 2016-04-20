@@ -8,18 +8,18 @@
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Admin panel</span></a>
+            <a href="<?php echo site_url('admin_control/index')?>" class="site_title"><i class="fa fa-paw"></i> <span>Admin panel</span></a>
           </div>
           <div class="clearfix"></div>
 
           <!-- menu prile quick info -->
           <div class="profile">
             <div class="profile_pic">
-              <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+              <img src="<?php echo base_url('assets/images/user.png')?>" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2>John Doe</h2>
+              <h2><?php echo $this->session->userdata('first_name') ?></h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
@@ -52,7 +52,7 @@
 
           <!-- /menu footer buttons -->
           <div class="sidebar-footer">
-            <a data-toggle="tooltip" data-placement="top" title="Logout" style="width:100%;">
+            <a href="<?php echo site_url('user_control/logout')?>" data-toggle="tooltip" data-placement="top" title="Logout" style="width:100%;" >
               <span class="glyphicon glyphicon-off" aria-hidden="true">Logout</span>
             </a>
           </div>
@@ -72,83 +72,14 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="images/img.jpg" alt="">John Doe
+                  <img src="<?php echo base_url('assets/images/user.png')?>" alt=""><?php echo $this->session->userdata('first_name') ?>
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <li><a href="<?php echo site_url('user_control/logout')?>" class="btn"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>
                 </ul>
               </li>
-
-                <ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-                  <li>
-                    <a>
-                      <span class="image">
-                        <img src="images/img.jpg" alt="Profile Image" />
-                      </span>
-                      <span>
-                        <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <span class="image">
-                        <img src="images/img.jpg" alt="Profile Image" />
-                      </span>
-                      <span>
-                        <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <span class="image">
-                        <img src="images/img.jpg" alt="Profile Image" />
-                      </span>
-                      <span>
-                        <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <span class="image">
-                        <img src="images/img.jpg" alt="Profile Image" />
-                      </span>
-                      <span>
-                        <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <div class="text-center">
-                      <a href="inbox.html">
-                        <strong>See All Alerts</strong>
-                        <i class="fa fa-angle-right"></i>
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-
             </ul>
           </nav>
         </div>

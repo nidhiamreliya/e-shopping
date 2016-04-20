@@ -39,8 +39,8 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Old password <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="old_password" name="old_password" required="required" class="form-control col-md-7 col-xs-12">
-                      <label class="col-md-8 has-error error_class">
+                      <input type="password" id="old_password" value="<?php echo set_value('old_password') ?>" name="old_password" required="required" class="form-control col-md-7 col-xs-12">
+                      <label class="text-danger">
                       <?php echo form_error('old_password'); ?>
                     </label>
                     </div>
@@ -50,8 +50,8 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">New password <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="password" name="password" required="required" class="form-control col-md-7 col-xs-12">
-                      <label class="col-md-8 has-error error_class">
+                      <input type="password" id="password" name="password" value="<?php echo set_value('password') ?>" required="required" class="form-control col-md-7 col-xs-12">
+                      <label class="text-danger">
                       <?php echo form_error('password'); ?>
                       </label>
                     </div>
@@ -61,8 +61,8 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Confirm password <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="confirm_password" name="confirm_password" required="required" class="form-control col-md-7 col-xs-12">
-                      <label class="col-md-8 has-error error_class">
+                      <input type="password" id="confirm_password" name="confirm_password" required="required" class="form-control col-md-7 col-xs-12">
+                      <label class="text-danger">
                       <?php echo form_error('confirm_password'); ?>
                     </label>
                     </div>
@@ -71,11 +71,10 @@
                 <div class="ln_solid"></div>
                 <div class="form-group">
                   <div class="col-md-7 col-sm-7 col-xs-12 col-md-offset-3">
-                    <button type="submit" class="btn btn-primary">Cancel</button>
                     <button type="submit" class="btn btn-success">Submit</button>
                   </div>
                 </div>
-              </form>
+              <?php echo form_close() ?>
             </div>                  
           </div>
         </div>

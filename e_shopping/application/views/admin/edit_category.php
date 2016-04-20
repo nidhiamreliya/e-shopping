@@ -53,7 +53,7 @@
                     <button type="submit" class="btn btn-success">Submit</button>
                   </div>
                 </div>
-               <?php echo form_close();?>
+              <?php echo form_close();?>
             </div>
           </div>
         </div>

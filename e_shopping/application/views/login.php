@@ -7,68 +7,46 @@
     <div id="wrapper">
       <div id="login" class="animate form">
         <section class="login_content">
-          <form>
+          <?php
+            $data = array(
+                  'name'  => 'login',
+                  'id' => 'login',
+                );
+          ?> 
+          <?php echo form_open('user_control/check_user', $data);?>
             <h1>Login Form</h1>
-            <div>
-              <input type="text" class="form-control" placeholder="Username" required="" />
+            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+              <input type="text" id="email_id" name="email_id" style="margin: 0px;" class="form-control" required="" placeholder="Username" value="<?php echo set_value('email_id')?>"/>
+              <label class="text-danger">
+                <?php echo form_error('email_id'); ?>
+              </label>
             </div>
-            <div>
-              <input type="password" class="form-control" placeholder="Password" required="" />
+            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+              <input type="password" id="password" name="password" style="margin: 0px;" class="form-control" placeholder="Password" required="" />
+              <label class="text-danger">
+                <?php echo form_error('password'); 
+                  if(isset($err_message))
+                  {
+                    echo $err_message;
+                  }
+                ?>
+              </label>
             </div>
-            <div>
-              <a class="btn btn-default submit" href="index.html">Log in</a>
-              <a class="reset_pass" href="#">Lost your password?</a>
+            <div class="div-col-4">
+              <button type="submit" class="btn btn-default submit">Log in</button>
             </div>
             <div class="clearfix"></div>
             <div class="separator">
 
               <p class="change_link">New to site?
-                <a href="#toregister" class="to_register"> Create Account </a>
+                <a href="<?php echo site_url('user_control/registration')?>" class="to_register"> Create Account </a>
               </p>
               <div class="clearfix"></div>
               <br />
               <div>
-                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Gentelella Alela!</h1>
-
-                <p>©2015 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-              </div>
+                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Shopping hub!</h1>              </div>
             </div>
-          </form>
-          <!-- form -->
-        </section>
-        <!-- content -->
-      </div>
-      <div id="register" class="animate form">
-        <section class="login_content">
-          <form>
-            <h1>Create Account</h1>
-            <div>
-              <input type="text" class="form-control" placeholder="Username" required="" />
-            </div>
-            <div>
-              <input type="email" class="form-control" placeholder="Email" required="" />
-            </div>
-            <div>
-              <input type="password" class="form-control" placeholder="Password" required="" />
-            </div>
-            <div>
-              <a class="btn btn-default submit" href="index.html">Submit</a>
-            </div>
-            <div class="clearfix"></div>
-            <div class="separator">
-
-              <p class="change_link">Already a member ?
-                <a href="#tologin" class="to_register"> Log in </a>
-              </p>
-              <div class="clearfix"></div>
-              <br />
-              <div>
-                <h1><i class="fa fa-paw" style="font-size: 26px;"></i> Gentelella Alela!</h1>
-
-                <p>©2015 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-              </div>
-            </div>
-          </form>
+          <?php echo form_close();?>
           <!-- form -->
         </section>
         <!-- content -->

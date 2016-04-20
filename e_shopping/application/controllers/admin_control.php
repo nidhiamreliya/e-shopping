@@ -27,17 +27,19 @@ class Admin_control extends CI_Controller
 	//Show login form
 	public function edit_password()
 	{
+		echo "head";
 		if ($this->form_validation->run() == FALSE )
 		{
 			$this->change_password();
 		}
 		else
 		{
+			$password = create_password($this->input->post('password'));
 			$data = array(
-					'password' => $this->input->post('password')
+					'password' => $password
 				);
 			$condition = array(
-				'user_id' => $user_id
+				'user_id' => $this->session->userdata('user_id')
 			);
 			$result = $this->admin_model->update_row('users', $data, $condition);
 			if($result)
@@ -48,22 +50,25 @@ class Admin_control extends CI_Controller
 		}
 		$this->load->view('admin/includes/header');
 		$this->load->view('admin/includes/side_menu');
-		$this->load->view('admin/change_psw');
+		$this->load->view('admin/change_password');
 		$this->load->view('admin/includes/footer');
 	}
 
 	public function password_check($password)
 	{
-		$user_id = $this->session->user_data('user_id');
+		echo "callback";
+		$password = create_password($password);
+		$user_id = $this->session->userdata('user_id');
 		$result = $this->admin_model->get_fields('users', array('password'), array('user_id' => $user_id));
-		if ($result)
+		
+		if ($result['password'] == $password)
 		{
-			$this->form_validation->set_message('old_password', 'old password not match');
-			return FALSE;
+			return TRUE;
 		}
 		else
 		{
-			return TRUE;
+			$this->form_validation->set_message('password_check', 'old password not match');
+			return FALSE;
 		}
 	}
 }
