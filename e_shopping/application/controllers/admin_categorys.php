@@ -1,5 +1,5 @@
 <?php
-class Admin_categorys extends CI_Controller
+class Admin_categorys extends MY_Controller
 {
 	public function __construct()
     {
@@ -10,10 +10,7 @@ class Admin_categorys extends CI_Controller
 	public function index()
 	{
 		$data['category'] = $this->admin_model->get_data('category');
-		$this->load->view('admin/includes/header');
-		$this->load->view('admin/includes/side_menu');
-		$this->load->view('admin/category_list', $data);
-		$this->load->view('admin/includes/footer');
+		$this->admin_views('admin/category_list', $data);
 	}
 	public function edit_category($category)
 	{
@@ -27,10 +24,8 @@ class Admin_categorys extends CI_Controller
 		{
 			$data['category'] = null;
 		}
-		$this->load->view('admin/includes/header');
-		$this->load->view('admin/includes/side_menu');
-		$this->load->view('admin/edit_category', $data);
-		$this->load->view('admin/includes/footer');
+		
+		$this->admin_views('admin/edit_category', $data);
 	}
 	public function insert_category()
 	{

@@ -142,4 +142,74 @@ class Admin_model extends CI_Model
    			return 	false;
     	}
 	}
+
+	/*Inseart user data for register user.
+     *@params array $data data entered by user
+     *@return int user id
+	*/
+	public function get_last_rows($table, $fields)
+	{
+		$this->db->select($fields);
+		$this->db->from($table);
+		$this->db->order_by('product_id','desc');
+		$result = $this->db->get();
+		if ($result->num_rows() > 0) 
+		{
+			return $result->result();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+	/*Count total records
+     *@return int total users in database
+    */
+    public function record_count($table) 
+    {
+		$query = $this->db
+				->get($table);
+		
+		return $query->num_rows();
+	}
+
+	/*Fetch data according to per_page limit.
+	 *@params int $page page no 
+	 *@params int $limit no of record to retrive
+     *@return array rows
+	*/
+	public function fetch_data($page, $limit, $table, $fields) 
+	{
+		$query = $this->db
+				->select($fields)
+				->from($table)
+				->limit($limit,$page)
+				->get();
+
+		if ($query->num_rows() >= 1) 
+		{
+			return $query->result();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+	public function last_rows($table, $fields, $condition)
+	{
+		$this->db->select($fields);
+		$this->db->from($table);
+		$this->db->where($condition);
+		$this->db->order_by('product_id','desc');
+		$result = $this->db->get();
+		if ($result->num_rows() > 0) 
+		{
+			return $result->result();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+
 }

@@ -56,7 +56,7 @@
                       <td><?php echo $row->zip_code ?></td>
                       <td><?php echo $row->state ?></td>
                       <td><?php echo $row->country ?></td>
-                      <td><a class="fa fa-trash fa-2x" href="<?php echo base_url('index.php/admin_users/delete_user').'/'.$row->user_id ?>"></a></td>
+                      <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->first_name ?> \'?');" href="<?php echo base_url('index.php/admin_users/delete_user').'/'.$row->user_id ?>"></a></td>
                     </tr>
                   <?php endforeach ?> 
                 <?php

@@ -42,7 +42,7 @@
                       <td><?php echo $row->shipping_cost ?></td>
                       <td><a>View Details</a></td>
                       <td><a class="fa fa-pencil-square-o fa-2x"></a></td>
-                      <td><a class="fa fa-trash fa-2x"></a></td>
+                      <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->order_id ?> \'?');"></a></td>
                     </tr>
                   <?php endforeach ?>
                 <?php

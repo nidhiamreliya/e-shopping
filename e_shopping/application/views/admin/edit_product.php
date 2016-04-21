@@ -115,7 +115,8 @@
                         <?php 
                           if($this->session->flashdata('error'))
                           {
-                            echo $this->session->flashdata('error');
+                            $error = $this->session->flashdata('error');
+                            echo $error['error'];
                           }
                         ?>
                       </label>

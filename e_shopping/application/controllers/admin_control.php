@@ -1,5 +1,5 @@
 <?php
-class Admin_control extends CI_Controller
+class Admin_control extends MY_Controller
 {
 	public function __construct()
     {
@@ -9,19 +9,13 @@ class Admin_control extends CI_Controller
     //Show login form
 	public function index()
 	{
-		$this->load->view('admin/includes/header');
-		$this->load->view('admin/includes/side_menu');
-		$this->load->view('admin/home');
-		$this->load->view('admin/includes/footer');
+		$this->admin_views('admin/home', null);
 	}
 	
 	//Show login form
 	public function change_password()
 	{
-		$this->load->view('admin/includes/header');
-		$this->load->view('admin/includes/side_menu');
-		$this->load->view('admin/change_password');
-		$this->load->view('admin/includes/footer');
+		$this->admin_views('admin/change_password', null);
 	}
 
 	//Show login form
@@ -48,10 +42,8 @@ class Admin_control extends CI_Controller
 				redirect('admin_control/change_password');
 			}			
 		}
-		$this->load->view('admin/includes/header');
-		$this->load->view('admin/includes/side_menu');
-		$this->load->view('admin/change_password');
-		$this->load->view('admin/includes/footer');
+
+		$this->admin_views('admin/change_password', null);
 	}
 
 	public function password_check($password)

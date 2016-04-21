@@ -1,5 +1,5 @@
 <?php
-class Admin_products extends CI_Controller
+class Admin_products extends MY_Controller
 {
 	public function __construct()
     {
@@ -18,10 +18,8 @@ class Admin_products extends CI_Controller
 		{
 			$data['products'] = $this->admin_model->get_data('product');
 		}
-		$this->load->view('admin/includes/header');
-		$this->load->view('admin/includes/side_menu');
-		$this->load->view('admin/products', $data);
-		$this->load->view('admin/includes/footer');
+		
+		$this->admin_views('admin/products', $data);
 	}
 	//Show edit product
 	public function edit_products($product_id)
@@ -36,10 +34,8 @@ class Admin_products extends CI_Controller
 			$data['product'] = null;
 			$data['category'] = $this->admin_model->get_data('category');
 		}
-		$this->load->view('admin/includes/header');
-		$this->load->view('admin/includes/side_menu');
-		$this->load->view('admin/edit_product', $data);
-		$this->load->view('admin/includes/footer');
+		
+		$this->admin_views('admin/edit_product', $data);
 	}
 
 	public function delete_product($product_id)
