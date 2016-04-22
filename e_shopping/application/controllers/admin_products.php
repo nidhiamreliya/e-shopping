@@ -49,7 +49,6 @@ class Admin_products extends MY_Controller
 		redirect('admin_products/index/0');
 	}
 
-
 	public function insert_product()
 	{
 		if ($this->form_validation->run() == FALSE )

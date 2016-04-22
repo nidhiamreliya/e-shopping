@@ -10,8 +10,10 @@ class MY_Controller extends CI_Controller
 	}
 	public function login($view_name, $data) 
 	{
-		$this->load->view('admin/includes/header');
+		$header['category'] = $this->admin_model->get_data('category');
+		$this->load->view('users/includes/header', $header);
 		$this->load->view($view_name, $data);
+		$this->load->view('users/includes/footer');
 	}
 
 	public function user_views($view_name, $data) 

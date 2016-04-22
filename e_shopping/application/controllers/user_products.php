@@ -9,8 +9,18 @@ class User_products extends MY_Controller
     //Show login form
 	public function index($category)
 	{
-		$condition = array('category_id' => $category);
-		$data['products'] = $this->admin_model->get_rows('product', $condition);
-		$this->user_views('users/products', $data);
+		if($category == 0)
+		{
+			$data['products'] = $this->admin_model->get_data('product');
+			$data['category'] = $this->admin_model->get_data('category');
+			$this->user_views('users/products', $data);
+		}
+		else
+		{
+			$condition = array('category_id' => $category);
+			$data['products'] = $this->admin_model->get_rows('product', $condition);
+			$data['category'] = $this->admin_model->get_data('category');
+			$this->user_views('users/products', $data);
+		}
 	}
 }

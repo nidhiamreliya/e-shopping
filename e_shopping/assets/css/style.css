@@ -134,7 +134,7 @@ span.item_price {
 .preview
 {
 	height:400px;
-	width: 320px;
+	width: 400px;
 }
 select.item_Size {
   display: block;
@@ -482,6 +482,9 @@ a.simpleCart_empty {
 	font-size:20px;
 	padding:1em 7em;
 	color:#010101;
+}
+.cart_img{
+	margin-top: 50px;
 }
 .slider-top ul.social-slide{
 	display:inline-flex;
@@ -848,7 +851,7 @@ p.non span{
 /*-- //banner-bottom1 --*/
 /*-- banner-bottom --*/
 .product-left-cart{
-	padding:0em 0.5em .5em;
+	padding:0em 0 .5em 4em;
 }
 .product-left-cart-l{
 	float:left;
@@ -874,6 +877,10 @@ p.non span{
 	padding:1.5em 0 0;
 	height: 320px;
 	width: 240px;
+}
+.p-two {
+	box-shadow:2px 2px 11px #CCCBCB;
+	padding:1.5em 0 0;
 }
 .jwe a img {
   margin: 0 auto 1.5em;
@@ -1004,6 +1011,11 @@ p.non span{
 }
 .cart-sec{
 	margin-bottom:3em;
+	height: 250px;
+}
+.delivery{
+	height: 50px;
+	padding-top: 10px;
 }
 .cart-item{
 	width:20%;
@@ -1016,7 +1028,6 @@ p.non span{
 .cart-item-info{
 	width:75%;
 	float:left;
-	margin-top: 3em;
 }
 .check{
 	padding:5em 0 0;
@@ -1037,9 +1048,6 @@ p.non span{
 .size_3 {
   width:100%;
 }
-.delivery {
-  margin: 3em 0;
-}
 .delivery p {
   color: #A6A6A6;
   font-size: 1em;
@@ -1050,7 +1058,6 @@ p.non span{
   color: #A6A6A6;
   font-size: 1em;
   font-weight: 400;
-  float: right;
 }
 .cart-item-info h4 span{
 	font-size:0.65em;
@@ -1070,7 +1077,8 @@ p.non span{
   transition: color 0.2s ease-in-out;
 }
 .cart-header {  
-  position: relative;  
+  position: relative;
+  border-bottom: 1px solid;  
 }
 .cart-header2 {  
   position: relative;  
@@ -1225,9 +1233,7 @@ li.last_price span {
 	width:31.9%;
 	text-align: center;
 	position:relative;
-}
-.products-grd:nth-child(2){
-	margin:0 1em;
+	margin: 5px;
 }
 .products-grd:hover div.pro-grd{
 	display:block;
@@ -1738,7 +1744,7 @@ span.valsa{
 .details-left-info {
 float: left;
 margin-left: 5%;
-width:60%;
+width:100%;
 }
 .details-left-info  h3 {
 color:#204056;
@@ -1825,6 +1831,7 @@ margin:.5em 0;
 .flower-type a{
 font-weight:400;
 color:#204056;
+font-size: 15px;
 }
 .fgh a{
   padding: 8px 15px;
@@ -1925,7 +1932,6 @@ p span.overline{
 }
 .details-lft-inf{
 	float:left;
-	width:30%;
 }
 /*-- //single --*/
 /*-- contact --*/

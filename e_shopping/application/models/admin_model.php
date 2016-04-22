@@ -212,4 +212,41 @@ class Admin_model extends CI_Model
 		}
 	}
 
+	public function check_cart($table, $user_id, $product_id)
+	{
+		$query = $this->db
+				->select('cart_id')
+				->from($table)
+			    ->where('user_id', $user_id)
+			    ->where('product_id', $product_id)
+			   	->get();
+		if ($query->num_rows() > 0) 
+		{
+			return $query->row_array();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+	//SELECT `p`.`product_name`,`p`.`product_price`, `c`.`quantity` FROM (`cart` c) JOIN `product` p ON `c`.`product_id` = `p`.`product_id` where `c`.`user_id` = 2
+	public function cart_details($user_id)
+	{
+		$query = $this->db
+				->select('c.cart_id, p.product_name, p.product_price, c.quantity, p.product_img')
+				->from('cart c')
+				->join('product p', 'c.product_id = p.product_id')
+				->where('c.user_id', $user_id)
+				->get();
+
+		if ($query->num_rows() > 0) 
+		{
+			return $query->result();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
+
 }

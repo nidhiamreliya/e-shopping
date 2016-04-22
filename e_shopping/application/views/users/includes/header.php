@@ -47,14 +47,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="header_top-sec">
       <div class="top_right">
         <ul>
-          <li><a href="contact.html">Contact</a></li>|
-          <li><a href="login.html">Track Order</a></li>
+          <li>Contact</li>|
+          <li>Track Order</li>
         </ul>
       </div>
       <div class="top_left">
         <ul>
-          <li class="top_link">Email:<a href="mailto:info@example.com">info@example.com</a></li>|
-          <li class="top_link"><a href="login.html">My Account</a></li>         
+          <li class="top_link">
+            <?php
+              if($this->session->userdata('user_id') !== FALSE)
+              {
+                echo $this->session->userdata('first_name');
+            ?>
+                </li>|
+                <li class="top_link"><a href="<?php echo site_url('user_control/logout')?>">Log Out</a></li> 
+            <?php  
+              }
+              else
+              {
+            ?>
+                <a hraf="<?php echo site_url('user_control') ?>">Log in</a></li>
+            <?php
+              }
+            ?>        
         </ul>
       </div>
       <div class="clearfix"> </div>
@@ -70,7 +85,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <div class="header_right">
       <div class="cart box_1">
-        <a href="checkout.html">
+        <a href="<?php echo site_url('cart')?>">
         <h3> <div class="total">
           <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
           <img src="<?php echo base_url('assets/images/cart1.png')?>" alt=""/></h3>
@@ -102,12 +117,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
       </li>       
     </ul> 
-      <div class="search">
-         <form>
-          <input type="text" value="" placeholder="Search...">
-          <input type="submit" value="">
-          </form>
-      </div>
       <div class="clearfix"></div>
      </div>
     </div>

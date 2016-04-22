@@ -94,7 +94,7 @@ class User_control extends MY_Controller
     $condition = array('category_id' => 5);
     $data['nacklaces'] = $this->admin_model->last_rows('product', $fields, $condition);
     
-    $this->user_views('users/index', $data);
+    $this->user_views('users/home', $data);
   }
 
   public function registration()
