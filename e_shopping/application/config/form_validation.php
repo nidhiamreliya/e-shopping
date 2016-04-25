@@ -110,6 +110,13 @@ $config = array(
 							    'label' => 'confirm password',
 							    'rules' => 'trim|required|matches[password]|xss_clean'
 							)
+		    ),
+		    'check_qty' => array(
+		    				array(
+							    'field' => 'quantity',
+							    'label' => 'quantity',
+							    'rules' => 'trim|required|greater_than[0]|less_than[11]|xss_clean'
+							)
 		    )
 );
 ?>

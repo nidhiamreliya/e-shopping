@@ -484,7 +484,8 @@ a.simpleCart_empty {
 	color:#010101;
 }
 .cart_img{
-	margin-top: 50px;
+	margin-top: 20px;
+	height: 100%;
 }
 .slider-top ul.social-slide{
 	display:inline-flex;
@@ -1010,8 +1011,9 @@ p.non span{
 	margin-bottom:1em;
 }
 .cart-sec{
-	margin-bottom:3em;
+	margin-bottom:1em;
 	height: 250px;
+	overflow: hidden;
 }
 .delivery{
 	height: 50px;
@@ -1846,7 +1848,26 @@ font-size: 15px;
   -o-transition: .5s all;
   -ms-transition: .5s all;
 }
+
+.fgh input[type="submit"]{
+  padding: 8px 15px;
+  background: #f65a5b;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  border: none;
+  height: 40px;
+  transition: .5s all;
+  -webkit-transition: .5s all;
+  -moz-transition: .5s all;
+  -o-transition: .5s all;
+  -ms-transition: .5s all;
+}
 .fgh a:hover{
+	background:#204056;
+}
+.fgh input[type="submit"]:hover{
 	background:#204056;
 }
 p.desc{

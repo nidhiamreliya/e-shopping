@@ -53,23 +53,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       </div>
       <div class="top_left">
         <ul>
-          <li class="top_link">
-            <?php
-              if($this->session->userdata('user_id') !== FALSE)
-              {
-                echo $this->session->userdata('first_name');
-            ?>
-                </li>|
-                <li class="top_link"><a href="<?php echo site_url('user_control/logout')?>">Log Out</a></li> 
-            <?php  
-              }
-              else
-              {
-            ?>
-                <a hraf="<?php echo site_url('user_control') ?>">Log in</a></li>
-            <?php
-              }
-            ?>        
+          <?php
+            if($this->session->userdata('user_id') !== FALSE)
+            {
+          ?>
+              <li class="top_link"><a href="<?php echo site_url('cart/order_details') ?>"><?php echo $this->session->userdata('first_name');?></a></li>
+              <li>|</li>
+              <li class="top_link"><a href="<?php echo site_url('user_control/logout')?>">Log Out</a></li> 
+          <?php  
+            }
+            else
+            {
+          ?>
+              <a hraf="<?php echo site_url('user_control') ?>">Log in</a></li>
+          <?php
+            }
+          ?>        
         </ul>
       </div>
       <div class="clearfix"> </div>
@@ -85,7 +84,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <div class="header_right">
       <div class="cart box_1">
-        <a href="<?php echo site_url('cart')?>">
+        <a href="<?php echo site_url('cart/cart_details')?>">
         <h3> <div class="total">
           <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
           <img src="<?php echo base_url('assets/images/cart1.png')?>" alt=""/></h3>

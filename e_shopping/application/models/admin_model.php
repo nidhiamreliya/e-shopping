@@ -67,7 +67,8 @@ class Admin_model extends CI_Model
 	public function update_row($table, $data, $condition)
 	{
 		$this->db->where($condition);
-		$this->db->update($table, $data);
+		$query = $this->db->update($table, $data);
+		
 		if ($this->db->trans_status() === true) 
 		{
     		return true;
@@ -233,7 +234,7 @@ class Admin_model extends CI_Model
 	public function cart_details($user_id)
 	{
 		$query = $this->db
-				->select('c.cart_id, p.product_name, p.product_price, c.quantity, p.product_img')
+				->select('c.cart_id, c.product_id, p.product_name, p.product_price, c.quantity, p.product_img')
 				->from('cart c')
 				->join('product p', 'c.product_id = p.product_id')
 				->where('c.user_id', $user_id)
@@ -249,4 +250,22 @@ class Admin_model extends CI_Model
 		}
 	}
 
+	public function cart_data($user_id)
+	{
+		$query = $this->db
+				->select('c.product_id, p.product_price, c.quantity')
+				->from('cart c')
+				->join('product p', 'c.product_id = p.product_id')
+				->where('c.user_id', $user_id)
+				->get();
+
+		if ($query->num_rows() > 0) 
+		{
+			return $query->result_array();
+		} 
+		else 
+		{
+			return false;
+		}
+	}
 }
