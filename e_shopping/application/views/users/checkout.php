@@ -32,96 +32,105 @@
 	            </tbody>
 	        </table>
 	    </div>
-	    <div class="col-md-8 col-md-offset-2">
-			<h2> Delivery Details:</h2>
-			<div class="reg">
-	    		<?php
-                    $data = array(
-                          'name'  => 'register',
-                          'id' => 'register',
-                          'class' => "form-horizontal"
-                        );
-                ?> 
-                <?php echo form_open('user_control/insert_user', $data);?>
+	    <div class="clearfix"></div>
+	    <div class="row">
+		    <div class="col-md-6 ">
+				<h2> User Details:</h2>
+				<div class="price-details" style="border: none;">
+		    		<span>Name:</span>
+					<span><?php echo $user['first_name'].' '.$user['last_name'] ?></span>
+					<span>Email id:</span>
+					<span><?php echo $user['email_id'] ?></span>
+					<span>Contect no:</span>
+					<span><?php echo $user['contect_no'] ?></span>
+					<span>Address:</span>
+					<span><?php echo $user['address'] ?>,<br/>
+					<?php echo $user['city'] ?>,
+					<?php echo $user['zip_code'] ?>,<br/>
+					<?php echo $user['state'] ?>,<br/>
+					<?php echo $user['country'] ?></span>
+				</div>
+		    </div>
+		    <div class="col-md-6 ">
+				<h2> Shipping Details:</h2>
+				<ul>
+					<li class="col-md-9 col-sm-9 col-xs-9">
+					<section  class="sky-form">
+						<label class="checkbox"><input type="checkbox" id="checkbox" name="checkbox"><i></i>As per user address</a></label>
+					</section>
+					</li>
+				</ul>
+				<div class="reg2">
+					<?php
+	                    $data = array(
+	                          'name'  => 'shipping_data',
+	                          'id' => 'register'
+	                        );
+	                ?> 
+	                <?php echo form_open('order/place_order', $data);?>
 					<ul>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">First Name: </li>
-						<li class="col-md-1 col-sm-1 col-xs-2"><input type="text" id="first_name" name="first_name" value="<?php echo set_value('first_name')?>">
-							<label class="text-danger">
-	                          <?php echo form_error('first_name'); ?>
-	                        </label>
-                        </li>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">Last Name: </li>
-						<li class="col-md-1 col-sm-1 col-xs-2"><input type="text" id="last_name" name="last_name"  value="<?php echo set_value('last_name')?>">
-							<label class="text-danger">
-	                          <?php echo form_error('last_name'); ?>
-	                        </label>
-                        </li>
-					</ul>				 
-					<ul>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">Email: </li>
-						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="email_id" name="email_id"  value="<?php echo set_value('email_id')?>">
+						<input type="hidden" id="amount" name="amount" value="<?php echo $total ?>">
+						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">Shipping address: </li>
+						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_address" name="sh_address" value="<?php echo set_value('sh_address')?>">
 						<label class="text-danger">
-                          <?php echo form_error('email_id'); ?>
+                          <?php echo form_error('sh_address'); ?>
                         </label>
                         </li>
 					</ul>
 					<ul>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">Contect no.: </li>
-						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="contect_no" name="contect_no"  value="<?php echo set_value('contect_no')?>">
+						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">city: </li>
+						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_city" name="sh_city" value="<?php echo set_value('sh_city')?>">
 						<label class="text-danger">
-                          <?php echo form_error('contect_no'); ?>
+                          <?php echo form_error('sh_city'); ?>
                         </label>
                         </li>
 					</ul>
 					<ul>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">Address:</li>
-						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="address" name="address" value="<?php echo set_value('address')?>">
+						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">Zip code: </li>
+						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_zipcode" name="sh_zipcode" value="<?php echo set_value('sh_zipcode')?>">
 						<label class="text-danger">
-                          <?php echo form_error('address'); ?>
+                          <?php echo form_error('sh_zipcode'); ?>
                         </label>
                         </li>
 					</ul>
 					<ul>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">City: </li>
-						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="city" name="city" value="<?php echo set_value('city')?>">
+						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">State: </li>
+						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_state" name="sh_state" value="<?php echo set_value('sh_state')?>">
 						<label class="text-danger">
-                          <?php echo form_error('city'); ?>
+                          <?php echo form_error('sh_state'); ?>
                         </label>
                         </li>
 					</ul>
 					<ul>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">Zip_code: </li>
-						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="zip_code" name="zip_code" value="<?php echo set_value('zip_code')?>">
+						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">Country: </li>
+						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_country" name="sh_country" value="<?php echo set_value('sh_country')?>">
 						<label class="text-danger">
-                          <?php echo form_error('zip_code'); ?>
-                        </label>
-                        </li>
-					</ul>						
-					<ul>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">State: </li>
-						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="state" name="state" value="<?php echo set_value('state')?>">
-						<label class="text-danger">
-                          <?php echo form_error('state'); ?>
-                        </label>
-                        </li>
-					</ul>
-					<ul>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">Country: </li>
-						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="country" name="country" value="<?php echo set_value('country')?>">
-						<label class="text-danger has-error">
-                          <?php echo form_error('country'); ?>
+                          <?php echo form_error('sh_country'); ?>
                         </label>
                         </li>
 					</ul>
 					<ul>
 						<li class="col-md-9 col-sm-9 col-xs-9 col-md-offset-3">
-							<input type="submit" value="Register Now">
+							<input type="submit" value="Place order">
 						</li>
 					</ul>
-					<p class="click col-md-12 col-sm-12 col-xs-12">By clicking this button, you are agree to my Policy Terms and Conditions.</p> 
-				</form>
-			</div>
-			</div>
+					<?php echo form_close()?>
+				</div>
+		    </div>
 	    </div>
+	    <div class="clearfix"></div>
 	</div>
 </div>
+<script type="text/javascript">
+	$('#checkbox').change(function() {
+		if ($(this).is(':checked')) 
+		{
+	    	document.getElementById('sh_address').value = "<?php echo $user['address'] ?>";
+	    	document.getElementById('sh_city').value = "<?php echo $user['city'] ?>";
+	    	document.getElementById('sh_zipcode').value = "<?php echo $user['zip_code'] ?>";
+	    	document.getElementById('sh_state').value = "<?php echo $user['state'] ?>";
+	    	document.getElementById('sh_country').value = "<?php echo $user['country'] ?>";
+	  	}
+	});
+
+</script>

@@ -17,16 +17,19 @@
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
-                <table id="datatable" class="table table-striped table-bordered">
-                  <thead>
-                  <tr>
-                    <th>Order id</th>
+              <table id="datatable" class="table table-striped responsive-utilities jambo_table bulk_action">
+                <thead>
+                  <tr class="headings">
+                    <th>
+                      <input type="checkbox" id="check-all" class="flat">
+                    </th>
+                    <th>Order No</th>
                     <th>User id</th>
                     <th>Order date</th>
-                    <th>Shipping cost</th>
+                    <th>Shipping address</th>
+                    <th>Amount</th>
+                    <th>Delivery date</th>
                     <th>View Details</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -36,13 +39,16 @@
                 ?>
                   <?php foreach($orders as $row):?>
                     <tr>
-                      <td><?php echo $row->order_id ?></td>
+                      <td class="a-center ">
+                      <input type="checkbox" class="flat" name="table_records">
+                    </td>
+                      <td><?php echo $row->order_no ?></td>
                       <td><?php echo $row->user_id ?></td>
                       <td><?php echo $row->order_date ?></td>
-                      <td><?php echo $row->shipping_cost ?></td>
-                      <td><a>View Details</a></td>
-                      <td><a class="fa fa-pencil-square-o fa-2x"></a></td>
-                      <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->order_id ?> \'?');"></a></td>
+                      <td><?php echo $row->shipping_address ?></td>
+                      <td><?php echo $row->amount ?></td>
+                      <td><?php echo $row->delivery_date ?></td>
+                      <td><a href="<?php echo site_url('admin_orders/order_details').'/'.$row->order_no ?>">View Details</a></td>
                     </tr>
                   <?php endforeach ?>
                 <?php

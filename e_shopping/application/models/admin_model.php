@@ -268,4 +268,37 @@ class Admin_model extends CI_Model
 			return false;
 		}
 	}
+
+	public function order_details($table, $condition)
+	{
+		$result = $this->db->get_where($table, $condition);
+		$result = $result->row_array();
+		$product_id = explode(',', $result['product_id']);
+		$quantitys = explode(',', $result['quantity']);
+		$result = array();
+		$result = array();
+		$i = 0;
+		foreach ($product_id as $row) 
+		{
+			$query = $this->db
+					->select('product_id, product_name, product_price')
+					->from('product')
+					->where('product_id', $row)
+					->get();
+			$result = $query->row_array();
+			$result['qty'] = $quantitys[$i];
+			$result2[] = $result;
+			$i++;
+		}
+
+		if ($result2) 
+		{
+
+			return $result2;
+		} 
+		else 
+		{
+			return false;
+		}
+	}
 }

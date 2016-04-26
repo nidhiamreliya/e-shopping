@@ -62,6 +62,7 @@ class Admin_products extends MY_Controller
 					'category_id' => $this->input->post('category_id'),
 					'description' => $this->input->post('description'),
 					'product_price' => $this->input->post('price'),
+					'visible' => '1'
 				);
 			if($this->input->post('product_id') != null)
 			{
@@ -96,7 +97,6 @@ class Admin_products extends MY_Controller
 	//Upadate user's profile picture
 	public function product_pic($product_id)
 	{
-		
 		$values = $this->config->config;
 		$values['file_name'] = $product_id;
 		$this->load->library('upload', $values);

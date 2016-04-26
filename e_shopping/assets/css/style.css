@@ -2204,6 +2204,30 @@ border: 1px solid #e6e6e6;
 outline: none;
 color: #000;
 }
+.reg2 ul {
+padding:0;
+margin-top: 10px;
+}
+.reg2 ul li {
+display: inline-block;
+width: 58%;
+}
+.reg2 ul li.text-info{
+  width:20%;
+  color:#204056;
+  font-size: 16px;
+  text-transform:capitalize;
+  margin: 0 0 0px 0;
+  font-weight: bold;
+}
+.reg2 form input[type="text"],.reg form input[type="password"] {
+width: 100%;
+font-size: 14px;
+font-weight: 400;
+border: 1px solid #e6e6e6;
+outline: none;
+color: #000;
+}
 p.click a{
 display: inline-block;
 color:#204056;
@@ -2237,12 +2261,36 @@ color: #000;
   -ms-transition: .5s all;
   -moz-transition: .5s all;
   }
+
+ .reg2 form input[type=submit]{
+  outline:none;
+  border:none;
+  color: #ffffff;
+  padding: 8px 30px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 0 0 32px 0;
+  background:#F65A5B;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.reg2 form input[type=submit]:hover {
+  background:#204056;
+  transition: .5s all;
+  -webkit-transition: .5s all;
+  -o-transition: .5s all;
+  -ms-transition: .5s all;
+  -moz-transition: .5s all;
+  }
 .reg ul:nth-child(6) {
   margin: 0 0 32px 0;
 }
 .reg ul li:nth-child(2){
   margin-left: 3%;
 }
+
+
 .reg-form {
   padding: 5em 0 0;
 }

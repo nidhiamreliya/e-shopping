@@ -57,7 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             if($this->session->userdata('user_id') !== FALSE)
             {
           ?>
-              <li class="top_link"><a href="<?php echo site_url('cart/order_details') ?>"><?php echo $this->session->userdata('first_name');?></a></li>
+              <li class="top_link"><a href="<?php echo site_url('order/order_details') ?>"><?php echo $this->session->userdata('first_name');?></a></li>
               <li>|</li>
               <li class="top_link"><a href="<?php echo site_url('user_control/logout')?>">Log Out</a></li> 
           <?php  

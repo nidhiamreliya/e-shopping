@@ -117,6 +117,33 @@ $config = array(
 							    'label' => 'quantity',
 							    'rules' => 'trim|required|greater_than[0]|less_than[11]|xss_clean'
 							)
-		    )
+		    ),
+		    'order/place_order' => array(
+		    				array(
+							    'field' => 'sh_address',
+							    'label' => 'Address',
+							    'rules' => 'required|xss_clean'
+							),
+							array(
+							    'field' => 'sh_city',
+							    'label' => 'City',
+							    'rules' => 'required|xss_clean'
+							),
+							array(
+							    'field' => 'sh_zipcode',
+							    'label' => 'Zip code',
+							    'rules' => 'required|exact_length[6]|numeric|xss_clean'
+							),
+							array(
+							    'field' => 'sh_state',
+							    'label' => 'State',
+							    'rules' => 'required|xss_clean'
+							),
+							array(
+							    'field' => 'sh_country',
+							    'label' => 'Country',
+							    'rules' => 'required|xss_clean'
+							)
+			)
 );
 ?>

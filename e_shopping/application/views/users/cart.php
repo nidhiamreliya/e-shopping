@@ -18,7 +18,7 @@
 			else
 			{
 		?>
-			<?php echo form_open('cart/checkout');?>
+			<?php echo form_open('order/checkout');?>
 			<div class="price-details">
 				<h3>Price Details</h3>
 				<span>Total</span>
