@@ -15,7 +15,7 @@
               <div class="x_title">
                 <h2>Product List</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                  <a type="submit" class="btn btn-primary" href="<?php echo base_url('index.php/admin_products/edit_products/0')?>">Add new product</a>
+                  <a type="submit" class="btn btn-primary" href="<?php echo site_url('admin_products/edit_products')?>">Add new product</a>
                 </ul>
                 <div class="clearfix"></div>
               </div>
@@ -37,6 +37,7 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>priview</th>
+                    <th>Status</th>
                     <th>Edit</th>
                     <th>Delete</th>
                   </tr>
@@ -53,6 +54,7 @@
                       <td><?php echo $row->description ?></td>
                       <td><?php echo $row->product_price ?></td>
                       <td><?php echo $row->product_img ?></td>
+                      <td><?php echo $row->visible ?></td>
                       <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo base_url('index.php/admin_products/edit_products').'/'. $row->product_id ?>"></a></td>
                       <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->product_name ?> \'?');" href="<?php echo base_url('index.php/admin_products/delete_product'). '/' . $row->product_id ?>"></a></td>
                     </tr>

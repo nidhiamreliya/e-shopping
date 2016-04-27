@@ -150,10 +150,11 @@ class Admin_model extends CI_Model
 	*/
 	public function get_last_rows($table, $fields)
 	{
-		$this->db->select($fields);
-		$this->db->from($table);
-		$this->db->order_by('product_id','desc');
-		$result = $this->db->get();
+		$result = $this->db
+				->select($fields)
+				->from($table)
+				->order_by('product_id','desc')
+				->get();
 		if ($result->num_rows() > 0) 
 		{
 			return $result->result();
@@ -168,9 +169,7 @@ class Admin_model extends CI_Model
     */
     public function record_count($table) 
     {
-		$query = $this->db
-				->get($table);
-		
+		$query = $this->db->get($table);
 		return $query->num_rows();
 	}
 
@@ -198,11 +197,12 @@ class Admin_model extends CI_Model
 	}
 	public function last_rows($table, $fields, $condition)
 	{
-		$this->db->select($fields);
-		$this->db->from($table);
-		$this->db->where($condition);
-		$this->db->order_by('product_id','desc');
-		$result = $this->db->get();
+		$result = $this->db
+				->select($fields)
+				->from($table)
+				->where($condition)
+				->order_by('product_id','desc')
+				->get();
 		if ($result->num_rows() > 0) 
 		{
 			return $result->result();
@@ -293,12 +293,32 @@ class Admin_model extends CI_Model
 
 		if ($result2) 
 		{
-
 			return $result2;
 		} 
 		else 
 		{
 			return false;
 		}
+	}
+
+	//SELECT `od`.`product_id` FROM (`order` o) JOIN `order_details` od ON `od`.`order_no` = `o`.`order_no` where `od`.`product_id` like '%33%' and `o`.`status`='not delivered'
+	public function get_product($product_id)
+	{
+		$query = $this->db
+				->select('od.product_id')
+				->from('order o')
+				->join('order_details od', 'od.order_no = o.order_no')
+				->like('od.product_id', $product_id)
+				->where('o.status', 'not delivered')
+				->get();
+				
+		if($query->num_rows() > 0)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}	
 	}
 }

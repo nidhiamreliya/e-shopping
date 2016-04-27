@@ -5,7 +5,7 @@ $config = array(
 							array(
 							    'field' => 'email_id',
 							    'label' => 'user name',
-							    'rules' => 'trim|required|valid_email|xss_clean'
+							    'rules' => 'trim|required|xss_clean'
 							),
 							array(
 							    'field' => 'password',

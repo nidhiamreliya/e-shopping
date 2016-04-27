@@ -17,19 +17,17 @@
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
-              <table id="datatable" class="table table-striped responsive-utilities jambo_table bulk_action">
+              <table id="datatable" class="table table-striped table-bordered responsive-utilities">
                 <thead>
-                  <tr class="headings">
-                    <th>
-                      <input type="checkbox" id="check-all" class="flat">
-                    </th>
-                    <th>Order No</th>
-                    <th>User id</th>
-                    <th>Order date</th>
+                  <tr>
+                    <th>Order No        </th>
+                    <th>User id         </th>
+                    <th>Order date      </th>
                     <th>Shipping address</th>
-                    <th>Amount</th>
-                    <th>Delivery date</th>
-                    <th>View Details</th>
+                    <th>Amount          </th>
+                    <th>Delivery date   </th>
+                    <th>Status          </th>
+                    <th>View Details    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -38,16 +36,13 @@
                 {
                 ?>
                   <?php foreach($orders as $row):?>
-                    <tr>
-                      <td class="a-center ">
-                      <input type="checkbox" class="flat" name="table_records">
-                    </td>
-                      <td><?php echo $row->order_no ?></td>
-                      <td><?php echo $row->user_id ?></td>
-                      <td><?php echo $row->order_date ?></td>
+                      <td><?php echo $row->order_no         ?></td>
+                      <td><?php echo $row->user_id          ?></td>
+                      <td><?php echo $row->order_date       ?></td>
                       <td><?php echo $row->shipping_address ?></td>
-                      <td><?php echo $row->amount ?></td>
-                      <td><?php echo $row->delivery_date ?></td>
+                      <td><?php echo $row->amount           ?></td>
+                      <td><?php echo $row->delivery_date    ?></td>
+                      <td><?php echo $row->status           ?></td>
                       <td><a href="<?php echo site_url('admin_orders/order_details').'/'.$row->order_no ?>">View Details</a></td>
                     </tr>
                   <?php endforeach ?>
@@ -64,62 +59,7 @@
           </div>
         </div>
         <!-- /page content -->
-
       <div class="clearfix"></div>
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2>Order Details</h2>
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-              <br />
-              <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Order id <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product id <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Quantity <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Price <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="number" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                  </div>
-
-                <div class="ln_solid"></div>
-                <div class="form-group">
-                  <div class="col-md-7 col-sm-7 col-xs-12 col-md-offset-3">
-                    <button type="submit" class="btn btn-primary">Cancel</button>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                  </div>
-                </div>
-              </form>
-            </div>                  
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </body>

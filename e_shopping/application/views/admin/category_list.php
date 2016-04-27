@@ -15,7 +15,7 @@
             <div class="x_title">
               <h2>Category List</h2>
               <ul class="nav navbar-right panel_toolbox">
-                <a type="submit" class="btn btn-primary" href="<?php echo base_url('index.php/admin_categorys/edit_category/0')?>">Add new Category</a>
+                <a type="submit" class="btn btn-primary" href="<?php echo base_url('index.php/admin_categorys/edit_category')?>">Add new Category</a>
               </ul>
               <div class="clearfix"></div>
             </div>
@@ -43,11 +43,11 @@
                   <tr>
                     <td><?php echo $row->category_id ?></td>
                     <td><?php echo $row->category_name ?></td>
-                    <td><a href="<?php echo base_url('index.php/admin_products/index').'/'.$row->category_id ?>">View products</a></td>
+                    <td><a href="<?php echo site_url('admin_products/index').'/'.$row->category_id ?>">View products</a></td>
                     
-                    <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo base_url('index.php/admin_categorys/edit_category').'/'. $row->category_id ?>"></a></td>
+                    <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo site_url('admin_categorys/edit_category').'/'. $row->category_id ?>"></a></td>
                     
-                    <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->category_name ?> \'?');" href="<?php echo base_url('index.php/admin_categorys/delete_category'). '/' . $row->category_id?>"></a></td>
+                    <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->category_name ?> \'?');" href="<?php echo site_url('admin_categorys/delete_category'). '/' . $row->category_id?>"></a></td>
                   </tr>
                 <?php endforeach ?>                     
                 </tbody>
@@ -60,10 +60,7 @@
     </div> 
   </div>
 </body>
-       <!-- Datatables -->
-        <!-- <script src="js/datatables/js/jquery.dataTables.js"></script>
-        <script src="js/datatables/tools/js/dataTables.tableTools.js"></script> -->
-
+       
         <!-- Datatables-->
         <script src="<?php echo base_url("assets/js/datatables/jquery.dataTables.min.js") ?>"></script>
         <script src="<?php echo base_url("assets/js/datatables/dataTables.bootstrap.js") ?>"></script>

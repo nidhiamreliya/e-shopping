@@ -24,7 +24,7 @@
 				<div class="col-md-4 products-grid-right">
 					<div class="w_sidebar">
 						<div class="w_nav1">
-							<a href="<?php echo site_url('user_products/index').'/0'?>"><h4>All</h4></a>
+							<a href="<?php echo site_url('user_products/index')?>"><h4>All</h4></a>
 						</div>
 						<section  class="sky-form">
 							<h4>catogories</h4>

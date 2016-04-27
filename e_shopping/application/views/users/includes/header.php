@@ -65,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             else
             {
           ?>
-              <a hraf="<?php echo site_url('user_control') ?>">Log in</a></li>
+              <li class="top_link"><a href="<?php echo site_url('user_control')?>">Log In</a></li> 
           <?php
             }
           ?>        
@@ -79,17 +79,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- logo-cart -->
 <div class="header_top">
   <div class="container">
-   <div class="logo">
+    <div class="logo">
       <a href="<?php echo site_url('user_control/home') ?>">Pendent Store</a>       
     </div>
     <div class="header_right">
       <div class="cart box_1">
         <a href="<?php echo site_url('cart/cart_details')?>">
-        <h3> <div class="total">
-          <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)</div>
-          <img src="<?php echo base_url('assets/images/cart1.png')?>" alt=""/></h3>
+        <h3> 
+          <img src="<?php echo base_url('assets/images/cart1.png')?>" alt=""/> Cart</h3>
         </a>
-        <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
         <div class="clearfix"> </div>
       </div>         
     </div>
@@ -99,25 +97,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //logo-cart -->
 <!------>
 <div class="mega_nav">
-   <div class="container">
-     <div class="menu_sec">
+  <div class="container">
+    <div class="menu_sec">
      <!-- start header menu -->
     <ul class="megamenu skyblue">
       <li class="active grid"><a class="color1" href="<?php echo site_url('user_control/home') ?>">Home</a></li>
       <li><a class="color1" href="#">category</a>
         <div class="megapanel">
-              <div class="h_nav">
-                <ul>
-                  <?php foreach ($category as $row):?>
-                  <li><a href="<?php echo site_url('user_products/index').'/'.$row->category_id ?>"><?php echo $row->category_name ?></a></li>
-                <?php endforeach ?>
-                </ul> 
-              </div>              
+          <div class="h_nav">
+            <ul>
+            <?php foreach ($category as $row):?>
+              <li><a href="<?php echo site_url('user_products/index').'/'.$row->category_id ?>"><?php echo $row->category_name ?></a></li>
+            <?php endforeach ?>
+            </ul> 
+          </div>              
         </div>
       </li>       
     </ul> 
-      <div class="clearfix"></div>
-     </div>
+    <div class="clearfix"></div>
     </div>
+  </div>
 </div>
 <!---->

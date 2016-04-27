@@ -49,12 +49,12 @@
                 <div class="ln_solid"></div>
                 <div class="form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                    <button type="submit" class="btn btn-primary" onclick="window.location='<?php echo base_url('index.php/admin_categorys') ?>'">Cancel</button>
                     <button type="submit" class="btn btn-success">Submit</button>
                   </div>
                 </div>
               <?php echo form_close();?>
             </div>
+            <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo site_url('admin_categorys/index'); ?>'"><i class="fa fa-backward">  Back</i></button>
           </div>
         </div>
       </div>

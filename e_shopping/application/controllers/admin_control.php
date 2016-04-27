@@ -4,6 +4,7 @@ class Admin_control extends MY_Controller
 	public function __construct()
     {
         parent::__construct();
+        if ($this->session->userdata('privilege') != 2) redirect('user_control/logout');
     }
     
     //Show login form

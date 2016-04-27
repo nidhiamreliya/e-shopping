@@ -250,7 +250,7 @@ select.item_Size {
   margin-top: 5px;
 }
 .box_1 h3 {
-  color: #702428 !important;
+  color: #204056 !important;
   font-size: 1em;
   font-weight: 700;
   margin: 0;
@@ -589,10 +589,7 @@ ul.social-slide li i.mac{
 	text-decoration:none;
 }
 /*-- //banner --*/
-.catalog
-{
-	height: 500px;
-}
+
 /*-- cate --*/
 .cate{
 	padding:2em 0;

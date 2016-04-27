@@ -33,23 +33,24 @@
                 </span>
                 <div class="x_content">
                   <br />
+                <div class="col-md-8 col-sm-8 col-xs-12">
                   <?php
                     $data = array(
-                          'name'  => 'demo-form2',
+                          'name'  => 'insert_product',
                           'id' => 'demo-form2',
                           'class' => "form-horizontal form-label-left"
                         );
                   ?> 
                  <?php echo form_open_multipart('admin_products/insert_product', $data);?>
-                <div class="col-md-9 col-sm-9 col-xs-12">
+                
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category Name <span class="required">*</span>
                     </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
+                    <div class="col-md-8 col-sm-8 col-xs-12">
                     <?php 
                       if($product['category_id'])
                       { ?>
-                        <input type="text" id="category_id" name="category_id" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['category_id'] ?>">
+                        <input type="text" id="category_id" name="category_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['category_id'] ?>">
                         <label class="col-md-8 text-danger">
                           <?php echo form_error('category_id'); ?>
                         </label>
@@ -75,9 +76,9 @@
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product Name <span class="required">*</span>
                     </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['product_id'] ?>">
-                      <input type="text" id="product_name" name="product_name" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['product_name'] ?>">
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                      <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_id'] ?>">
+                      <input type="text" id="product_name" name="product_name" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_name'] ?>">
                       <label class="col-md-8 text-danger">
                         <?php echo form_error('product_name'); ?>
                       </label>
@@ -87,8 +88,8 @@
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Description <span class="required">*</span>
                     </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="text" id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['description'] ?>">
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                      <input type="text" id="description" name="description" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['description'] ?>">
                       <label class="col-md-8 text-danger">
                         <?php echo form_error('description'); ?>
                       </label>
@@ -96,10 +97,10 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Price <span class="required">*</span>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Price <span class="required">*</span>
                     </label>
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="text" id="price" name="price" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $product['product_price'] ?>">
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                      <input type="text" id="price" name="price" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_price'] ?>">
                       <label class="col-md-8 text-danger">
                         <?php echo form_error('price'); ?>
                       </label>
@@ -107,46 +108,51 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Image <span class="required">*</span>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Visible <span class="required">*</span>
                     </label>
-                    <div class="col-md-6 col-sm-6 col-xs-11">
-                      <input type="file" id="image" name="image" required="required" class="form-control col-md-7 col-xs-12">
-                      <label class="col-md-8 text-danger">
-                        <?php 
-                          if($this->session->flashdata('error'))
-                          {
-                            $error = $this->session->flashdata('error');
-                            echo $error['error'];
-                          }
-                        ?>
-                      </label>
-                    </div>
+                     <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div id="gender" class="btn-group" data-toggle="buttons">
+                          <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="visible" value="1" checked> &nbsp; Visible &nbsp;
+                          </label>
+                          <label class="btn btn-primary active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                            <input type="radio" name="visible" value="0"> Not visible
+                          </label>
+                        </div>
+                      </div>
                   </div>
                 <div class="ln_solid"></div>
                 <div class="form-group">
-                  <div class="col-md-7 col-sm-7 col-xs-12 col-md-offset-3">
+                  <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-3">
                     <button type="submit" class="btn btn-success">Submit</button>
                   </div>
                 </div>
               </div>
+              <?php echo form_close();?>
+              
+              <?php echo form_open_multipart('admin_products/product_pic');?>
               <div class="col-md-3 col-sm-3">
-
-                 <img height="200" width="200" src="<?php echo base_url('assets/images/products').'/'.$product['product_img']?>">
+                <img height="150" width="150" src="<?php if($product['product_img'] == null) echo base_url('assets/images/12.jpg'); else echo base_url('assets/images/products').'/'.$product['product_img'];?>">
+                <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_id'] ?>">
+                <input type="file" id="image" name="image" required="required" class="form-control">
+                <button type="submit" class="btn btn-success btn-block">Upload image</button>
+                <label class="col-md-12 text-danger">
+                  <?php 
+                    if($this->session->flashdata('error'))
+                    {
+                      $error = $this->session->flashdata('error');
+                      echo $error['error'];
+                    }
+                  ?>
+                </label>
               </div>
               <?php echo form_close();?>
-              <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo base_url('index.php/admin_products/index').'/0'; ?>'"><i class="fa fa-backward">  Back</i></button>
+              <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo site_url('admin_products/index'); ?>'"><i class="fa fa-backward">  Back</i></button>
                 </div>
               </div>
             </div>
           </div>
       </div>
-
-  <div id="custom_notifications" class="custom-notifications dsp_none">
-    <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
-    </ul>
-    <div class="clearfix"></div>
-    <div id="notif-group" class="tabbed_notifications"></div>
-  </div>
   
   <!-- tags -->
   <script src="<?php echo base_url('assets/js/tags/jquery.tagsinput.min.js')?>"></script>

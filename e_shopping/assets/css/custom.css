@@ -1070,16 +1070,16 @@ table.jambo_table thead {
   color: #ECF0F1;
 }
 table.jambo_table tbody tr:hover td {
-  background: rgba(38, 185, 154, 0.07);
-  border-top: 1px solid rgba(38, 185, 154, 0.11);
-  border-bottom: 1px solid rgba(38, 185, 154, 0.11);
+  background: #FADBD8;
+  border-top: 1px solid #F5B7B1  ;
+  border-bottom: 1px solid #F5B7B1  ;
 }
 table.jambo_table tbody tr.selected {
-  background: rgba(38, 185, 154, 0.16);
+  background: #FADBD8;
 }
 table.jambo_table tbody tr.selected td {
-  border-top: 1px solid rgba(38, 185, 154, 0.40);
-  border-bottom: 1px solid rgba(38, 185, 154, 0.40);
+  border-top: 1px solid #F5B7B1  ;
+  border-bottom: 1px solid #F5B7B1  ;
 }
 .dataTables_paginate a {
   background: #ff0000;

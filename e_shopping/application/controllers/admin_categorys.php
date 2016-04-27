@@ -4,6 +4,7 @@ class Admin_categorys extends MY_Controller
 	public function __construct()
     {
         parent::__construct();
+        if ($this->session->userdata('privilege') != 2) redirect('user_control/logout');
     }
 
     //Show login form
@@ -12,10 +13,10 @@ class Admin_categorys extends MY_Controller
 		$data['category'] = $this->admin_model->get_data('category');
 		$this->admin_views('admin/category_list', $data);
 	}
-	public function edit_category($category)
+	public function edit_category($category = NULL)
 	{
 
-		if($category != 0)
+		if($category)
 		{
 			$condition = array('category_id' => $category);
 			$data['category'] = $this->admin_model->getwhere_data('category', $condition);

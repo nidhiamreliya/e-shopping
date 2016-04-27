@@ -16,7 +16,7 @@
           ?> 
           <?php echo form_open('user_control/check_user', $data);?>
              <h5>User Name:</h5>  
-             <input type="text" id="email_id" name="email_id" style="margin: 0px;" class="form-control" required="" placeholder="Username" value="<?php echo set_value('email_id')?>"/>
+             <input type="text" id="email_id" name="email_id" style="margin: 0px;" class="form-control" required="" placeholder="E-mail@example.com" value="<?php echo set_value('email_id')?>"/>
               <label class="text-danger">
                 <?php echo form_error('email_id'); ?>
               </label>
