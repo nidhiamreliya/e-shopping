@@ -43,9 +43,11 @@ class Admin_products extends MY_Controller
 	{
 		$data 			= array('product_id' => $product_id);
 		$check_inorder	= $this->admin_model->get_product($product_id);
+
 		if($check_inorder)
 		{
-			$result			= $this->admin_model->delete_row('product_', $data);
+			$result		= $this->admin_model->delete_row('product', $data);
+
 			if($result)
 			{
 				$this->session->set_flashdata('successful', 'Your data deleted successfully.');
@@ -53,7 +55,7 @@ class Admin_products extends MY_Controller
 		}
 		else
 		{
-			$this->session->set_flashdata('successful', 'You can not delete this product.');
+			$this->session->set_flashdata('successful', 'You can not delete this product. Set it as not visible for user');
 		}
 		redirect('admin_products');
 	}
@@ -62,7 +64,7 @@ class Admin_products extends MY_Controller
 	{
 		if ($this->form_validation->run() == FALSE )
 		{
-			$this->edit_category();
+			$this->edit_products($this->input->post('product_id'));
 		}
 		else
 		{
@@ -75,20 +77,37 @@ class Admin_products extends MY_Controller
 				);
 			if($this->input->post('product_id') != null)
 			{
-				$condition = array(
-					'product_id'	=> $this->input->post('product_id')
-				);
-				$product_id = $this->input->post('product_id');
-				$result		= $this->admin_model->update_row('product', $data, $condition);	
+				$result = $this->duplicate_check($this->input->post('product_name'));
+				if($result)
+				{
+					$condition = array(
+						'product_id'	=> $this->input->post('product_id')
+					);
+					$product_id = $this->input->post('product_id');
+					$result		= $this->admin_model->update_row('product', $data, $condition);
+				}
+				else
+				{
+					$this->edit_products($this->input->post('product_id'));
+				}	
 			}
 			else
 			{
-				$result 	= $this->admin_model->insert_row('product', $data);
-				$product_id = $result;
-				$condition 	= array(
-					'product_id' 	=> $product_id
-				);
-				$result 	= $this->admin_model->update_row('product', $data, $condition);
+				$result = $this->duplicate_check($this->input->post('product_name'));
+				if($result)
+				{	
+					$result 	= $this->admin_model->insert_row('product', $data);
+					$product_id = $result;
+
+					$condition 	= array(
+						'product_id' 	=> $product_id
+					);
+					$result 	= $this->admin_model->update_row('product', $data, $condition);
+				}
+				else
+				{
+					$this->edit_products($this->input->post('product_id'));
+				}
 			}
 			if($result)
 			{
@@ -98,7 +117,27 @@ class Admin_products extends MY_Controller
 			
 		}
 	}
-
+	public function duplicate_check($product)
+	{
+		if($this->input->post('product_id'))
+		{
+			$product_id = $this->input->post('product_id');
+		}
+		else
+		{
+			$product_id = null;
+		}
+		$result = $this->admin_model->check_product($product_id, $this->input->post('category_id'), $product);
+		if ($result)
+		{
+			$this->session->set_flashdata('duplicate', 'This product name already exist');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 	//Upadate user's profile picture
 	public function product_pic()
 	{

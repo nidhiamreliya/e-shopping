@@ -102,7 +102,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
      <!-- start header menu -->
     <ul class="megamenu skyblue">
       <li class="active grid"><a class="color1" href="<?php echo site_url('user_control/home') ?>">Home</a></li>
-      <li><a class="color1" href="#">category</a>
+      <li><a class="color1" href="<?php echo site_url('user_products')?>">category</a>
         <div class="megapanel">
           <div class="h_nav">
             <ul>

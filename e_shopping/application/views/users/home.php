@@ -51,8 +51,9 @@
 	</div>
 <!-- //cate -->
 <!-- banner-bottom -->
-	<div class="banner-bottom">
-		<div class="container catelog">
+<div class="banner-bottom">
+	<div class="container catelog">
+		<div class="row">
 			<div class="cate-hed">
 				<h3>Our New products <i class="glyphicon glyphicon-menu-down" aria-hidden="true"></i></h3>
 			</div>
@@ -81,6 +82,8 @@
 				}
 			?>
 			</div>
+		</div>
+		<div class="row">
 			<div class="text-center">
 				<font color="#F65A5B">
 				<ul class="pagination pagination-md">
@@ -90,9 +93,11 @@
 					{
 						echo '<li>'. $link.'</font></li>';
 					}
-					?>
-  			</ul>
+				?>
+  				</ul>
+  			</div>
   		</div>
-		</div>
+	</div>
+</div>
 	</div>
 <!-- //banner-bottom -->

@@ -41,9 +41,8 @@ class User_control extends MY_Controller
       else 
       {
         $data['err_message'] = 'Invalid user name or password.';
-        $data['user'] = $this->input->post('email_id');
-        
-        $this->login('login', null);
+       
+        $this->login('login', $data);
       }
     }
   }
@@ -77,11 +76,12 @@ class User_control extends MY_Controller
       }
       else
       {
-        $page = 1;
+        $page = 0;
       }
 
       $fields = array('product_id', 'product_price', 'product_img');
-      $data['products'] = $this->admin_model->fetch_data($page, $values["per_page"], 'product', $fields);
+      $condition = array('visible' => 1);
+      $data['products'] = $this->admin_model->fetch_data($page, $values["per_page"], 'product', $fields, $condition);
       if($data)
       {
         $str_links = $this->pagination->create_links();
@@ -91,7 +91,7 @@ class User_control extends MY_Controller
       {
         $data["links"] = "sorry no data available.";
       }    
-    $condition = array('category_id' => 5);
+    $condition = array('category_id' => 5, 'visible' => 1);
     $data['nacklaces'] = $this->admin_model->last_rows('product', $fields, $condition);
     
     $this->user_views('users/home', $data);
@@ -105,7 +105,7 @@ class User_control extends MY_Controller
   //Validate user data and insert data into database
   public function insert_user()
   {
-    if ($this->form_validation->run() == FALSE )
+    if ($this->form_validation->run('registeration') == FALSE )
     {
       $this->registration();
     }

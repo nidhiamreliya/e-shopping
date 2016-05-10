@@ -37,63 +37,6 @@ $config = array(
 							    'rules' => 'trim|required|xss_clean'
 							)
 			),
-			'user_control/insert_user' => array(
-							array(
-							    'field' => 'first_name',
-							    'label' => 'First name',
-							    'rules' => 'required|alpha|xss_clean'
-							),
-							array(
-							    'field' => 'last_name',
-							    'label' => 'Last name',
-							    'rules' => 'required|alpha|xss_clean'
-							),
-							array(
-							    'field' => 'email_id',
-							    'label' => 'Email id',
-							    'rules' => 'required|valid_email|xss_clean'
-								),
-							array(
-							    'field' => 'password',
-							    'label' => 'Password',
-							    'rules' => 'trim|required|min_length[6]|xss_clean'
-							),
-							array(
-							    'field' => 'confirm_password',
-							    'label' => 'confirm password',
-							    'rules' => 'trim|required|matches[password]|xss_clean'
-							),
-							array(
-							    'field' => 'contect_no',
-							    'label' => 'Contect no',
-							    'rules' => 'required|numeric|exact_length[10]|xss_clean'
-							),
-							array(
-							    'field' => 'address',
-							    'label' => 'Address',
-							    'rules' => 'required|xss_clean'
-							),
-							array(
-							    'field' => 'city',
-							    'label' => 'City',
-							    'rules' => 'required|xss_clean'
-							),
-							array(
-							    'field' => 'zip_code',
-							    'label' => 'Zip code',
-							    'rules' => 'required|exact_length[6]|numeric|xss_clean'
-							),
-							array(
-							    'field' => 'state',
-							    'label' => 'State',
-							    'rules' => 'required|xss_clean'
-							),
-							array(
-							    'field' => 'country',
-							    'label' => 'Country',
-							    'rules' => 'required|xss_clean'
-							)
-		    ),
 			'admin_control/edit_password' => array(
 							array(
 							    'field' => 'old_password',
@@ -144,6 +87,78 @@ $config = array(
 							    'label' => 'Country',
 							    'rules' => 'required|xss_clean'
 							)
+			),
+			'check_user' => array(
+							array(
+							    'field' => 'first_name',
+							    'label' => 'First name',
+							    'rules' => 'required|alpha|xss_clean'
+							),
+							array(
+							    'field' => 'last_name',
+							    'label' => 'Last name',
+							    'rules' => 'required|alpha|xss_clean'
+							),
+							array(
+							    'field' => 'contect_no',
+							    'label' => 'contect_no',
+							    'rules' => 'required|xss_clean|exact_length[10]'
+							),
+							array(
+							    'field' => 'address',
+							    'label' => 'Address',
+							    'rules' => 'required|xss_clean'
+							),
+							array(
+							    'field' => 'city',
+							    'label' => 'City',
+							    'rules' => 'required|xss_clean'
+							),
+							array(
+							    'field' => 'zip_code',
+							    'label' => 'Zip code',
+							    'rules' => 'required|exact_length[6]|numeric|xss_clean'
+							),
+							array(
+							    'field' => 'state',
+							    'label' => 'State',
+							    'rules' => 'required|xss_clean'
+							),
+							array(
+							    'field' => 'country',
+							    'label' => 'Country',
+							    'rules' => 'required|xss_clean'
+							)
+
+		    ),
+			'register' =>array(
+							array(
+							    'field' => 'email_id',
+							    'label' => 'email_id',
+							    'rules' => 'required|valid_email|is_unique[users.email_id]|xss_clean'
+							)
+			),
+			'password' =>array(
+							array(
+							    'field' => 'password',
+							    'label' => 'Password',
+							    'rules' => 'required|min_length[6]|xss_clean'
+							),
+							array(
+							    'field' => 'confirm_password',
+							    'label' => 'Confirm password',
+							    'rules' => 'required|matches[password]'
+							)
+			),
+			'check_duplicate' =>array(
+							array(
+							    'field' => 'email_id',
+							    'label' => 'email_id',
+							    'rules' => 'trim|required|valid_email|xss_clean|callback_email_check'
+							)
 			)
 );
+$config['registeration'] = array_merge($config['check_user'], $config['register'], $config['password']);
+$config['update_user'] = array_merge($config['check_user'], $config['check_duplicate']);
+$config['edit_user'] = array_merge($config['check_user'], $config['check_duplicate'], $config['password']);
 ?>

@@ -47,28 +47,19 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category Name <span class="required">*</span>
                     </label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                    <?php 
-                      if($product['category_id'])
-                      { ?>
-                        <input type="text" id="category_id" name="category_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['category_id'] ?>">
-                        <label class="col-md-8 text-danger">
-                          <?php echo form_error('category_id'); ?>
-                        </label>
-                    <?php  
-                      }
-                      else
-                      { ?>
-                        <select id="category_id"  name="category_id" class="form-control" required>
-                          <option value="">--none--</option>
+                    <select id="category_id"  name="category_id" class="form-control" required>
                         <?php foreach($category as $row):?>
-                          <option value="<?php echo $row->category_id ?>"><?php echo $row->category_name ?></option>
+                        <?php
+                          /*echo "<option value='$row->category_id' " . set_select('state', $row->category_name, ((!isset(set_select('category_id', $row->category_id))) ? TRUE : FALSE )). " >". $row->category_name."</option>";*/
+                        ?>
+                         <option value="<?php echo $row->category_id ?>" <?php $string ?>><?php echo $row->category_name ?></option>
                         <?php endforeach?>
                         </select>
                         <label class="col-md-8 text-danger">
-                          <?php echo form_error('product_name'); ?>
+                          <?php echo form_error('category_id'); ?>
                         </label>
                     <?php 
-                      }
+                      
                     ?>
                     </div>
                   </div>
@@ -78,9 +69,15 @@
                     </label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
                       <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_id'] ?>">
-                      <input type="text" id="product_name" name="product_name" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_name'] ?>">
+                      <input type="text" id="product_name" name="product_name" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['product_name']) ? $product['product_name'] : set_value('product_name') ?>">
                       <label class="col-md-8 text-danger">
                         <?php echo form_error('product_name'); ?>
+                        <?php
+                          if($this->session->flashdata('duplicate'))
+                          {
+                            echo $this->session->flashdata('duplicate');
+                          }
+                        ?>
                       </label>
                     </div>
                   </div>
@@ -89,7 +86,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Description <span class="required">*</span>
                     </label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                      <input type="text" id="description" name="description" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['description'] ?>">
+                      <input type="text" id="description" name="description" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['description']) ? $product['description'] : set_value('description') ?>">
                       <label class="col-md-8 text-danger">
                         <?php echo form_error('description'); ?>
                       </label>
@@ -100,7 +97,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Price <span class="required">*</span>
                     </label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                      <input type="text" id="price" name="price" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_price'] ?>">
+                      <input type="text" id="price" name="price" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['price']) ? $product['price'] : set_value('price') ?>">
                       <label class="col-md-8 text-danger">
                         <?php echo form_error('price'); ?>
                       </label>

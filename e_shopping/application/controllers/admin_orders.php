@@ -15,10 +15,9 @@ class Admin_orders extends MY_Controller
 		$this->admin_views('admin/orders', $data);
 	}
 
-	public function order_details($order_no)
+	public function order_details($order_no = null)
 	{
-		$condition = array('order_no' => $order_no);
-		$data['order_details'] = $this->admin_model->order_details('order_details', $condition);
+		$data['order_details'] = $this->admin_model->order_details($order_no);
 		$data['order_no'] = $order_no;
 		$this->admin_views('admin/order_details', $data);
 	}

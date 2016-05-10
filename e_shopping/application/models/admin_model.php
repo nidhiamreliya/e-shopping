@@ -178,11 +178,13 @@ class Admin_model extends CI_Model
 	 *@params int $limit no of record to retrive
      *@return array rows
 	*/
-	public function fetch_data($page, $limit, $table, $fields) 
+	public function fetch_data($page, $limit, $table, $fields, $condition = null) 
 	{
 		$query = $this->db
 				->select($fields)
 				->from($table)
+				->where($condition)
+				->order_by('product_id','desc')
 				->limit($limit,$page)
 				->get();
 
@@ -269,31 +271,18 @@ class Admin_model extends CI_Model
 		}
 	}
 
-	public function order_details($table, $condition)
+	public function order_details($order_no)
 	{
-		$result = $this->db->get_where($table, $condition);
-		$result = $result->row_array();
-		$product_id = explode(',', $result['product_id']);
-		$quantitys = explode(',', $result['quantity']);
-		$result = array();
-		$result = array();
-		$i = 0;
-		foreach ($product_id as $row) 
-		{
-			$query = $this->db
-					->select('product_id, product_name, product_price')
-					->from('product')
-					->where('product_id', $row)
-					->get();
-			$result = $query->row_array();
-			$result['qty'] = $quantitys[$i];
-			$result2[] = $result;
-			$i++;
-		}
+		$query = $this->db
+				->select('od.order_no, od.product_id, p.product_name, p.product_price, od.quantity, p.product_img')
+				->from('order_details od')
+				->join('product p', 'od.product_id = p.product_id')
+				->where('od.order_no', $order_no)
+				->get();
 
-		if ($result2) 
+		if ($query->num_rows() > 0) 
 		{
-			return $result2;
+			return $query->result();
 		} 
 		else 
 		{
@@ -301,17 +290,16 @@ class Admin_model extends CI_Model
 		}
 	}
 
-	//SELECT `od`.`product_id` FROM (`order` o) JOIN `order_details` od ON `od`.`order_no` = `o`.`order_no` where `od`.`product_id` like '%33%' and `o`.`status`='not delivered'
 	public function get_product($product_id)
 	{
 		$query = $this->db
-				->select('od.product_id')
-				->from('order o')
-				->join('order_details od', 'od.order_no = o.order_no')
-				->like('od.product_id', $product_id)
+				->select('o.order_no')
+				->from('order o')	
+				->join('order_details od', 'od.order_no = o.order_no')				
+				->where('od.product_id', $product_id)
 				->where('o.status', 'not delivered')
 				->get();
-				
+		
 		if($query->num_rows() > 0)
 		{
 			return FALSE;
@@ -321,4 +309,63 @@ class Admin_model extends CI_Model
 			return TRUE;
 		}	
 	}
+
+	/*For checking if email already exist.
+	 *@params int user_id
+	 *@params string email id
+     *@return array row
+	*/
+	public function check_duplicate($user_id, $email_id) 
+	{
+		$query = $this->db
+				->select('user_id, email_id')
+				->from('users')
+			    ->where('email_id', $email_id)
+			   	->where('user_id !=', $user_id)
+			   	->get();
+
+    	$result = $query->row_array();
+    	if ($result) 
+    	{
+    	    return $result;
+    	} 
+    	else 
+    	{
+           	return false;
+    	}
+	}
+
+	public function check_product($product_id, $category_id, $product_name) 
+	{
+		if($product_id != null)
+		{
+			$query = $this->db
+					->select('product_id')
+					->from('product')
+				    ->where('product_name', $product_name)
+				    ->where('category_id', $category_id)
+				   	->where('product_id !=', $product_id)
+				   	->get();
+		}
+		else
+		{
+			$query = $this->db
+					->select('product_id')
+					->from('product')
+				    ->where('product_name', $product_name)
+				    ->where('category_id', $category_id)
+				   	->get();
+		}
+
+    	$result = $query->result();
+    	if ($result) 
+    	{
+    	    return $result;
+    	} 
+    	else 
+    	{
+           	return false;
+    	}
+	}
+
 }

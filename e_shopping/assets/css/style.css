@@ -874,7 +874,7 @@ p.non span{
 	box-shadow:2px 2px 11px #CCCBCB;
 	padding:1.5em 0 0;
 	height: 320px;
-	width: 240px;
+	width: 100%;
 }
 .p-two {
 	box-shadow:2px 2px 11px #CCCBCB;
@@ -2106,7 +2106,7 @@ color:#000;
   line-height:1.8em;
 }
 .log p{
-  color:#999;
+  
   margin:22px 0;
   font-size: 14px;
   line-height:1.8em;

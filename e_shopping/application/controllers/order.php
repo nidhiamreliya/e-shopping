@@ -13,9 +13,16 @@ class Order extends MY_Controller
     $data['user'] = $this->admin_model->getwhere_data('users', $condition);
     $this->user_views('users/checkout', $data);
   }
-  public function order_details()
+  public function order_details($order_no = null)
   {
-    $data['order'] = $this->admin_model->getwhere_data('order', array('user_id' => $this->session->userdata('user_id')));
+  	if($order_no)
+  	{
+    	$data['order'] = $this->admin_model->get_rows('order', array('order_no' => $order_no));
+    }
+    else
+    {
+    	$data['order'] = $this->admin_model->get_rows('order', array('user_id' => $this->session->userdata('user_id')));
+    }
     $this->user_views('users/order_details', $data);
   }
 
@@ -31,7 +38,6 @@ class Order extends MY_Controller
 	    }
 	    else
 	    {
-	    	
 	    	$address = implode(',',$this->input->post());
 	      	$data = array(
 	                  'user_id' => $this->session->userdata('user_id'),
@@ -44,27 +50,22 @@ class Order extends MY_Controller
 	      	$products = $this->admin_model->cart_data($this->session->userdata('user_id'));
 	      	if($products)
 	      	{
-	        	$product_id = "";
-	        	$quantity = "";
 	        	foreach ($products as $row) 
 	        	{
-	        	  $product_id .= $row['product_id'].',';
-	        	  $quantity .= $row['quantity'].',';
-	        	}
-	        
-	        	$data = array(
+	        	  $data = array(
 	                    'order_no' => $order_no,
-	                    'product_id' => rtrim($product_id, ","),
-	                    'quantity' => rtrim($quantity, ",")
-	        	);
-	        	$detail_id = $this->admin_model->insert_row('order_details', $data);
+	                    'product_id' => $row['product_id'],
+	                    'quantity' => $row['quantity']
+	        		);
+	        	  $detail_id = $this->admin_model->insert_row('order_details', $data);
+	        	}
 	        	if($detail_id)
 		        {
 		        	$data = array('user_id' => $this->session->userdata('user_id'));
 		        	$result = $this->admin_model->delete_row('cart',$data);
 		        }
 		        $this->session->set_flashdata('successful', 'Your order placed sucessfully.');
-		        redirect('order/order_details');
+		        redirect('order/order_details'.'/'.$order_no);
 		    }
 		    else
 		    {

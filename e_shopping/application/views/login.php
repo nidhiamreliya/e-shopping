@@ -16,21 +16,25 @@
           ?> 
           <?php echo form_open('user_control/check_user', $data);?>
              <h5>User Name:</h5>  
-             <input type="text" id="email_id" name="email_id" style="margin: 0px;" class="form-control" required="" placeholder="E-mail@example.com" value="<?php echo set_value('email_id')?>"/>
+             <input type="text" id="email_id" name="email_id" style="margin: 0px;" class="form-control"  placeholder="E-mail@example.com" value="<?php echo set_value('email_id')?>"/>
               <label class="text-danger">
                 <?php echo form_error('email_id'); ?>
-              </label>
+              </label> 
              <h5>Password:</h5>
-             <input type="password" id="password" name="password" style="margin: 0px;" class="form-control" placeholder="Password" required="" />
+             <input type="password" id="password" name="password" style="margin: 0px;" class="form-control" placeholder="Password"  />
               <label class="text-danger">
-                <?php echo form_error('password'); 
+                <?php echo form_error('password'); ?>
+              </label> 
+              <label class="text-danger">
+              <?php
                   if(isset($err_message))
                   {
                     echo $err_message;
                   }
                 ?>
-              </label> 
-              <br/>      
+              </label>     
+              <br/>
+                
              <input type="submit" value="Login">
               
            <?php echo form_close();?>

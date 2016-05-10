@@ -11,14 +11,15 @@ class User_products extends MY_Controller
 	{
 		if($category)
 		{
-			$condition = array('category_id' => $category);
+			$condition = array('category_id' => $category, 'visible' => 1);
 			$data['products'] = $this->admin_model->get_rows('product', $condition);
 			$data['category'] = $this->admin_model->get_data('category');
 			$this->user_views('users/products', $data);
 		}
 		else
 		{
-			$data['products'] = $this->admin_model->get_data('product');
+			$condition = array('visible' => 1);
+			$data['products'] = $this->admin_model->get_rows('product', $condition);
 			$data['category'] = $this->admin_model->get_data('category');
 			$this->user_views('users/products', $data);
 		}

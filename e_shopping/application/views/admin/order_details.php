@@ -17,7 +17,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Order No.- <?php echo $order_no ?> <small>basic table subtitle</small></h2>
+                  <h2>Order No.- <?php echo $order_no ?></h2>
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -25,24 +25,33 @@
                     <thead>
                       <tr>
                         <th>Product id</th>
-                        <th>Product Name</th> 
+                        <th>Product Name</th>
                         <th>Quantity</th>
                         <th>product price</th>
                         <th>Sub total</th>
                       </tr>
                     </thead>
                     <tbody>
-                    <?php  $total=0;  ?>
-                    <?php foreach ($order_details as $row): ?>
-                      <tr>
-                        <td><?php echo $row['product_id'] ?></td>
-                        <td><?php echo $row['product_name'] ?></td>
-                        <td><?php echo $row['qty'] ?></td>
-                        <td><?php echo $row['product_price'] ?></td>
-                        <td><?php echo $sub_total = $row['qty'] * $row['product_price']; ?></td>
-                        <?php $total += $sub_total ?>
-                      </tr>
-                    <?php endforeach ?>
+                    <?php  
+                      $total=0;  
+                      if(!$order_details)
+                      {
+                        echo "Sorry no data available for given order no.";
+                      }else{
+                    ?>
+                      <?php foreach ($order_details as $row): ?>
+                        <tr>
+                          <td><?php echo $row->product_id ?></td>
+                          <td><?php echo $row->product_name ?></td>
+                          <td><?php echo $row->quantity ?></td>
+                          <td><?php echo $row->product_price ?></td>
+                          <td><?php echo $sub_total = $row->quantity * $row->product_price; ?></td>
+                          <?php $total += $sub_total ?>
+                        </tr>
+                      <?php endforeach ?>
+                    <?php
+                      }
+                    ?>
                     </tbody>
                     <tr>
                       <th colspan="4" class="text-right">Total:</th>
