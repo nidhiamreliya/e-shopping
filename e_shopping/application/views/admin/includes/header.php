@@ -25,6 +25,7 @@
   <link href="<?php echo base_url("assets/css/floatexamples.css") ?>" rel="stylesheet" type="text/css" />
   <script src="<?php echo base_url("assets/js/jquery.min.js") ?>"></script>
   <script src=" <?php echo base_url("assets/js/nprogress.js") ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url("assets/js/validate_user.js"); ?>"></script>  
 
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>

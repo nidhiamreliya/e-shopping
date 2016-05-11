@@ -21,7 +21,7 @@ class Cart extends MY_Controller
               'product_id' => $this->input->post('product_id'),
               'quantity' => $this->input->post('quantity')
         );
-      $check = $this->admin_model->check_cart('cart', $this->session->userdata('user_id'), $this->input->post('product_id'));
+      $check = $this->user_model->check_cart('cart', $this->session->userdata('user_id'), $this->input->post('product_id'));
       if($check)
       {
         $this->session->set_flashdata('alredy_exist', 'This product is already exist in your cart.');
@@ -29,7 +29,7 @@ class Cart extends MY_Controller
       }
       else
       {
-        $result = $this->admin_model->insert_row('cart', $data);
+        $result = $this->user_model->insert_row('cart', $data);
         if($result)
         {
           redirect('cart/cart_details');
@@ -48,7 +48,7 @@ class Cart extends MY_Controller
 
   public function cart_details()
   {
-    $data['cart'] = $this->admin_model->cart_details($this->session->userdata('user_id'));
+    $data['cart'] = $this->user_model->cart_details($this->session->userdata('user_id'));
     
     $total = 0;
     if($data['cart'])
@@ -70,7 +70,7 @@ class Cart extends MY_Controller
   public function remove($cart_id)
   {
     $data = array('cart_id' => $cart_id);
-    $result = $this->admin_model->delete_row('cart', $data);
+    $result = $this->user_model->delete_row('cart', $data);
     if($result)
     {
       $this->session->set_flashdata('successful', 'Your data deleted successfully.');
@@ -89,7 +89,7 @@ class Cart extends MY_Controller
       $data = array(
           'quantity' => $this->input->post('quantity')
       );
-      $result = $this->admin_model->update_row('cart', $data, array('cart_id' => $this->input->post('cart_id')));
+      $result = $this->user_model->update_row('cart', $data, array('cart_id' => $this->input->post('cart_id')));
       $this->session->set_flashdata('successful', 'Your data updated successfully.');
       redirect('cart/cart_details');
    }

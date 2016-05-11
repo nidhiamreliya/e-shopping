@@ -28,9 +28,10 @@
               <br />
                <?php
                 $data = array(
-                      'name'  => 'edit_user',
-                      'id' => 'edit_user',
-                      'class' => "form-horizontal form-label-left"
+                      'name'      => 'edit_user',
+                      'id'        => 'edit_user',
+                      'class'     => 'form-horizontal form-label-left',
+                      'onsubmit'  => 'return edit_users()'
                     );
               ?> 
               <?php echo form_open('admin_users/update_user', $data);?>
@@ -74,9 +75,9 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Contect no. <span class="">*</span>
                     </label>
                     <div class="col-md-7 col-sm-7 col-xs-12">
-                      <input type="text" id="contect_no" name="contect_no" ="" class="form-control col-md-7 col-xs-12" value="<?php echo $user['contect_no'] ?>">
+                      <input type="text" id="contact_no" name="contact_no" ="" class="form-control col-md-7 col-xs-12" value="<?php echo $user['contact_no'] ?>">
                       <label class="col-md-8 text-danger">
-                        <?php echo form_error('contect_no'); ?>
+                        <?php echo form_error('contact_no'); ?>
                       </label>
                     </div>
                   </div>

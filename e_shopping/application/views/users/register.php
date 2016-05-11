@@ -7,12 +7,14 @@
 				<p>If you have previously registered with us, <a href="<?php echo site_url('user_control')?>">click here</a></p>
 				<?php
                     $data = array(
-                          'name'  => 'register',
-                          'id' => 'register',
-                          'class' => "form-horizontal"
+				            'name'  	=> 'registration',
+				            'id'		=> 'registration',
+                          	'class' 	=> 'form-horizontal',
+                          	'onsubmit'  => 'return form_validation()'
                         );
                 ?> 
                 <?php echo form_open('user_control/insert_user', $data);?>
+                <!-- <form name="registration" id="registration" class="form-horizontal" onsubmit="return form_validation()" method="post" ac> -->
 					<ul>
 						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">First Name: </li>
 						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="first_name" name="first_name" value="<?php echo set_value('first_name')?>">

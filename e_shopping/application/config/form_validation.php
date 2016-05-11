@@ -100,8 +100,8 @@ $config = array(
 							    'rules' => 'required|alpha|xss_clean'
 							),
 							array(
-							    'field' => 'contect_no',
-							    'label' => 'contect_no',
+							    'field' => 'contact_no',
+							    'label' => 'contact_no',
 							    'rules' => 'required|xss_clean|exact_length[10]'
 							),
 							array(

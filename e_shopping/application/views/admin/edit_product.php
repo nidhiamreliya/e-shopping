@@ -6,67 +6,68 @@
 <link rel="stylesheet" href="<?php echo base_url('assets/css/switchery/switchery.min.css')?>" />
 
 <body class="nav-md">
-      <!-- page content -->
-      <div class="right_col" role="main">
-        <div class="">
-
-          <div class="page-title">
-            <div class="title_left">
-              <h3>Products</h3>
+  <!-- page content -->
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="title_left">
+          <h3>Products</h3>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Edit product</h2>
+              <div class="clearfix"></div>
             </div>
-          </div>
-          <div class="clearfix"></div>
-          <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>Edit product</h2>
-                  <div class="clearfix"></div>
-                </div>
-                <span class="text-success col-md-offset-2">
+            <span class="text-success col-md-offset-2">
+              <?php
+                if($this->session->flashdata('successful'))
+                {
+                  echo $this->session->flashdata('successful');
+                }
+              ?>
+            </span>
+            <span class="text-info col-md-offset-2">
+              <?php
+                if($this->session->flashdata('info'))
+                {
+                  echo $this->session->flashdata('info');
+                }
+              ?>
+            </span>
+            <div class="x_content">
+            <br/>
+              <div class="col-md-8 col-sm-8 col-xs-12">
                 <?php
-                  if($this->session->flashdata('successful'))
-                  {
-                    echo $this->session->flashdata('successful');
-                  }
-                ?>
-                </span>
-                <div class="x_content">
-                  <br />
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                  <?php
-                    $data = array(
-                          'name'  => 'insert_product',
-                          'id' => 'demo-form2',
-                          'class' => "form-horizontal form-label-left"
-                        );
-                  ?> 
-                 <?php echo form_open_multipart('admin_products/insert_product', $data);?>
-                
+                  $data = array(
+                        'name'     => 'insert_product',
+                        'id'       => 'insert_product',
+                        'class'    => "form-horizontal form-label-left",
+                        'onsubmit' => 'return edit_products()'
+                      );
+                ?> 
+                <?php echo form_open('admin_products/insert_product', $data);?>
+              
                   <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category Name <span class="required">*</span>
                     </label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                    <select id="category_id"  name="category_id" class="form-control" required>
-                        <?php foreach($category as $row):?>
-                        <?php
-                          /*echo "<option value='$row->category_id' " . set_select('state', $row->category_name, ((!isset(set_select('category_id', $row->category_id))) ? TRUE : FALSE )). " >". $row->category_name."</option>";*/
-                        ?>
-                         <option value="<?php echo $row->category_id ?>" <?php $string ?>><?php echo $row->category_name ?></option>
-                        <?php endforeach?>
-                        </select>
-                        <label class="col-md-8 text-danger">
-                          <?php echo form_error('category_id'); ?>
-                        </label>
-                    <?php 
-                      
-                    ?>
+                      <select id="category_id"  name="category_id" class="form-control" required>
+                          <?php foreach($category as $row):?>
+                            <option <?php echo isset($product['category_id']) && $row->category_id == $product['category_id'] ? 'selected': ''?> value="<?php echo $row->category_id ?>"><?php echo $row->category_name ?></option>
+                          <?php endforeach?>
+                      </select>
+                      <label class="col-md-8 text-danger">
+                        <?php echo form_error('category_id'); ?>
+                      </label>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product Name <span class="required">*</span>
-                    </label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product Name <span class="required">*</span></label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
                       <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_id'] ?>">
                       <input type="text" id="product_name" name="product_name" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['product_name']) ? $product['product_name'] : set_value('product_name') ?>">
@@ -83,8 +84,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Description <span class="required">*</span>
-                    </label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Description <span class="required">*</span></label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
                       <input type="text" id="description" name="description" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['description']) ? $product['description'] : set_value('description') ?>">
                       <label class="col-md-8 text-danger">
@@ -94,10 +94,9 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Price <span class="required">*</span>
-                    </label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Price <span class="required">*</span></label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                      <input type="text" id="price" name="price" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['price']) ? $product['price'] : set_value('price') ?>">
+                      <input type="text" id="price" name="price" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['product_price']) ? $product['product_price'] : set_value('price') ?>">
                       <label class="col-md-8 text-danger">
                         <?php echo form_error('price'); ?>
                       </label>
@@ -105,15 +104,14 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Visible <span class="required">*</span>
-                    </label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Visible <span class="required">*</span></label>
                      <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div id="gender" class="btn-group" data-toggle="buttons">
+                        <div id="status" class="btn-group" data-toggle="buttons">
                           <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="visible" value="1" checked> &nbsp; Visible &nbsp;
+                            <input type="radio" name="visible" <?php echo isset($product['visible']) && $product['visible'] == 1 ? 'checked': ''?> value="1"> &nbsp; Visible &nbsp;
                           </label>
                           <label class="btn btn-primary active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="visible" value="0"> Not visible
+                            <input type="radio" name="visible" <?php echo isset($product['visible']) && $product['visible'] == 0 ? 'checked' : ''?> value="0"> Not visible
                           </label>
                         </div>
                       </div>
@@ -126,12 +124,19 @@
                 </div>
               </div>
               <?php echo form_close();?>
-              
-              <?php echo form_open_multipart('admin_products/product_pic');?>
+              <?php
+                $data = array(
+                      'name'      => 'product_img',
+                      'id'        => 'product_img',
+                      'class'     => 'form-horizontal form-label-left',
+                      'onsubmit'  => 'return check_pic()'
+                    );
+              ?> 
+              <?php echo form_open_multipart('admin_products/product_pic', $data);?>
               <div class="col-md-3 col-sm-3">
-                <img height="150" width="150" src="<?php if($product['product_img'] == null) echo base_url('assets/images/12.jpg'); else echo base_url('assets/images/products').'/'.$product['product_img'];?>">
-                <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_id'] ?>">
-                <input type="file" id="image" name="image" required="required" class="form-control">
+                <img height="185" width="220" src="<?php echo isset($product['product_img']) ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/12.jpg')?>">
+                <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['product_id']) ? $product['product_id'] : ''?>">
+                <input type="file" id="image" name="image"  class="form-control">
                 <button type="submit" class="btn btn-success btn-block">Upload image</button>
                 <label class="col-md-12 text-danger">
                   <?php 
@@ -144,132 +149,18 @@
                 </label>
               </div>
               <?php echo form_close();?>
-              <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo site_url('admin_products/index'); ?>'"><i class="fa fa-backward">  Back</i></button>
-                </div>
-              </div>
+              <button class="btn btn-primary " onclick="window.location='<?php echo site_url('admin_products/index'); ?>'"><i class="fa fa-backward">  Back</i></button>
             </div>
           </div>
+        </div>
       </div>
-  
+    </div>
+  </div>  
   <!-- tags -->
   <script src="<?php echo base_url('assets/js/tags/jquery.tagsinput.min.js')?>"></script>
   <!-- switchery -->
   <script src="<?php echo base_url('assets/js/switchery/switchery.min.js')?>"></script>
-  <!-- daterangepicker -->
-  <!-- select2 -->
-  <script src="<?php echo base_url('assets/js/select/select2.full.js')?>"></script>
-  <!-- form validation -->
-  <script type="text/javascript" src="<?php echo base_url('assets/js/parsley/parsley.min.js')?>"></script>
-  <!-- textarea resize -->
-  <script src="<?php echo base_url('assets/js/textarea/autosize.min.js')?>"></script>
-  <script>
-    autosize($('.resizable_textarea'));
-  </script>
-  <!-- Autocomplete -->
-  <script type="text/javascript" src="<?php echo base_url('assets/js/autocomplete/countries.js')?>"></script>
-  <script src="<?php echo base_url('assets/js/autocomplete/jquery.autocomplete.js')?>"></script>
-  <!-- pace -->
-  <script src="<?php echo base_url('assets/js/pace/pace.min.js')?>"></script>
-  <script type="text/javascript">
-    $(function() {
-      'use strict';
-      var countriesArray = $.map(countries, function(value, key) {
-        return {
-          value: value,
-          data: key
-        };
-      });
-      // Initialize autocomplete with custom appendTo:
-      $('#autocomplete-custom-append').autocomplete({
-        lookup: countriesArray,
-        appendTo: '#autocomplete-container'
-      });
-    });
-  </script>
-  <script src="<?php echo base_url('assets/js/custom.js');?>"></script>
-
-
-  <!-- select2 -->
-  <script>
-    $(document).ready(function() {
-      $(".select2_single").select2({
-        placeholder: "Select a state",
-        allowClear: true
-      });
-      $(".select2_group").select2({});
-      $(".select2_multiple").select2({
-        maximumSelectionLength: 4,
-        placeholder: "With Max Selection limit 4",
-        allowClear: true
-      });
-    });
-  </script>
-  <!-- /select2 -->
-  <!-- input tags -->
-  <script>
-    function onAddTag(tag) {
-      alert("Added a tag: " + tag);
-    }
-
-    function onRemoveTag(tag) {
-      alert("Removed a tag: " + tag);
-    }
-
-    function onChangeTag(input, tag) {
-      alert("Changed a tag: " + tag);
-    }
-
-    $(function() {
-      $('#tags_1').tagsInput({
-        width: 'auto'
-      });
-    });
-  </script>
-  <!-- /input tags -->
-  <!-- form validation -->
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $.listen('parsley:field:validate', function() {
-        validateFront();
-      });
-      $('#demo-form .btn').on('click', function() {
-        $('#demo-form').parsley().validate();
-        validateFront();
-      });
-      var validateFront = function() {
-        if (true === $('#demo-form').parsley().isValid()) {
-          $('.bs-callout-info').removeClass('hidden');
-          $('.bs-callout-warning').addClass('hidden');
-        } else {
-          $('.bs-callout-info').addClass('hidden');
-          $('.bs-callout-warning').removeClass('hidden');
-        }
-      };
-    });
-
-    $(document).ready(function() {
-      $.listen('parsley:field:validate', function() {
-        validateFront();
-      });
-      $('#demo-form2 .btn').on('click', function() {
-        $('#demo-form2').parsley().validate();
-        validateFront();
-      });
-      var validateFront = function() {
-        if (true === $('#demo-form2').parsley().isValid()) {
-          $('.bs-callout-info').removeClass('hidden');
-          $('.bs-callout-warning').addClass('hidden');
-        } else {
-          $('.bs-callout-info').addClass('hidden');
-          $('.bs-callout-warning').removeClass('hidden');
-        }
-      };
-    });
-    try {
-      hljs.initHighlightingOnLoad();
-    } catch (err) {}
-  </script>
-  <!-- /form validation -->
+  <script src="<?php echo base_url('assets/js/custom.js');?>"></script> 
   <!-- editor -->
   <script>
     $(document).ready(function() {

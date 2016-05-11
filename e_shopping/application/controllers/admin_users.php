@@ -10,7 +10,7 @@ class Admin_users extends MY_Controller
     //Show login form
 	public function index()
 	{
-		$data['users'] = $this->admin_model->get_rows('users', array('privilege' => 1));
+		$data['users'] = $this->user_model->get_rows('users', array('privilege' => 1));
 		
 		$this->admin_views('admin/users', $data);
 	}
@@ -19,7 +19,7 @@ class Admin_users extends MY_Controller
 	public function edit_user($user_id)
 	{
 		$condition = array('user_id' => $user_id);
-		$data['user'] = $this->admin_model->getwhere_data('users', $condition);
+		$data['user'] = $this->user_model->getwhere_data('users', $condition);
 		
 		$this->admin_views('admin/edit_user', $data);
 	}
@@ -27,7 +27,7 @@ class Admin_users extends MY_Controller
 	public function delete_user($user_id)
 	{
 		$data = array('user_id' => $user_id);
-		$result = $this->admin_model->delete_row('users', $data);
+		$result = $this->user_model->delete_row('users', $data);
 		if($result)
 		{
 			$this->session->set_flashdata('successful', 'Your data deleted successfully.');
@@ -56,7 +56,7 @@ class Admin_users extends MY_Controller
 						'first_name' => $this->input->post('first_name'),
 						'last_name' => $this->input->post('last_name'),
 						'email_id' => $this->input->post('email_id'),
-						'contect_no' => $this->input->post('contect_no'),
+						'contact_no' => $this->input->post('contact_no'),
 						'address' => $this->input->post('address'),
 						'city' => $this->input->post('city'),
 						'zip_code' => $this->input->post('zip_code'),
@@ -71,7 +71,7 @@ class Admin_users extends MY_Controller
 				$condition = array(
 					'user_id' => $this->input->post('user_id'),
 				);
-				$result = $this->admin_model->update_row('users', $data, $condition);
+				$result = $this->user_model->update_row('users', $data, $condition);
 				$user_id = $this->input->post('user_id');
 				if($result)
 				{
@@ -84,7 +84,7 @@ class Admin_users extends MY_Controller
 
 	public function email_check($email)
 	{
-		$result = $this->admin_model->check_duplicate($this->input->post('user_id'), $email);
+		$result = $this->user_model->check_duplicate($this->input->post('user_id'), $email);
 
 		if ($result)
 		{

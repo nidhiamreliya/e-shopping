@@ -13,12 +13,12 @@ class Admin_products extends MY_Controller
 	{
 		if($category_id)
 		{
-			$category 			= array('category_id' => $category_id);
-			$data['products']	= $this->admin_model->get_rows('product', $category);
+			$category 		 = array('category_id' => $category_id);
+			$data['products']= $this->user_model->get_rows('product', $category);
 		}
 		else
 		{
-			$data['products']	= $this->admin_model->get_data('product');
+			$data['products']= $this->user_model->get_data('product');
 		}
 		$this->admin_views('admin/products', $data);
 	}
@@ -27,13 +27,14 @@ class Admin_products extends MY_Controller
 	{
 		if($product_id)
 		{
-			$condition			= array('product_id' => $product_id);
-			$data['product']	= $this->admin_model->getwhere_data('product', $condition);
+			$condition		 = array('product_id' => $product_id);
+			$data['product'] = $this->user_model->getwhere_data('product', $condition);
+			$data['category']= $this->user_model->get_data('category');
 		}
 		else
 		{
-			$data['product']	= null;
-			$data['category']	= $this->admin_model->get_data('category');
+			$data['product'] = null;
+			$data['category']= $this->user_model->get_data('category');
 		}
 		
 		$this->admin_views('admin/edit_product', $data);
@@ -41,12 +42,12 @@ class Admin_products extends MY_Controller
 
 	public function delete_product($product_id)
 	{
-		$data 			= array('product_id' => $product_id);
-		$check_inorder	= $this->admin_model->get_product($product_id);
+		$data 		  = array('product_id' => $product_id);
+		$check_inorder= $this->user_model->get_product($product_id);
 
 		if($check_inorder)
 		{
-			$result		= $this->admin_model->delete_row('product', $data);
+			$result = $this->user_model->delete_row('product', $data);
 
 			if($result)
 			{
@@ -68,6 +69,16 @@ class Admin_products extends MY_Controller
 		}
 		else
 		{
+			if($this->input->post('visible') == 1)
+			{
+				$condition = array('category_id' => $this->input->post('category_id'), 'status' => 0);
+				$check_category = $this->user_model->get_rows('category', $condition);
+				if($check_category)
+				{
+					$this->session->set_flashdata('info', 'Category of this product is not visible, Please make category as visible to display this product.');
+					redirect('admin_products/edit_products/'.$this->input->post('product_id'));
+				}
+			}
 			$data = array(
 					'product_name'	=> $this->input->post('product_name'),
 					'category_id'	=> $this->input->post('category_id'),
@@ -84,7 +95,7 @@ class Admin_products extends MY_Controller
 						'product_id'	=> $this->input->post('product_id')
 					);
 					$product_id = $this->input->post('product_id');
-					$result		= $this->admin_model->update_row('product', $data, $condition);
+					$result		= $this->user_model->update_row('product', $data, $condition);
 				}
 				else
 				{
@@ -96,13 +107,13 @@ class Admin_products extends MY_Controller
 				$result = $this->duplicate_check($this->input->post('product_name'));
 				if($result)
 				{	
-					$result 	= $this->admin_model->insert_row('product', $data);
+					$result 	= $this->user_model->insert_row('product', $data);
 					$product_id = $result;
 
 					$condition 	= array(
 						'product_id' 	=> $product_id
 					);
-					$result 	= $this->admin_model->update_row('product', $data, $condition);
+					$result 	= $this->user_model->update_row('product', $data, $condition);
 				}
 				else
 				{
@@ -127,7 +138,7 @@ class Admin_products extends MY_Controller
 		{
 			$product_id = null;
 		}
-		$result = $this->admin_model->check_product($product_id, $this->input->post('category_id'), $product);
+		$result = $this->user_model->check_product($product_id, $this->input->post('category_id'), $product);
 		if ($result)
 		{
 			$this->session->set_flashdata('duplicate', 'This product name already exist');
@@ -141,37 +152,48 @@ class Admin_products extends MY_Controller
 	//Upadate user's profile picture
 	public function product_pic()
 	{
-		$values 			 = $this->config->config;
-		$values['file_name'] = $this->input->post('product_id');
-		$this->load->library('upload', $values);
-
-		if ( ! $this->upload->do_upload('image'))
+		if($this->input->post('product_id'))
 		{
-			echo $this->upload->display_errors();
+			$values 			 = $this->config->config;
+			$values['file_name'] = $this->input->post('product_id');
+			$this->load->library('upload', $values);
 
-			$error = array(
-					'error'	=> $this->upload->display_errors()
-				);
+			if ( ! $this->upload->do_upload('image'))
+			{
+				echo $this->upload->display_errors();
 
-			$this->session->set_flashdata('error', $error);
-			redirect('admin_products/edit_products/' . $product_id);
-		}
-		else
-   		{   
-   			$upload_data 	= $this->upload->data(); 
-			$file_name 		= $upload_data['file_name'];
-			$condition 		= array(
-					'product_id' 	=> $this->input->post('product_id')
-				);
-			$data = array(
-					'product_img'	=> $file_name
-				);
-			$result 		= $this->admin_model->update_row('product', $data, $condition);
+				$error = array(
+						'error'	=> $this->upload->display_errors()
+					);
 
-			$this->session->set_flashdata('successful', 'Your data inserted successfully.');
+				$this->session->set_flashdata('error', $error);
+				redirect('admin_products/edit_products/' . $this->input->post('product_id'));
+			}
+			else
+	   		{   
+	   			$upload_data 	= $this->upload->data(); 
+				$file_name 		= $upload_data['file_name'];
+				$condition 		= array(
+						'product_id' 	=> $this->input->post('product_id')
+					);
+				$data = array(
+						'product_img'	=> $file_name
+					);
+				$result 		= $this->user_model->update_row('product', $data, $condition);
 
-			redirect('admin_products/edit_products/'.$this->input->post('product_id'));
-   		}
+				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
+
+				redirect('admin_products/edit_products/'.$this->input->post('product_id'));
+	   		}
+	   	}
+	   	else
+	   	{
+	   		$error = array(
+						'error'	=> 'First enter data for product.'
+					);
+	   		$this->session->set_flashdata('error', $error);
+	   		redirect('admin_products/edit_products');
+	   	}
     }
 }
 ?>

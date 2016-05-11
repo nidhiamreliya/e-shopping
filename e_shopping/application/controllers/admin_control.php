@@ -22,7 +22,6 @@ class Admin_control extends MY_Controller
 	//Show login form
 	public function edit_password()
 	{
-		echo "head";
 		if ($this->form_validation->run() == FALSE )
 		{
 			$this->change_password();
@@ -30,13 +29,16 @@ class Admin_control extends MY_Controller
 		else
 		{
 			$password = create_password($this->input->post('password'));
+
 			$data = array(
 					'password' => $password
 				);
+
 			$condition = array(
 				'user_id' => $this->session->userdata('user_id')
 			);
-			$result = $this->admin_model->update_row('users', $data, $condition);
+
+			$result = $this->user_model->update_row('users', $data, $condition);
 			if($result)
 			{
 				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
@@ -49,10 +51,9 @@ class Admin_control extends MY_Controller
 
 	public function password_check($password)
 	{
-		echo "callback";
-		$password = create_password($password);
-		$user_id = $this->session->userdata('user_id');
-		$result = $this->admin_model->get_fields('users', array('password'), array('user_id' => $user_id));
+		$password 	= create_password($password);
+		$user_id	= $this->session->userdata('user_id');
+		$result		= $this->user_model->get_fields('users', array('password'), array('user_id' => $user_id));
 		
 		if ($result['password'] == $password)
 		{

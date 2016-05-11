@@ -10,14 +10,14 @@ class Admin_orders extends MY_Controller
     //Show login form
 	public function index()
 	{
-		$data['orders'] = $this->admin_model->get_data('order');
+		$data['orders'] = $this->user_model->get_data('order');
 		
 		$this->admin_views('admin/orders', $data);
 	}
 
 	public function order_details($order_no = null)
 	{
-		$data['order_details'] = $this->admin_model->order_details($order_no);
+		$data['order_details'] = $this->user_model->order_details($order_no);
 		$data['order_no'] = $order_no;
 		$this->admin_views('admin/order_details', $data);
 	}
@@ -29,7 +29,7 @@ class Admin_orders extends MY_Controller
 			'delivery_date'=> date('Y-m-d'),
 			'status'=> $status
 		);
-		$result = $this->admin_model->update_row('order', $data, $condition);
+		$result = $this->user_model->update_row('order', $data, $condition);
 		redirect('admin_orders');
 	}
 }

@@ -15,6 +15,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="<?php echo base_url("assets/fonts/css/font-awesome.min.css") ?>" rel="stylesheet">
 <!-- js -->
 <script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url("assets/js/validate_user.js"); ?>"></script>  
 <!-- //js -->
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="<?php echo base_url('assets/js/move-top.js')?>"></script>

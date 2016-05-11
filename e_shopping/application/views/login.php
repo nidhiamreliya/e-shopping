@@ -10,8 +10,9 @@
            <p>If you have previously Register with us,
           <?php
             $data = array(
-                  'name'  => 'login',
-                  'id' => 'login',
+                  'name'      => 'login',
+                  'id'        => 'login',
+                  'onsubmit'  => 'return login_check()'
                 );
           ?> 
           <?php echo form_open('user_control/check_user', $data);?>

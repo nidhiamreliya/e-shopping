@@ -31,7 +31,7 @@
                     <th>First name</th>
                     <th>last name</th>
                     <th>Email id</th>
-                    <th>Contect no.</th>
+                    <th>Contact no.</th>
                     <th>Address</th>
                     <th>City</th>
                     <th>Zip code</th>
@@ -51,7 +51,7 @@
                       <td><?php echo $row->first_name ?></td>
                       <td><?php echo $row->last_name ?></td>
                       <td><?php echo $row->email_id ?></td>
-                      <td><?php echo $row->contect_no ?></td>
+                      <td><?php echo $row->contact_no ?></td>
                       <td><?php echo $row->address ?></td>
                       <td><?php echo $row->city ?></td>
                       <td><?php echo $row->zip_code ?></td>
