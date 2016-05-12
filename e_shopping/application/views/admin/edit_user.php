@@ -41,6 +41,7 @@
                     </label>
                     <div class="col-md-7 col-sm-7 col-xs-12">
                       <input type="hidden" id="user_id" name="user_id" class="form-control col-md-7 col-xs-12" value="<?php echo $user['user_id'] ?>">
+                      <input type="hidden" id="slug" name="slug" class="form-control col-md-7 col-xs-12" value="<?php echo $user['slug'] ?>">
                       <input type="text" id="first_name" name="first_name"  class="form-control col-md-7 col-xs-12" value="<?php echo $user['first_name'] ?>">
                       <label class="col-md-8 text-danger">
                         <?php echo form_error('first_name'); ?>

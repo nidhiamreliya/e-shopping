@@ -15,7 +15,7 @@
 				<?php foreach ($nacklaces as $row):?>		
 					<li>
 						<div class="sliderfig-grid">
-							<img src="<?php echo base_url('assets/images/products').'/'. $row->product_img?>" alt=" " class="img-responsive" height="100%" width="150"/>
+							<img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'. $row->product_img : base_url('assets/images/products/default.jpg') ?>" alt=" " class="img-responsive" height="100%" width="150"/>
 						</div>
 					</li>
 				<?php endforeach ?>
@@ -70,12 +70,12 @@
 				?>
 						<div class="col-md-2 product-left"> 
 							<div class="p-two simpleCart_shelfItem jwe">							
-									<a href="<?php echo site_url('user_control/product_details').'/'.$row->product_id?>">
-										<img src="<?php echo base_url('assets/images/products').'/'.$row->product_img?>" alt="" class="img-responsive" />
-										<div class="mask">
-											<span>Quick View</span>
-										</div>
-									</a>
+								<a href="<?php echo site_url('user_control/product_details').'/'.$row->slug?>">
+									<img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'.$row->product_img : base_url('assets/images/products/default.jpg')?>" alt="" class="img-responsive" />
+									<div class="mask">
+										<span>Quick View</span>
+									</div>
+								</a>
 								<div class="product-left-cart">
 									<div class="product-left-cart-l text-center">
 										<p><a class="item_add" href="#"><span class=" item_price"><i class="fa fa-inr" aria-hidden="true"></i><?php echo $row->product_price?></span></a></p>

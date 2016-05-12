@@ -14,7 +14,6 @@
                         );
                 ?> 
                 <?php echo form_open('user_control/insert_user', $data);?>
-                <!-- <form name="registration" id="registration" class="form-horizontal" onsubmit="return form_validation()" method="post" ac> -->
 					<ul>
 						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">First Name: </li>
 						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="first_name" name="first_name" value="<?php echo set_value('first_name')?>">
@@ -40,10 +39,10 @@
                         </li>
 					</ul>
 					<ul>
-						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">Contect no.: </li>
-						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="contect_no" name="contect_no"  value="<?php echo set_value('contect_no')?>">
+						<li class="text-info control-label col-md-3 col-sm-3 col-xs-12">Contact no.: </li>
+						<li class="col-md-7 col-sm-7 col-xs-12"><input type="text" id="contact_no" name="contact_no"  value="<?php echo set_value('contact_no')?>">
 						<label class="text-danger">
-                          <?php echo form_error('contect_no'); ?>
+                          <?php echo form_error('contact_no'); ?>
                         </label>
                         </li>
 					</ul>

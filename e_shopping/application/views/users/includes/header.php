@@ -108,7 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           <div class="h_nav">
             <ul>
             <?php foreach ($category as $row):?>
-              <li><a href="<?php echo site_url('user_products/index').'/'.$row->category_id ?>"><?php echo $row->category_name ?></a></li>
+              <li><a href="<?php echo site_url('user_products/index').'/'.$row->slug ?>"><?php echo $row->category_name ?></a></li>
             <?php endforeach ?>
             </ul> 
           </div>              

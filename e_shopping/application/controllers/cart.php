@@ -12,40 +12,6 @@ class Cart extends MY_Controller
     $this->cart_details();
   }
 
-  public function add_item()
-  {
-    if($this->session->userdata('user_id'))
-    {
-      $data= array(
-              'user_id' => $this->session->userdata('user_id'),
-              'product_id' => $this->input->post('product_id'),
-              'quantity' => $this->input->post('quantity')
-        );
-      $check = $this->user_model->check_cart('cart', $this->session->userdata('user_id'), $this->input->post('product_id'));
-      if($check)
-      {
-        $this->session->set_flashdata('alredy_exist', 'This product is already exist in your cart.');
-        redirect('user_control/product_details'.'/'.$this->input->post('product_id'));
-      }
-      else
-      {
-        $result = $this->user_model->insert_row('cart', $data);
-        if($result)
-        {
-          redirect('cart/cart_details');
-        }
-        else
-        {
-          redirect('user_control/product_details'.'/'.$this->input->post('product_id'));
-        }
-      }
-    }
-    else
-    {
-      redirect('user_control');
-    }
-  }
-
   public function cart_details()
   {
     $data['cart'] = $this->user_model->cart_details($this->session->userdata('user_id'));
@@ -75,7 +41,7 @@ class Cart extends MY_Controller
     {
       $this->session->set_flashdata('successful', 'Your data deleted successfully.');
     }
-    $this->cart_details();
+    redirect('cart/cart_details');
   }
 
   public function update_cart()

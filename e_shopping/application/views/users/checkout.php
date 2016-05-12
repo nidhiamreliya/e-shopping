@@ -41,8 +41,8 @@
 					<span><?php echo $user['first_name'].' '.$user['last_name'] ?></span>
 					<span>Email id:</span>
 					<span><?php echo $user['email_id'] ?></span>
-					<span>Contect no:</span>
-					<span><?php echo $user['contect_no'] ?></span>
+					<span>Contact no:</span>
+					<span><?php echo $user['contact_no'] ?></span>
 					<span>Address:</span>
 					<span><?php echo $user['address'] ?>,<br/>
 					<?php echo $user['city'] ?>,

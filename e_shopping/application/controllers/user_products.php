@@ -7,11 +7,14 @@ class User_products extends MY_Controller
     }
 
     //Show login form
-	public function index($category = NULL)
+	public function index($slug = NULL)
 	{
-		if($category)
+		if($slug)
 		{
-			$condition = array('category_id' => $category, 'visible' => 1);
+			$category 		 = array('slug' => $slug);
+			$category	 = $this->user_model->get_fields('category', array('category_id'), $category);
+			
+			$condition = array('category_id' => $category['category_id'], 'visible' => 1);
 			$data['products'] = $this->user_model->get_rows('product', $condition);
 			$data['category'] = $this->user_model->get_rows('category', array('status' => 1));
 			$this->user_views('users/products', $data);

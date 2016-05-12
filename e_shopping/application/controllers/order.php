@@ -9,8 +9,8 @@ class Order extends MY_Controller
   public function checkout()
   {
     $data['checkout'] = $this->user_model->cart_details($this->session->userdata('user_id'));
-    $condition = array('user_id' => $this->session->userdata('user_id'));
-    $data['user'] = $this->user_model->getwhere_data('users', $condition);
+    $condition 		  = array('user_id' => $this->session->userdata('user_id'));
+    $data['user'] 	  = $this->user_model->getwhere_data('users', $condition);
     $this->user_views('users/checkout', $data);
   }
   public function order_details($order_no = null)
@@ -38,12 +38,12 @@ class Order extends MY_Controller
 	    }
 	    else
 	    {
-	    	$address = implode(',',$this->input->post());
-	      	$data = array(
-	                  'user_id' => $this->session->userdata('user_id'),
-	                  'order_date' => date('Y-m-d'),
+	    	$address  = implode(',',$this->input->post());
+	      	$data 	  = array(
+	                  'user_id' 		 => $this->session->userdata('user_id'),
+	                  'order_date' 		 => date('Y-m-d'),
 	                  'shipping_address' => ltrim($address,$this->input->post('amount').','),
-	                  'amount' => $this->input->post('amount')
+	                  'amount' 			 => $this->input->post('amount')
 	        );
 	      	$order_no = $this->user_model->insert_row('order', $data);
 
@@ -53,17 +53,18 @@ class Order extends MY_Controller
 	        	foreach ($products as $row) 
 	        	{
 	        	  $data = array(
-	                    'order_no' => $order_no,
-	                    'product_id' => $row['product_id'],
-	                    'quantity' => $row['quantity']
+	                    'order_no'		=> $order_no,
+	                    'product_id' 	=> $row['product_id'],
+	                    'quantity' 		=> $row['quantity']
 	        		);
 	        	  $detail_id = $this->user_model->insert_row('order_details', $data);
 	        	}
 	        	if($detail_id)
 		        {
-		        	$data = array('user_id' => $this->session->userdata('user_id'));
+		        	$data 	= array('user_id' => $this->session->userdata('user_id'));
 		        	$result = $this->user_model->delete_row('cart',$data);
 		        }
+
 		        $this->session->set_flashdata('successful', 'Your order placed sucessfully.');
 		        redirect('order/order_details'.'/'.$order_no);
 		    }

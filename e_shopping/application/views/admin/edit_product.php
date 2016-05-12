@@ -108,10 +108,13 @@
                      <div class="col-md-6 col-sm-6 col-xs-12">
                         <div id="status" class="btn-group" data-toggle="buttons">
                           <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="visible" <?php echo isset($product['visible']) && $product['visible'] == 1 ? 'checked': ''?> value="1"> &nbsp; Visible &nbsp;
+                            <input type="radio" name="visible" id="visible" <?php echo isset($product['visible']) && $product['visible'] == 1 ? 'checked': ''?> value="1"> Visible 
                           </label>
                           <label class="btn btn-primary active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                            <input type="radio" name="visible" <?php echo isset($product['visible']) && $product['visible'] == 0 ? 'checked' : ''?> value="0"> Not visible
+                            <input type="radio" name="visible" id="visible" <?php echo isset($product['visible']) && $product['visible'] == 0 ? 'checked' :''?> value="0"> Not visible
+                          </label>
+                          <label class="col-md-8 text-danger">
+                            <?php echo form_error('visible'); ?>
                           </label>
                         </div>
                       </div>
@@ -134,8 +137,10 @@
               ?> 
               <?php echo form_open_multipart('admin_products/product_pic', $data);?>
               <div class="col-md-3 col-sm-3">
-                <img height="185" width="220" src="<?php echo isset($product['product_img']) ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/12.jpg')?>">
+                <img height="185" width="220" src="<?php echo isset($product['product_img']) && $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/12.jpg')?>">
                 <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['product_id']) ? $product['product_id'] : ''?>">
+                <input type="hidden" id="slug" name="slug" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['slug']) ? $product['slug'] : ''?>">
+                
                 <input type="file" id="image" name="image"  class="form-control">
                 <button type="submit" class="btn btn-success btn-block">Upload image</button>
                 <label class="col-md-12 text-danger">

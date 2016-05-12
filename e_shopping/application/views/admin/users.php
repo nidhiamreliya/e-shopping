@@ -49,15 +49,15 @@
                   <?php foreach($users as $row):?>
                     <tr>
                       <td><?php echo $row->first_name ?></td>
-                      <td><?php echo $row->last_name ?></td>
-                      <td><?php echo $row->email_id ?></td>
+                      <td><?php echo $row->last_name  ?></td>
+                      <td><?php echo $row->email_id   ?></td>
                       <td><?php echo $row->contact_no ?></td>
-                      <td><?php echo $row->address ?></td>
-                      <td><?php echo $row->city ?></td>
-                      <td><?php echo $row->zip_code ?></td>
-                      <td><?php echo $row->state ?></td>
-                      <td><?php echo $row->country ?></td>
-                      <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo site_url('admin_users/edit_user').'/'. $row->user_id ?>"></a></td>
+                      <td><?php echo $row->address    ?></td>
+                      <td><?php echo $row->city       ?></td>
+                      <td><?php echo $row->zip_code   ?></td>
+                      <td><?php echo $row->state      ?></td>
+                      <td><?php echo $row->country    ?></td>
+                      <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo site_url('admin_users/edit_user').'/'. $row->slug ?>"></a></td>
                       <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->first_name ?> \'?');" href="<?php echo site_url('admin_users/delete_user').'/'.$row->user_id ?>"></a></td>
                     </tr>
                   <?php endforeach ?> 

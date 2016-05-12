@@ -13,16 +13,18 @@ class Admin_categorys extends MY_Controller
 		$data['category'] = $this->user_model->get_data('category');
 		$this->admin_views('admin/category_list', $data);
 	}
-	public function edit_category($category = NULL)
+	public function edit_category($slug = NULL)
 	{
-		if($category)
+		if($slug)
 		{
-			$condition = array('category_id' => $category);
-			$data['category'] = $this->user_model->getwhere_data('category', $condition);
+			$category 	 		= array('slug' => $slug);
+			$category	 		= $this->user_model->get_fields('category', array('category_id'), $category);
+			
+			$data['category'] 	= $this->user_model->getwhere_data('category', $category);
 		}
 		else
 		{
-			$data['category'] = null;
+			$data['category'] 	= null;
 		}
 		
 		$this->admin_views('admin/edit_category', $data);
@@ -36,14 +38,16 @@ class Admin_categorys extends MY_Controller
 		}
 		else
 		{
+			$slug 	= url_title($this->input->post('category_name'), 'dash', TRUE);
+			$data 	= array(
+					'category_name' => $this->input->post('category_name'),
+					'status'		=> $this->input->post('visible'),
+					'slug'			=> $slug
+			);
 			if($this->input->post('category_id') != null)
 			{
-				$data = array(
-					'category_name' => $this->input->post('category_name'),
-					'status'		=> $this->input->post('visible')
-				);
 				$condition = array(
-					'category_id' => $this->input->post('category_id'),
+						'category_id'   => $this->input->post('category_id'),
 				);
 
 				$result = $this->user_model->update_row('category', $data, $condition);
@@ -51,10 +55,6 @@ class Admin_categorys extends MY_Controller
 			}
 			else
 			{
-				$data = array(
-						'category_name' => $this->input->post('category_name'),
-						'status'		=> $this->input->post('visible')
-					);
 				$result = $this->user_model->insert_row('category', $data);
 			}
 			if($result)
@@ -65,15 +65,39 @@ class Admin_categorys extends MY_Controller
 			
 		}
 	}
-	public function delete_category($category_id)
+
+	public function duplicate_check($category_name)
 	{
-		$data 		= array('category_id' => $category_id);
-		$is_ordered	= $this->user_model->get_category($category_id);
+		if($this->input->post('category_id') != null)
+		{
+			$is_exist		= $this->user_model->cat_duplicate($category_name, $this->input->post('category_id'));
+		}
+		else
+		{
+			$is_exist		= $this->user_model->cat_duplicate($category_name);
+		}
+		if($is_exist)
+		{
+			$this->form_validation->set_message('duplicate_check', 'This category name already exist');
+			return FALSE;
+		}
+		else
+		{
+			return True;
+		}
+	}
+
+	public function delete_category($slug)
+	{
+		$category 		= array('slug' => $slug);
+		$category	= $this->user_model->get_fields('category', array('category_id'), $category);
+
+		
+		$is_ordered		= $this->user_model->get_category($category['category_id']);
 
 		if($is_ordered)
 		{
-			$data   = array('category_id' => $category_id);
-			$result = $this->user_model->delete_row('category', $data);
+			$result = $this->user_model->delete_row('category', $category);
 			if($result)
 			{
 				$this->session->set_flashdata('successful', 'Your data deleted successfully.');

@@ -9,11 +9,14 @@ class Admin_products extends MY_Controller
     }
 
     //Show product list
-	public function index($category_id = NULL)
+	public function index($category_slug = NULL)
 	{
-		if($category_id)
+		if($category_slug)
 		{
-			$category 		 = array('category_id' => $category_id);
+			$category 		 = array('slug' => $category_slug);
+			$category_id	 = $this->user_model->get_fields('category', array('category_id'), $category);
+			
+			$category 		 = array('category_id' => $category_id['category_id']);
 			$data['products']= $this->user_model->get_rows('product', $category);
 		}
 		else
@@ -23,12 +26,14 @@ class Admin_products extends MY_Controller
 		$this->admin_views('admin/products', $data);
 	}
 	//Show edit product
-	public function edit_products($product_id = NULL)
+	public function edit_products($slug = NULL)
 	{
-		if($product_id)
+		if($slug)
 		{
-			$condition		 = array('product_id' => $product_id);
-			$data['product'] = $this->user_model->getwhere_data('product', $condition);
+			$product 		 = array('slug' => $slug);
+			$product 		 = $this->user_model->get_fields('product', array('product_id'), $product);
+			
+			$data['product'] = $this->user_model->getwhere_data('product', $product);
 			$data['category']= $this->user_model->get_data('category');
 		}
 		else
@@ -65,13 +70,13 @@ class Admin_products extends MY_Controller
 	{
 		if ($this->form_validation->run() == FALSE )
 		{
-			$this->edit_products($this->input->post('product_id'));
+			$this->edit_products($this->input->post('slug'));
 		}
 		else
 		{
 			if($this->input->post('visible') == 1)
 			{
-				$condition = array('category_id' => $this->input->post('category_id'), 'status' => 0);
+				$condition 		= array('category_id' => $this->input->post('category_id'), 'status' => 0);
 				$check_category = $this->user_model->get_rows('category', $condition);
 				if($check_category)
 				{
@@ -79,13 +84,17 @@ class Admin_products extends MY_Controller
 					redirect('admin_products/edit_products/'.$this->input->post('product_id'));
 				}
 			}
-			$data = array(
-					'product_name'	=> $this->input->post('product_name'),
-					'category_id'	=> $this->input->post('category_id'),
-					'description'	=> $this->input->post('description'),
-					'product_price'	=> $this->input->post('price'),
-					'visible'		=> $this->input->post('visible')
-				);
+			$category = $this->user_model->get_fields('category', array('category_name'), array('category_id' => $this->input->post('category_id')));
+			$slug 	  = url_title($category['category_name'].'-'.$this->input->post('product_name'), '-', TRUE);
+
+			$data 	  = array(
+						'product_name'	=> $this->input->post('product_name'),
+						'category_id'	=> $this->input->post('category_id'),
+						'description'	=> $this->input->post('description'),
+						'product_price'	=> $this->input->post('price'),
+						'visible'		=> $this->input->post('visible'),
+						'slug'			=> $slug
+					);
 			if($this->input->post('product_id') != null)
 			{
 				$result = $this->duplicate_check($this->input->post('product_name'));
@@ -99,7 +108,7 @@ class Admin_products extends MY_Controller
 				}
 				else
 				{
-					$this->edit_products($this->input->post('product_id'));
+					$this->edit_products($slug);
 				}	
 			}
 			else
@@ -117,36 +126,36 @@ class Admin_products extends MY_Controller
 				}
 				else
 				{
-					$this->edit_products($this->input->post('product_id'));
+					$this->edit_products($slug);
 				}
 			}
 			if($result)
 			{
 				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
-				redirect('admin_products/edit_products/'.$product_id);
+				redirect('admin_products/edit_products/'.$slug);
 			}
 			
 		}
 	}
-	public function duplicate_check($product)
+
+	public function duplicate_check($product_name)
 	{
-		if($this->input->post('product_id'))
+		if($this->input->post('product_id') != null)
 		{
-			$product_id = $this->input->post('product_id');
+			$is_exist		= $this->user_model->check_product($this->input->post('product_id'), $this->input->post('category_id'), $product_name);
 		}
 		else
 		{
-			$product_id = null;
+			$is_exist		= $this->user_model->check_product($this->input->post('category_id'), $product_name);
 		}
-		$result = $this->user_model->check_product($product_id, $this->input->post('category_id'), $product);
-		if ($result)
+		if($is_exist)
 		{
-			$this->session->set_flashdata('duplicate', 'This product name already exist');
+			$this->form_validation->set_message('duplicate_check', 'This product name already exist');
 			return FALSE;
 		}
 		else
 		{
-			return TRUE;
+			return True;
 		}
 	}
 	//Upadate user's profile picture
@@ -156,18 +165,17 @@ class Admin_products extends MY_Controller
 		{
 			$values 			 = $this->config->config;
 			$values['file_name'] = $this->input->post('product_id');
+
 			$this->load->library('upload', $values);
 
 			if ( ! $this->upload->do_upload('image'))
 			{
 				echo $this->upload->display_errors();
-
 				$error = array(
 						'error'	=> $this->upload->display_errors()
 					);
-
 				$this->session->set_flashdata('error', $error);
-				redirect('admin_products/edit_products/' . $this->input->post('product_id'));
+				redirect('admin_products/edit_products/' . $this->input->post('slug'));
 			}
 			else
 	   		{   
@@ -183,7 +191,7 @@ class Admin_products extends MY_Controller
 
 				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
 
-				redirect('admin_products/edit_products/'.$this->input->post('product_id'));
+				redirect('admin_products/edit_products/'.$this->input->post('slug'));
 	   		}
 	   	}
 	   	else

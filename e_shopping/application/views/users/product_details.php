@@ -9,16 +9,38 @@
                   'id' => 'add_to_cart',
                 );
         ?> 
-        <?php echo form_open('cart/add_item', $data);?>	
+        <?php echo form_open('user_control/add_item', $data);?>	
         <?php 
         	if(!$product)
         	{
         		redirect('user_products');
         	}
         ?>				 
-		<div class="details-lft-inf">
-			<img class="preview" src="<?php echo base_url('assets/images/products').'/'.$product['product_img'] ?>" />
+		<div class="flexslider details-lft-inf">
+			<ul class="slides">
+				<li>
+					<img class="preview" src="<?php echo $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/products/default.jpg') ?>" />
+				</li>
+				<li>
+					<img class="preview" src="<?php echo $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/products/default.jpg') ?>" />
+				</li>
+				<li>
+					<img class="preview" src="<?php echo $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/products/default.jpg') ?>" />
+				</li>
+			</ul>
 		</div>
+			<!-- FlexSlider -->
+			  <script defer src="<?php echo base_url('assets/js/jquery.flexslider.js')?>"></script>
+			<link rel="stylesheet" href="<?php echo base_url('assets/css/flexslider.css')?>" type="text/css" media="screen" />
+
+				<script>
+			// Can also be used with $(document).ready()
+			$(window).load(function() {
+			  $('.flexslider').flexslider({
+				animation: "slide",
+			  });
+			});
+			</script>
 		</div>
 		<div class="col-md-5 col-md-offset-1">
 		<div class="details-left-info">
@@ -27,9 +49,13 @@
 			<div class="simpleCart_shelfItem">
 				<p><span class="item_price qwe"><i class="fa fa-inr" aria-hidden="true"></i>  <?php echo $product['product_price'] ?></span></p> 
 				<div class="clearfix"> </div>
-				<p class="qty">Qty ::</p><input min="1" max="10" type="number" id="quantity" name="quantity" value="1" class="form-control input-small">
+				<p class="qty">Qty ::</p><input type="number" max="10" min="1" id="quantity" name="quantity" value="1" class="form-control input-small">
+				<p class="text-danger" style="color: red; font-size: 15px;">
+                	<?php echo form_error('quantity'); ?>
+                </p>
 				<div class="single-but item_add">
 					<input type="hidden" name="product_id" id="product_id" value="<?php echo $product['product_id']?>">
+					<input type="hidden" name="slug" id="slug" value="<?php echo $product['slug']?>">
 					<input type="submit" value="add to cart">
 				</div>
 				<?php

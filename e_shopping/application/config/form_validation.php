@@ -17,7 +17,7 @@ $config = array(
 							array(
 							    'field' => 'product_name',
 							    'label' => 'Product name',
-							    'rules' => 'trim|required|xss_clean'
+							    'rules' => 'trim|required|xss_cleancallback_duplicate_check'
 							),
 							array(
 							    'field' => 'description',
@@ -28,12 +28,22 @@ $config = array(
 							    'field' => 'price',
 							    'label' => 'price',
 							    'rules' => 'trim|required|numeric|xss_clean'
+							),
+							array(
+							    'field' => 'visible',
+							    'label' => 'visible',
+							    'rules' => 'trim|required|xss_clean'
 							)
 		    ),
 		    'admin_categorys/insert_category' => array(
 							array(
 							    'field' => 'category_name',
 							    'label' => 'category name',
+							    'rules' => 'trim|required|xss_clean|callback_duplicate_check'
+							),
+							array(
+							    'field' => 'visible',
+							    'label' => 'visible',
 							    'rules' => 'trim|required|xss_clean'
 							)
 			),
@@ -107,7 +117,7 @@ $config = array(
 							array(
 							    'field' => 'address',
 							    'label' => 'Address',
-							    'rules' => 'required|xss_clean'
+							    'rules' => 'required|xss_clean|strip_tags|trim'
 							),
 							array(
 							    'field' => 'city',
@@ -147,7 +157,7 @@ $config = array(
 							array(
 							    'field' => 'confirm_password',
 							    'label' => 'Confirm password',
-							    'rules' => 'required|matches[password]'
+							    'rules' => 'required|matches[password]|xss_clean'
 							)
 			),
 			'check_duplicate' =>array(
@@ -159,6 +169,6 @@ $config = array(
 			)
 );
 $config['registeration'] = array_merge($config['check_user'], $config['register'], $config['password']);
-$config['update_user'] = array_merge($config['check_user'], $config['check_duplicate']);
-$config['edit_user'] = array_merge($config['check_user'], $config['check_duplicate'], $config['password']);
+$config['update_user'] 	 = array_merge($config['check_user'], $config['check_duplicate']);
+$config['edit_user'] 	 = array_merge($config['check_user'], $config['check_duplicate'], $config['password']);
 ?>

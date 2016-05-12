@@ -59,43 +59,43 @@ class User_control extends MY_Controller
   {
       $this->load->library('pagination');
 
-      $values = $this->config->config;
-
+      $values               = $this->config->config;
       $values["base_url"]   = site_url("/user_control/home");
       $total_row            = $this->user_model->record_count('product');
       $values["total_rows"] = $total_row;
-      $values['num_links']  = ceil($total_row/$values["per_page"]);
+      $values['num_links']  = ceil($total_row / $values["per_page"]);
 
       $this->pagination->initialize($values);
-      $page_no = $this->uri->segment(3);
+
+      $page_no              = $this->uri->segment(3);
 
       if($page_no > 0 && $page_no <= $values['num_links'])
       {
-        $page = ($page_no-1) * $values["per_page"];
+        $page   = ($page_no-1) * $values["per_page"];
       }
       else if($page_no > $values['num_links'])
       {
-        $page = ($values['num_links']-1) * $values["per_page"];
+        $page   = ($values['num_links']-1) * $values["per_page"];
       }
       else
       {
-        $page = 0;
+        $page   = 0;
       }
 
-      $fields = array('product_id', 'product_price', 'product_img');
-      $condition = array('visible' => 1);
+      $fields           = array('product_id', 'product_price', 'product_img', 'slug');
+      $condition        = array('visible' => 1);
       $data['products'] = $this->user_model->fetch_data($page, $values["per_page"], 'product', $fields, $condition);
       if($data)
       {
-        $str_links = $this->pagination->create_links();
-        $data["links"] = explode('&nbsp;',$str_links );
+        $str_links      = $this->pagination->create_links();
+        $data["links"]  = explode('&nbsp;',$str_links );
       }
       else
       {
-        $data["links"] = "sorry no data available.";
+        $data["links"]  = "sorry no data available.";
       }    
-    $condition = array('category_id' => 5, 'visible' => 1);
-    $data['nacklaces'] = $this->user_model->last_rows('product', $fields, $condition);
+    $condition          = array('category_id' => 5, 'visible' => 1);
+    $data['nacklaces']  = $this->user_model->last_rows('product', $fields, $condition);
     
     $this->user_views('users/home', $data);
   }
@@ -114,28 +114,33 @@ class User_control extends MY_Controller
     }
     else
     {
+      echo $this->input->post('contact_no');
+
       $password = create_password($this->input->post('password'));
-      $data = array(
+      $data     = array(
+                  'privilege'   => 1,
+                  'first_name'  => $this->input->post('first_name'),
+                  'last_name'   =>  $this->input->post('last_name'),
+                  'email_id'    => $this->input->post('email_id'),
+                  'password'    => $password,
+                  'contact_no'  => $this->input->post('contact_no'),
+                  'address'     => $this->input->post('address'),
+                  'city'        => $this->input->post('city'),
+                  'zip_code'    => $this->input->post('zip_code'),
+                  'state'       => $this->input->post('state'),
+                  'country'     => $this->input->post('country')
+      );
 
-          'privilege'   => 1,
-          'first_name'  => $this->input->post('first_name'),
-          'last_name'   =>  $this->input->post('last_name'),
-          'email_id'    => $this->input->post('email_id'),
-          'password'    => $password,
-          'contact_no'  => $this->input->post('contact_no'),
-          'address'     => $this->input->post('address'),
-          'city'        => $this->input->post('city'),
-          'zip_code'    => $this->input->post('zip_code'),
-          'state'       => $this->input->post('state'),
-          'country'     => $this->input->post('country')
-        );
-
-      $result = $this->user_model->insert_row('users', $data);
+      $result   = $this->user_model->insert_row('users', $data);
       if($result)
       {
         $user_data = array('user_id' => $result,'privilege' => 1, 'first_name' => $this->input->post('first_name'));
         
         $this->session->set_userdata($user_data);
+        $slug      = url_title($this->input->post('first_name').'-'.$this->input->post('last_name').'-'.$this->session->userdata('user_id'), 'dash', TRUE);
+      
+        $result    = $this->user_model->update_row('users', array('slug' => $slug), array('user_id' => $this->session->userdata('user_id')));
+
         redirect('user_control/home');
       }
       else
@@ -145,12 +150,57 @@ class User_control extends MY_Controller
     }
   }
   
-  public function product_details($product_id)
+  public function product_details($slug)
   {
-    $data['product'] = $this->user_model->getwhere_data('product',array('product_id' => $product_id));
+    $product         = array('slug' => $slug);
+    $product         = $this->user_model->get_fields('product', array('product_id'), $product);
+
+    $data['product'] = $this->user_model->getwhere_data('product',$product);
     
     $this->user_views('users/product_details', $data);
   }
 
+  public function add_item()
+  {
+    if ($this->form_validation->run('check_qty') == FALSE )
+    {
+      $this->product_details($this->input->post('slug'));
+    }
+    else
+    {
+      if($this->session->userdata('user_id'))
+      {
+        $data     = array(
+                    'user_id'     => $this->session->userdata('user_id'),
+                    'product_id'  => $this->input->post('product_id'),
+                    'quantity'    => $this->input->post('quantity')
+        );
+
+        $check    = $this->user_model->check_cart('cart', $this->session->userdata('user_id'), $this->input->post('product_id'));
+
+        if($check)
+        {
+          $this->session->set_flashdata('alredy_exist', 'This product is already exist in your cart.');
+          redirect('user_control/product_details'.'/'.$this->input->post('slug'));
+        }
+        else
+        {
+          $result = $this->user_model->insert_row('cart', $data);
+          if($result)
+          {
+            redirect('cart/cart_details');
+          }
+          else
+          {
+            redirect('user_control/product_details'.'/'.$this->input->post('slug'));
+          }
+        }
+      }
+      else
+      {
+        redirect('user_control');
+      }
+    }
+  }
 }
 ?>

@@ -10,23 +10,25 @@ class Admin_users extends MY_Controller
     //Show login form
 	public function index()
 	{
-		$data['users'] = $this->user_model->get_rows('users', array('privilege' => 1));
+		$data['users'] 	= $this->user_model->get_rows('users', array('privilege' => 1));
 		
 		$this->admin_views('admin/users', $data);
 	}
 
 	//Show edit product
-	public function edit_user($user_id)
+	public function edit_user($slug)
 	{
-		$condition = array('user_id' => $user_id);
-		$data['user'] = $this->user_model->getwhere_data('users', $condition);
+		$user 			= array('slug' => $slug);
+		$user 		 	= $this->user_model->get_fields('users', array('user_id'), $user);
+			
+		$data['user'] 	= $this->user_model->getwhere_data('users', $user);
 		
 		$this->admin_views('admin/edit_user', $data);
 	}
 
 	public function delete_user($user_id)
 	{
-		$data = array('user_id' => $user_id);
+		$data 	= array('user_id' => $user_id);
 		$result = $this->user_model->delete_row('users', $data);
 		if($result)
 		{
@@ -48,37 +50,38 @@ class Admin_users extends MY_Controller
 		}
 		if($this->form_validation->run($run) == FALSE)
 		{
-			$this->edit_user($this->input->post('user_id'));
+			$this->edit_user($this->input->post('slug'));
 		}
 		else
 		{
-				$data = array(
-						'first_name' => $this->input->post('first_name'),
-						'last_name' => $this->input->post('last_name'),
-						'email_id' => $this->input->post('email_id'),
-						'contact_no' => $this->input->post('contact_no'),
-						'address' => $this->input->post('address'),
-						'city' => $this->input->post('city'),
-						'zip_code' => $this->input->post('zip_code'),
-						'state' => $this->input->post('state'),
-						'country' => $this->input->post('country')
-					);
-				if($this->input->post('password'))
-				{
-					$password = create_password($this->input->post('password'));
-					$data['password'] = $password;
-				}
-				$condition = array(
-					'user_id' => $this->input->post('user_id'),
-				);
-				$result = $this->user_model->update_row('users', $data, $condition);
-				$user_id = $this->input->post('user_id');
-				if($result)
-				{
-					$this->session->set_flashdata('successful', 'Your data inserted successfully.');
-					redirect('admin_users/edit_user/'.$user_id);
-				}
-			
+			$slug 		= url_title($this->input->post('first_name').'-'.$this->input->post('last_name').'-'.$this->input->post('user_id'), 'dash', TRUE);
+			$data 		= array(
+							'first_name' => $this->input->post('first_name'),
+							'last_name'  => $this->input->post('last_name'),
+							'email_id' 	 => $this->input->post('email_id'),
+							'contact_no' => $this->input->post('contact_no'),
+							'address' 	 => $this->input->post('address'),
+							'city' 		 => $this->input->post('city'),
+							'zip_code' 	 => $this->input->post('zip_code'),
+							'state' 	 => $this->input->post('state'),
+							'country' 	 => $this->input->post('country'),
+							'slug' 	 	 => $slug
+						);
+			if($this->input->post('password'))
+			{
+				$password 		  = create_password($this->input->post('password'));
+				$data['password'] = $password;
+			}
+			$condition 	= array(
+							'user_id' 	 => $this->input->post('user_id'),
+						);
+
+			$result		= $this->user_model->update_row('users', $data, $condition);
+			if($result)
+			{
+				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
+				redirect('admin_users/edit_user/'.$slug);
+			}
 		}
 	}
 

@@ -62,7 +62,7 @@
                             }
                           ?>
                       </td>
-                      <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo base_url('index.php/admin_products/edit_products').'/'. $row->product_id ?>"></a></td>
+                      <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo base_url('index.php/admin_products/edit_products').'/'. $row->slug ?>"></a></td>
                       <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->product_name ?> \'?');" href="<?php echo base_url('index.php/admin_products/delete_product'). '/' . $row->product_id ?>"></a></td>
                     </tr>
                   <?php endforeach ?> 
