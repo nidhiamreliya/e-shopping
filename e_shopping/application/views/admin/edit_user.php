@@ -167,7 +167,7 @@
                 </div>
               </div>
               <?php echo form_close();?>
-              <button type="submit" class="btn btn-primary" onclick="window.location='<?php echo base_url('index.php/admin_users') ?>'"><i class="fa fa-backward">  Back</i></button>
+              <button type="submit" class="btn btn-primary" onclick="window.location='<?php echo site_url('users') ?>'"><i class="fa fa-backward">  Back</i></button>
             </div>                  
           </div>
         </div>

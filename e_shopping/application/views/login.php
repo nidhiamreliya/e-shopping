@@ -15,7 +15,7 @@
                   'onsubmit'  => 'return login_check()'
                 );
           ?> 
-          <?php echo form_open('user_control/check_user', $data);?>
+          <?php echo form_open('login/error', $data);?>
              <h5>User Name:</h5>  
              <input type="text" id="email_id" name="email_id" style="margin: 0px;" class="form-control"  placeholder="E-mail@example.com" value="<?php echo set_value('email_id')?>"/>
               <label class="text-danger">
@@ -44,7 +44,7 @@
           <h3>New Registration</h3>
           <div class="strip"></div>
           <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
-          <a href="<?php echo site_url('user_control/registration')?>" class="button">Create An Account</a>
+          <a href="<?php echo site_url('registration')?>" class="button">Create An Account</a>
       </div>
       <div class="clearfix"></div>
     </div>

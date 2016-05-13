@@ -67,7 +67,7 @@
 	                          'id' => 'register'
 	                        );
 	                ?> 
-	                <?php echo form_open('order/place_order', $data);?>
+	                <?php echo form_open('order', $data);?>
 					<ul>
 						<input type="hidden" id="amount" name="amount" value="<?php echo $total ?>">
 						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">Shipping address: </li>

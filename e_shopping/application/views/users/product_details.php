@@ -9,7 +9,7 @@
                   'id' => 'add_to_cart',
                 );
         ?> 
-        <?php echo form_open('user_control/add_item', $data);?>	
+        <?php echo form_open('add_cart', $data);?>	
         <?php 
         	if(!$product)
         	{

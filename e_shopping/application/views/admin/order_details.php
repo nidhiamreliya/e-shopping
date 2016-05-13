@@ -61,7 +61,7 @@
                 <a class="btn btn-success" href="<?php echo site_url('admin_orders/mark_as') .'/delivered/'. $order_no ?>">Mark as delivered</a>
                 <a class="btn btn-danger" href="<?php echo site_url('admin_orders/mark_as') .'/canceled/'. $order_no ?>">Mark as canceled</a>
                 </div>
-                <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo site_url('admin_orders/index'); ?>'"><i class="fa fa-backward">  Back</i></button>
+                <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo site_url('orders'); ?>'"><i class="fa fa-backward">  Back</i></button>
               </div>
             </div>
           </div>

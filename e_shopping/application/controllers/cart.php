@@ -6,12 +6,13 @@ class Cart extends MY_Controller
     parent::__construct();
   }
 
-  //Show login form
+  //Show cart data
   public function index()
   {
     $this->cart_details();
   }
 
+  //show details of cart
   public function cart_details()
   {
     $data['cart'] = $this->user_model->cart_details($this->session->userdata('user_id'));
@@ -33,17 +34,20 @@ class Cart extends MY_Controller
     }
   }
 
+  //Remove item from cart
   public function remove($cart_id)
   {
-    $data = array('cart_id' => $cart_id);
+
+    $data   = array('cart_id' => $cart_id);
     $result = $this->user_model->delete_row('cart', $data);
     if($result)
     {
       $this->session->set_flashdata('successful', 'Your data deleted successfully.');
     }
-    redirect('cart/cart_details');
+    redirect('cart');
   }
 
+  //Update cart items
   public function update_cart()
   {
     if ($this->form_validation->run('check_qty') == FALSE )
@@ -53,12 +57,16 @@ class Cart extends MY_Controller
     else
     {
       $data = array(
-          'quantity' => $this->input->post('quantity')
+              'quantity' => $this->input->post('quantity')
       );
       $result = $this->user_model->update_row('cart', $data, array('cart_id' => $this->input->post('cart_id')));
-      $this->session->set_flashdata('successful', 'Your data updated successfully.');
-      redirect('cart/cart_details');
-   }
+      
+      if($result)
+      {
+        $this->session->set_flashdata('successful', 'Your data updated successfully.');
+      }
+      redirect('cart');
+    }
   }
 
   

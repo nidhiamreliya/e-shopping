@@ -10,10 +10,10 @@ class User_control extends MY_Controller
   //Show login form
   public function index()
   {
-    $this->login('login', null);
+    $this->user_views('login', null);
   }
 
-  //Validate user data
+  //Validate login data
   public function check_user()
   {
     if ($this->form_validation->run() == FALSE)
@@ -31,7 +31,7 @@ class User_control extends MY_Controller
 
         if($this->session->userdata('privilege') == 1)
         {
-          redirect('user_control/home');
+          redirect('home');
         }
         else if($this->session->userdata('privilege') == 2)
         {
@@ -42,19 +42,20 @@ class User_control extends MY_Controller
       {
         $data['err_message'] = 'Invalid user name or password.';
        
-        $this->login('login', $data);
+        $this->user_views('login', $data);
       }
     }
   }
-  //Show login out
+
+  //Show logout
   public function logout()
   {
     $this->session->unset_userdata('user_id');
     $this->session->unset_userdata('privilege');
-    redirect('user_control');
+    redirect('login');
   }
 
-  //Show login out
+  //Show home page of website
   public function home()
   {
       $this->load->library('pagination');
@@ -67,7 +68,7 @@ class User_control extends MY_Controller
 
       $this->pagination->initialize($values);
 
-      $page_no              = $this->uri->segment(3);
+      $page_no  = $this->uri->segment(3);
 
       if($page_no > 0 && $page_no <= $values['num_links'])
       {
@@ -100,6 +101,7 @@ class User_control extends MY_Controller
     $this->user_views('users/home', $data);
   }
 
+  //Display registration form
   public function registration()
   {
     $this->user_views('users/register', null);
@@ -150,49 +152,51 @@ class User_control extends MY_Controller
     }
   }
   
+  //Display details of given product
   public function product_details($slug)
   {
-    $product         = array('slug' => $slug);
-    $product         = $this->user_model->get_fields('product', array('product_id'), $product);
+    $product = array('slug' => $slug);
+    $product = $this->user_model->get_fields('product', array('product_id'), $product);
 
     $data['product'] = $this->user_model->getwhere_data('product',$product);
     
     $this->user_views('users/product_details', $data);
   }
 
+  //Add item in to cart
   public function add_item()
   {
     if ($this->form_validation->run('check_qty') == FALSE )
     {
-      $this->product_details($this->input->post('slug'));
+      $this->product_details('product/view/'.$this->input->post('slug'));
     }
     else
     {
       if($this->session->userdata('user_id'))
       {
-        $data     = array(
-                    'user_id'     => $this->session->userdata('user_id'),
-                    'product_id'  => $this->input->post('product_id'),
-                    'quantity'    => $this->input->post('quantity')
+        $data = array(
+                'user_id'     => $this->session->userdata('user_id'),
+                'product_id'  => $this->input->post('product_id'),
+                'quantity'    => $this->input->post('quantity')
         );
 
-        $check    = $this->user_model->check_cart('cart', $this->session->userdata('user_id'), $this->input->post('product_id'));
+        $check = $this->user_model->check_cart('cart', $this->session->userdata('user_id'), $this->input->post('product_id'));
 
         if($check)
         {
           $this->session->set_flashdata('alredy_exist', 'This product is already exist in your cart.');
-          redirect('user_control/product_details'.'/'.$this->input->post('slug'));
+          redirect('product/view/'.$this->input->post('slug'));
         }
         else
         {
           $result = $this->user_model->insert_row('cart', $data);
           if($result)
           {
-            redirect('cart/cart_details');
+            redirect('cart');
           }
           else
           {
-            redirect('user_control/product_details'.'/'.$this->input->post('slug'));
+            redirect('product/view/'.$this->input->post('slug'));
           }
         }
       }

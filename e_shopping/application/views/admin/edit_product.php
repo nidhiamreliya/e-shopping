@@ -70,6 +70,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Product Name <span class="required">*</span></label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
                       <input type="hidden" id="product_id" name="product_id" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo $product['product_id'] ?>">
+                      <input type="hidden" id="slug" name="slug" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['slug']) ? $product['slug'] : ''?>">
                       <input type="text" id="product_name" name="product_name" required="required" class="form-control col-md-8 col-xs-12" value="<?php echo isset($product['product_name']) ? $product['product_name'] : set_value('product_name') ?>">
                       <label class="col-md-8 text-danger">
                         <?php echo form_error('product_name'); ?>
@@ -154,7 +155,7 @@
                 </label>
               </div>
               <?php echo form_close();?>
-              <button class="btn btn-primary " onclick="window.location='<?php echo site_url('admin_products/index'); ?>'"><i class="fa fa-backward">  Back</i></button>
+              <button class="btn btn-primary " onclick="window.location='<?php echo site_url('products'); ?>'"><i class="fa fa-backward">  Back</i></button>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@
               <div class="x_title">
                 <h2>Product List</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                  <a type="submit" class="btn btn-primary" href="<?php echo site_url('admin_products/edit_products')?>">Add new product</a>
+                  <a type="submit" class="btn btn-primary" href="<?php echo site_url('admin/product')?>">Add new product</a>
                 </ul>
                 <div class="clearfix"></div>
               </div>
@@ -53,7 +53,7 @@
                       <td><?php echo $row->product_name ?></td>
                       <td><?php echo $row->description ?></td>
                       <td><?php echo $row->product_price ?></td>
-                      <td><?php echo $row->product_img ?></td>
+                      <td><img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'.$row->product_img : base_url('assets/images/products/default.jpg') ?>" height="80px" width="80px"/></td>
                       <td><?php 
                             if($row->visible == 1){
                                 echo 'visible';
@@ -62,7 +62,7 @@
                             }
                           ?>
                       </td>
-                      <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo base_url('index.php/admin_products/edit_products').'/'. $row->slug ?>"></a></td>
+                      <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo site_url('admin/product').'/'. $row->slug ?>"></a></td>
                       <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->product_name ?> \'?');" href="<?php echo base_url('index.php/admin_products/delete_product'). '/' . $row->product_id ?>"></a></td>
                     </tr>
                   <?php endforeach ?> 

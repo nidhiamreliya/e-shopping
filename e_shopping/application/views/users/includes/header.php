@@ -58,7 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             if($this->session->userdata('user_id') !== FALSE)
             {
           ?>
-              <li class="top_link"><a href="<?php echo site_url('order/order_details') ?>"><?php echo $this->session->userdata('first_name');?></a></li>
+              <li class="top_link"><a href="<?php echo site_url('user/orders') ?>"><?php echo $this->session->userdata('first_name');?></a></li>
               <li>|</li>
               <li class="top_link"><a href="<?php echo site_url('user_control/logout')?>">Log Out</a></li> 
           <?php  
@@ -66,7 +66,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             else
             {
           ?>
-              <li class="top_link"><a href="<?php echo site_url('user_control')?>">Log In</a></li> 
+              <li class="top_link"><a href="<?php echo site_url('login')?>">Log In</a></li> 
           <?php
             }
           ?>        
@@ -81,11 +81,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header_top">
   <div class="container">
     <div class="logo">
-      <a href="<?php echo site_url('user_control/home') ?>">Pendent Store</a>       
+      <a href="<?php echo site_url() ?>">Pendent Store</a>       
     </div>
     <div class="header_right">
       <div class="cart box_1">
-        <a href="<?php echo site_url('cart/cart_details')?>">
+        <a href="<?php echo site_url('cart')?>">
         <h3> 
           <img src="<?php echo base_url('assets/images/cart1.png')?>" alt=""/> Cart</h3>
         </a>
@@ -102,13 +102,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="menu_sec">
      <!-- start header menu -->
     <ul class="megamenu skyblue">
-      <li class="active grid"><a class="color1" href="<?php echo site_url('user_control/home') ?>">Home</a></li>
-      <li><a class="color1" href="<?php echo site_url('user_products')?>">category</a>
+      <li class="<?php echo $this->uri->segment(1) == '' ? 'active grid' : '' ?>"><a class="color1" href="<?php echo site_url() ?>">Home</a></li>
+      <li class="<?php echo $this->uri->segment(1) == 'product' ? 'active grid' : '' ?>"><a class="color1" href="#">category</a>
         <div class="megapanel">
           <div class="h_nav">
             <ul>
             <?php foreach ($category as $row):?>
-              <li><a href="<?php echo site_url('user_products/index').'/'.$row->slug ?>"><?php echo $row->category_name ?></a></li>
+              <li><a href="<?php echo site_url('product').'/'.$row->slug ?>"><?php echo $row->category_name ?></a></li>
             <?php endforeach ?>
             </ul> 
           </div>              

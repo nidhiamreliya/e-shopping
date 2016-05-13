@@ -7,19 +7,19 @@ class Admin_control extends MY_Controller
         if ($this->session->userdata('privilege') != 2) redirect('user_control/logout');
     }
     
-    //Show login form
+    //Show home page of admin
 	public function index()
 	{
 		$this->admin_views('admin/home', null);
 	}
 	
-	//Show login form
+	//Show change pasword form
 	public function change_password()
 	{
 		$this->admin_views('admin/change_password', null);
 	}
 
-	//Show login form
+	//Edit password of admin
 	public function edit_password()
 	{
 		if ($this->form_validation->run() == FALSE )
@@ -49,6 +49,7 @@ class Admin_control extends MY_Controller
 		$this->admin_views('admin/change_password', null);
 	}
 
+	//Check password to change
 	public function password_check($password)
 	{
 		$password 	= create_password($password);

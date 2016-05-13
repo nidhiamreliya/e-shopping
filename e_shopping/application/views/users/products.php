@@ -15,7 +15,7 @@
 						<?php foreach ($products as $row): ?>
 							<div class="products-grd">
 								<div class="p-one simpleCart_shelfItem prd">
-									<a href="<?php echo site_url('user_control/product_details').'/'.$row->slug?>">
+									<a href="<?php echo site_url('products/view').'/'.$row->slug?>">
 										<img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'.$row->product_img : base_url('assets/images/products/default.jpg') ?>" alt="" class="img-responsive" />
 										<div class="mask">
 											<span>Quick View</span>
@@ -34,7 +34,7 @@
 			<div class="col-md-4 products-grid-right">
 				<div class="w_sidebar">
 					<div class="w_nav1">
-						<a href="<?php echo site_url('user_products/index')?>"><h4>All</h4></a>
+						<a href="<?php echo site_url('product')?>"><h4>All</h4></a>
 					</div>
 					<section  class="sky-form">
 						<h4>catogories</h4>
@@ -42,16 +42,16 @@
 						<?php foreach ($category as $row):?>
 							<div class="col col-4">
 								<?php 
-									if($row->slug == $this->uri->segment(3))
+									if($row->slug == $this->uri->segment(2))
 									{
 								?>
-										<label class="checkbox"><a href="<?php echo site_url('user_products/index').'/'.$row->slug ?>"><input type="checkbox" name="checkbox" checked=""><i></i><?php echo $row->category_name ?></a></label>
+										<label class="checkbox"><a href="<?php echo site_url('product').'/'.$row->slug ?>"><input type="checkbox" name="checkbox" checked=""><i></i><?php echo $row->category_name ?></a></label>
 								<?php 
 									}
 									else
 									{
 								?>
-										<label class="checkbox"><a href="<?php echo site_url('user_products/index').'/'.$row->slug ?>"><input type="checkbox" name="checkbox"><i></i><?php echo $row->category_name ?></a></label>
+										<label class="checkbox"><a href="<?php echo site_url('product').'/'.$row->slug ?>"><input type="checkbox" name="checkbox"><i></i><?php echo $row->category_name ?></a></label>
 								<?php
 									}
 								?>

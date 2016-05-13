@@ -25,7 +25,8 @@ class Admin_products extends MY_Controller
 		}
 		$this->admin_views('admin/products', $data);
 	}
-	//Show edit product
+
+	//Show product details for update
 	public function edit_products($slug = NULL)
 	{
 		if($slug)
@@ -45,14 +46,15 @@ class Admin_products extends MY_Controller
 		$this->admin_views('admin/edit_product', $data);
 	}
 
+	//Delete product from list
 	public function delete_product($product_id)
 	{
-		$data 		  = array('product_id' => $product_id);
-		$check_inorder= $this->user_model->get_product($product_id);
+		$data 		  		= array('product_id' => $product_id);
+		$check_inorder		= $this->user_model->get_product($product_id);
 
 		if($check_inorder)
 		{
-			$result = $this->user_model->delete_row('product', $data);
+			$result 		= $this->user_model->delete_row('product', $data);
 
 			if($result)
 			{
@@ -63,9 +65,10 @@ class Admin_products extends MY_Controller
 		{
 			$this->session->set_flashdata('successful', 'You can not delete this product. Set it as not visible for user');
 		}
-		redirect('admin_products');
+		redirect('products');
 	}
 
+	// Inseart new product or update existing product
 	public function insert_product()
 	{
 		if ($this->form_validation->run() == FALSE )
@@ -81,7 +84,7 @@ class Admin_products extends MY_Controller
 				if($check_category)
 				{
 					$this->session->set_flashdata('info', 'Category of this product is not visible, Please make category as visible to display this product.');
-					redirect('admin_products/edit_products/'.$this->input->post('product_id'));
+					redirect('admin/product/'.$this->input->post('product_id'));
 				}
 			}
 			$category = $this->user_model->get_fields('category', array('category_name'), array('category_id' => $this->input->post('category_id')));
@@ -100,7 +103,7 @@ class Admin_products extends MY_Controller
 				$result = $this->duplicate_check($this->input->post('product_name'));
 				if($result)
 				{
-					$condition = array(
+					$condition  = array(
 						'product_id'	=> $this->input->post('product_id')
 					);
 					$product_id = $this->input->post('product_id');
@@ -132,22 +135,23 @@ class Admin_products extends MY_Controller
 			if($result)
 			{
 				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
-				redirect('admin_products/edit_products/'.$slug);
+				redirect('admin/product/'.$slug);
 			}
-			
 		}
 	}
 
+	//check product name is already exist or not
 	public function duplicate_check($product_name)
 	{
 		if($this->input->post('product_id') != null)
 		{
-			$is_exist		= $this->user_model->check_product($this->input->post('product_id'), $this->input->post('category_id'), $product_name);
+			$is_exist		= $this->user_model->check_product($this->input->post('category_id'), $product_name, $this->input->post('product_id'));
 		}
 		else
 		{
 			$is_exist		= $this->user_model->check_product($this->input->post('category_id'), $product_name);
 		}
+		
 		if($is_exist)
 		{
 			$this->form_validation->set_message('duplicate_check', 'This product name already exist');
@@ -158,7 +162,7 @@ class Admin_products extends MY_Controller
 			return True;
 		}
 	}
-	//Upadate user's profile picture
+	//Update product image
 	public function product_pic()
 	{
 		if($this->input->post('product_id'))
@@ -171,8 +175,8 @@ class Admin_products extends MY_Controller
 			if ( ! $this->upload->do_upload('image'))
 			{
 				echo $this->upload->display_errors();
-				$error = array(
-						'error'	=> $this->upload->display_errors()
+				$error 			= array(
+							'error'			=> $this->upload->display_errors()
 					);
 				$this->session->set_flashdata('error', $error);
 				redirect('admin_products/edit_products/' . $this->input->post('slug'));
@@ -182,25 +186,25 @@ class Admin_products extends MY_Controller
 	   			$upload_data 	= $this->upload->data(); 
 				$file_name 		= $upload_data['file_name'];
 				$condition 		= array(
-						'product_id' 	=> $this->input->post('product_id')
+							'product_id' 	=> $this->input->post('product_id')
 					);
-				$data = array(
-						'product_img'	=> $file_name
+				$data 			= array(
+							'product_img'	=> $file_name
 					);
 				$result 		= $this->user_model->update_row('product', $data, $condition);
 
 				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
 
-				redirect('admin_products/edit_products/'.$this->input->post('slug'));
+				redirect('admin/product/'.$this->input->post('slug'));
 	   		}
 	   	}
 	   	else
 	   	{
-	   		$error = array(
-						'error'	=> 'First enter data for product.'
+	   		$error 				= array(
+							'error'	=> 'First enter data for product.'
 					);
 	   		$this->session->set_flashdata('error', $error);
-	   		redirect('admin_products/edit_products');
+	   		redirect('admin/product');
 	   	}
     }
 }

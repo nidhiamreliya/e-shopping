@@ -41,7 +41,7 @@
                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category Name <span class="required">*</span>
                   </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                    <input type="text" id="category_name" name="category_name"  class="form-control col-md-7 col-xs-12" value="<?php echo isset($category['category_name']) ? $category['category_name'] : set_value('first_name') ?>">
+                    <input type="text" id="category_name" name="category_name"  class="form-control col-md-7 col-xs-12" value="<?php echo isset($category['category_name']) ? $category['category_name'] : set_value('category_name') ?>">
                     
                     <input type="hidden" id="category_id" name="category_id" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $category['category_id'] ?>">
                     <label class="col-md-8 text-danger">
@@ -76,7 +76,7 @@
                 </div>
               <?php echo form_close();?>
             </div>
-            <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo site_url('admin_categorys/index'); ?>'"><i class="fa fa-backward">  Back</i></button>
+            <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo site_url('categorys'); ?>'"><i class="fa fa-backward">  Back</i></button>
           </div>
         </div>
       </div>

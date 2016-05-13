@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="check">	 
 		<div class="col-md-3 cart-total">
-			<a class="continue" href="<?php echo site_url('user_products/index').'/0'?>">Continue to basket</a>
+			<a class="continue" href="<?php echo site_url('product')?>">Continue to basket</a>
 		<?php 
 			if($cart == null)
 			{
@@ -18,7 +18,7 @@
 			else
 			{
 		?>
-			<?php echo form_open('order/checkout');?>
+			<?php echo form_open('checkout');?>
 			<div class="price-details">
 				<h3>Price Details</h3>
 				<span>Total</span>
@@ -66,7 +66,7 @@
 	                  'id' => 'update_cart'
 	                );
 	        ?> 
-	        <?php echo form_open('cart/update_cart', $data);?>
+	        <?php echo form_open('cart/update', $data);?>
 			<div class="cart-header">
 				<div class="cart-sec simpleCart_shelfItem">
 					<div class="col-md-4 col-sm-4 col-xs-12 cart_img">
@@ -88,7 +88,7 @@
 								<span>Delivered in 2-3 bussiness days</span>
 							</div>	
 							<div class="fgh">
-								<a onclick="return confirm('Are you sure you want to delete \'<?php echo $row->product_name ?> \' from your cart?');" href="<?php echo site_url('cart/remove').'/'.$row->cart_id?>">Remove</a>
+								<a onclick="return confirm('Are you sure you want to delete \'<?php echo $row->product_name ?> \' from your cart?');" href="<?php echo site_url('remove').'/'.$row->cart_id?>">Remove</a>
 								<input type="submit" value="Update">
 							</div>
 							<?php echo form_close();?>

@@ -43,7 +43,7 @@
 						}
 						else
 						{
-							echo "  delivered on " . $row->delivery_date;
+							echo $row->status . " on " . $row->delivery_date;
 						}
 					?></span>
 					<div class="clearfix"></div>
@@ -51,7 +51,6 @@
 					} 
 				}
 			?>
-			<!-- <a class="order" href="cart/place_order">Place Order</a> -->
 		</div>
 	</div>
 </div>

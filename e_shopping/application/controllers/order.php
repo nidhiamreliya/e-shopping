@@ -6,18 +6,21 @@ class Order extends MY_Controller
     parent::__construct();
   }
 
+  //Checkout form for place order
   public function checkout()
   {
     $data['checkout'] = $this->user_model->cart_details($this->session->userdata('user_id'));
-    $condition 		  = array('user_id' => $this->session->userdata('user_id'));
+    $condition = array('user_id' => $this->session->userdata('user_id'));
     $data['user'] 	  = $this->user_model->getwhere_data('users', $condition);
     $this->user_views('users/checkout', $data);
   }
+
+  //Display order details
   public function order_details($order_no = null)
   {
   	if($order_no)
   	{
-    	$data['order'] = $this->user_model->get_rows('order', array('order_no' => $order_no));
+    	$data['order'] = $this->user_model->get_rows('order', array('order_no' => $order_no, 'user_id' => $this->session->userdata('user_id')));
     }
     else
     {
@@ -26,12 +29,11 @@ class Order extends MY_Controller
     $this->user_views('users/order_details', $data);
   }
 
+  //Insert order in to database
   public function place_order()
   {
-
     if($this->session->userdata('user_id'))
     {
-    	
     	if ($this->form_validation->run() == FALSE )
 	    {
 	    	$this->checkout();
@@ -52,7 +54,7 @@ class Order extends MY_Controller
 	      	{
 	        	foreach ($products as $row) 
 	        	{
-	        	  $data = array(
+	        	  	$data = array(
 	                    'order_no'		=> $order_no,
 	                    'product_id' 	=> $row['product_id'],
 	                    'quantity' 		=> $row['quantity']
@@ -66,17 +68,17 @@ class Order extends MY_Controller
 		        }
 
 		        $this->session->set_flashdata('successful', 'Your order placed sucessfully.');
-		        redirect('order/order_details'.'/'.$order_no);
+		        redirect('order'.'/'.$order_no);
 		    }
 		    else
 		    {
-		    	redirect('order/checkout');
+		    	redirect('checkout');
 		    }
 	    }
     }
     else
     {
-      redirect('user_control');
+      redirect('login');
     }
   } 
 }

@@ -70,7 +70,7 @@
 				?>
 						<div class="col-md-2 product-left"> 
 							<div class="p-two simpleCart_shelfItem jwe">							
-								<a href="<?php echo site_url('user_control/product_details').'/'.$row->slug?>">
+								<a href="<?php echo site_url('products/view').'/'.$row->slug?>">
 									<img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'.$row->product_img : base_url('assets/images/products/default.jpg')?>" alt="" class="img-responsive" />
 									<div class="mask">
 										<span>Quick View</span>

@@ -43,7 +43,7 @@
                       <td><?php echo $row->amount           ?></td>
                       <td><?php echo $row->delivery_date    ?></td>
                       <td><?php echo $row->status           ?></td>
-                      <td><a href="<?php echo site_url('admin_orders/order_details').'/'.$row->order_no ?>">View Details</a></td>
+                      <td><a href="<?php echo site_url('order_details').'/'.$row->order_no ?>">View Details</a></td>
                     </tr>
                   <?php endforeach ?>
                 <?php

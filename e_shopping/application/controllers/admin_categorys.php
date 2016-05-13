@@ -7,12 +7,14 @@ class Admin_categorys extends MY_Controller
         if ($this->session->userdata('privilege') != 2) redirect('user_control/logout');
     }
 
-    //Show login form
+    //Show all category list
 	public function index()
 	{
 		$data['category'] = $this->user_model->get_data('category');
 		$this->admin_views('admin/category_list', $data);
 	}
+
+	//Show category's details to edit
 	public function edit_category($slug = NULL)
 	{
 		if($slug)
@@ -29,6 +31,8 @@ class Admin_categorys extends MY_Controller
 		
 		$this->admin_views('admin/edit_category', $data);
 	}
+
+	//Insert new category or update existing category
 	public function insert_category()
 	{
 
@@ -60,12 +64,13 @@ class Admin_categorys extends MY_Controller
 			if($result)
 			{
 				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
-				redirect('admin_categorys/admin_categorys');
+				redirect('categorys');
 			}
 			
 		}
 	}
 
+	//Check if category name already exist 
 	public function duplicate_check($category_name)
 	{
 		if($this->input->post('category_id') != null)
@@ -87,6 +92,7 @@ class Admin_categorys extends MY_Controller
 		}
 	}
 
+	//Romove category
 	public function delete_category($slug)
 	{
 		$category 		= array('slug' => $slug);
@@ -107,7 +113,7 @@ class Admin_categorys extends MY_Controller
 		{
 			$this->session->set_flashdata('successful', 'You can not delete this category. Set it as not visible for user');
 		}
-		redirect('admin_categorys');
+		redirect('categorys');
 	}
 }
 ?>

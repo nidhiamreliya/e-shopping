@@ -15,7 +15,7 @@
             <div class="x_title">
               <h2>Category List</h2>
               <ul class="nav navbar-right panel_toolbox">
-                <a type="submit" class="btn btn-primary" href="<?php echo base_url('index.php/admin_categorys/edit_category')?>">Add new Category</a>
+                <a type="submit" class="btn btn-primary" href="<?php echo site_url('category')?>">Add new Category</a>
               </ul>
               <div class="clearfix"></div>
             </div>
@@ -44,9 +44,9 @@
                   <tr>
                     <td><?php echo $row->category_id ?>   </td>
                     <td><?php echo $row->category_name ?> </td>
-                    <td><a href="<?php echo site_url('admin_products/index').'/'.$row->slug ?>">View products</a></td>
+                    <td><a href="<?php echo site_url('products').'/'.$row->slug ?>">View products</a></td>
                     <td><?php echo $row->status == 1 ? 'Visible' : 'Not Visible' ?> </td>
-                    <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo site_url('admin_categorys/edit_category').'/'. $row->slug ?>"></a></td>
+                    <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo site_url('category/edit').'/'. $row->slug ?>"></a></td>
                     <td><a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->category_name ?> \'?');" href="<?php echo site_url('admin_categorys/delete_category'). '/' . $row->slug?>"></a></td>
                   </tr>
                 <?php endforeach ?>                     

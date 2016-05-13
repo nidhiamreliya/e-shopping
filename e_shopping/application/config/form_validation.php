@@ -17,7 +17,7 @@ $config = array(
 							array(
 							    'field' => 'product_name',
 							    'label' => 'Product name',
-							    'rules' => 'trim|required|xss_cleancallback_duplicate_check'
+							    'rules' => 'trim|required|xss_clean|callback_duplicate_check'
 							),
 							array(
 							    'field' => 'description',

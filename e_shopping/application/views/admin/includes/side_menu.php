@@ -31,12 +31,12 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a href="<?php echo site_url("admin_control/index")           ?>"><i class="fa fa-home">            </i> Home            <span class="fa fa-chevron-right"></span></a></li>
-                <li><a href="<?php echo site_url("admin_categorys")               ?>"><i class="fa fa-list">            </i> Category        <span class="fa fa-chevron-right"></span></a></li>
-                <li><a href="<?php echo site_url("admin_products/index")          ?>"><i class="fa fa-shopping-basket"> </i> Products        <span class="fa fa-chevron-right"></span></a></li>
-                <li><a href="<?php echo site_url("admin_orders")                  ?>"><i class="fa fa-shopping-cart">   </i> Orders          <span class="fa fa-chevron-right"></span></a></li>
-                <li><a href="<?php echo site_url("admin_users")                   ?>"><i class="fa fa-users">           </i> Users           <span class="fa fa-chevron-right"></span></a></li>
-                <li><a href="<?php echo site_url("admin_control/change_password") ?>"><i class="fa fa-key">             </i> Change password <span class="fa fa-chevron-right"></span></a></li>
+                <li><a href="<?php echo site_url("admin_home") ?>"><i class="fa fa-home"> </i> Home <span class="fa fa-chevron-right"></span></a></li>
+                <li><a href="<?php echo site_url("categorys") ?>"><i class="fa fa-list"> </i> Category <span class="fa fa-chevron-right"></span></a></li>
+                <li><a href="<?php echo site_url("products") ?>"><i class="fa fa-shopping-basket"> </i> Products <span class="fa fa-chevron-right"></span></a></li>
+                <li><a href="<?php echo site_url("orders") ?>"><i class="fa fa-shopping-cart"> </i> Orders <span class="fa fa-chevron-right"></span></a></li>
+                <li><a href="<?php echo site_url("users") ?>"><i class="fa fa-users"> </i> Users <span class="fa fa-chevron-right"></span></a></li>
+                <li><a href="<?php echo site_url("change_password") ?>"><i class="fa fa-key"> </i> Change password <span class="fa fa-chevron-right"></span></a></li>
               </ul>
             </div>
           </div>

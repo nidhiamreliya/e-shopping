@@ -6,13 +6,13 @@ class User_products extends MY_Controller
         parent::__construct();
     }
 
-    //Show login form
+    //Show product list to users
 	public function index($slug = NULL)
 	{
 		if($slug)
 		{
-			$category 		 = array('slug' => $slug);
-			$category	 = $this->user_model->get_fields('category', array('category_id'), $category);
+			$category  = array('slug' => $slug);
+			$category  = $this->user_model->get_fields('category', array('category_id'), $category);
 			
 			$condition = array('category_id' => $category['category_id'], 'visible' => 1);
 			$data['products'] = $this->user_model->get_rows('product', $condition);
