@@ -19,8 +19,7 @@ class Admin_categorys extends MY_Controller
 	{
 		if($slug)
 		{
-			$category 	 		= array('slug' => $slug);
-			$category	 		= $this->user_model->get_fields('category', array('category_id'), $category);
+			$category	 		= $this->user_model->get_fields('category', array('category_id'), array('slug' => $slug));
 			
 			$data['category'] 	= $this->user_model->getwhere_data('category', $category);
 		}
@@ -75,11 +74,11 @@ class Admin_categorys extends MY_Controller
 	{
 		if($this->input->post('category_id') != null)
 		{
-			$is_exist		= $this->user_model->cat_duplicate($category_name, $this->input->post('category_id'));
+			$is_exist = $this->user_model->cat_duplicate($category_name, $this->input->post('category_id'));
 		}
 		else
 		{
-			$is_exist		= $this->user_model->cat_duplicate($category_name);
+			$is_exist = $this->user_model->cat_duplicate($category_name);
 		}
 		if($is_exist)
 		{
@@ -95,8 +94,8 @@ class Admin_categorys extends MY_Controller
 	//Romove category
 	public function delete_category($slug)
 	{
-		$category 		= array('slug' => $slug);
-		$category	= $this->user_model->get_fields('category', array('category_id'), $category);
+		$category = array('slug' => $slug);
+		$category = $this->user_model->get_fields('category', array('category_id'), $category);
 
 		
 		$is_ordered		= $this->user_model->get_category($category['category_id']);

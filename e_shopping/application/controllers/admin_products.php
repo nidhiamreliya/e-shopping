@@ -145,7 +145,7 @@ class Admin_products extends MY_Controller
 	{
 		if($this->input->post('product_id') != null)
 		{
-			$is_exist		= $this->user_model->check_product($this->input->post('category_id'), $product_name, $this->input->post('product_id'));
+			$is_exist = $this->user_model->check_product($this->input->post('category_id'), $product_name, $this->input->post('product_id'));
 		}
 		else
 		{

@@ -37,7 +37,7 @@
 					<span>Delivery status:</span>
 					<span class="total1">  
 					<?php 
-						if($row->delivery_date =='0000-00-00')
+						if(! $row->delivery_date)
 						{
 							echo "  not delivered";
 						}

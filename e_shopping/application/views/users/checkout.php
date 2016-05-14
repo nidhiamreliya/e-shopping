@@ -123,13 +123,12 @@
 </div>
 <script type="text/javascript">
 	$('#checkbox').change(function() {
-		if ($(this).is(':checked')) 
-		{
-	    	document.getElementById('sh_address').value = "<?php echo $user['address'] ?>";
-	    	document.getElementById('sh_city').value = "<?php echo $user['city'] ?>";
-	    	document.getElementById('sh_zipcode').value = "<?php echo $user['zip_code'] ?>";
-	    	document.getElementById('sh_state').value = "<?php echo $user['state'] ?>";
-	    	document.getElementById('sh_country').value = "<?php echo $user['country'] ?>";
+		if ($(this).is(':checked')) {
+	    	$('#sh_address').val("<?php echo $user['address'] ?>");
+	    	$('#sh_city').val("<?php echo $user['city'] ?>");
+	    	$('#sh_zipcode').val("<?php echo $user['zip_code'] ?>");
+	    	$('#sh_state').val("<?php echo $user['state'] ?>");
+	    	$('#sh_country').val("<?php echo $user['country'] ?>");
 	  	}
 	});
 

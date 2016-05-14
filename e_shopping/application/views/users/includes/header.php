@@ -49,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       <div class="top_right">
         <ul>
           <li>Contact</li>|
-          <li>Track Order</li>
+          <li><a href="<?php echo site_url('user/orders') ?>">Track Order</a></li>
         </ul>
       </div>
       <div class="top_left">

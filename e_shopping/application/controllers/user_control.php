@@ -68,19 +68,19 @@ class User_control extends MY_Controller
 
       $this->pagination->initialize($values);
 
-      $page_no  = $this->uri->segment(3);
+      $page_no = $this->uri->segment(3);
 
       if($page_no > 0 && $page_no <= $values['num_links'])
       {
-        $page   = ($page_no-1) * $values["per_page"];
+        $page = ($page_no-1) * $values["per_page"];
       }
       else if($page_no > $values['num_links'])
       {
-        $page   = ($values['num_links']-1) * $values["per_page"];
+        $page = ($values['num_links']-1) * $values["per_page"];
       }
       else
       {
-        $page   = 0;
+        $page = 0;
       }
 
       $fields           = array('product_id', 'product_price', 'product_img', 'slug');
@@ -136,11 +136,9 @@ class User_control extends MY_Controller
       $result   = $this->user_model->insert_row('users', $data);
       if($result)
       {
-        $user_data = array('user_id' => $result,'privilege' => 1, 'first_name' => $this->input->post('first_name'));
-        
+        $user_data = array('user_id' => $result,'privilege' => 1, 'first_name' => $this->input->post('first_name'));    
         $this->session->set_userdata($user_data);
         $slug      = url_title($this->input->post('first_name').'-'.$this->input->post('last_name').'-'.$this->session->userdata('user_id'), 'dash', TRUE);
-      
         $result    = $this->user_model->update_row('users', array('slug' => $slug), array('user_id' => $this->session->userdata('user_id')));
 
         redirect('user_control/home');
@@ -157,7 +155,6 @@ class User_control extends MY_Controller
   {
     $product = array('slug' => $slug);
     $product = $this->user_model->get_fields('product', array('product_id'), $product);
-
     $data['product'] = $this->user_model->getwhere_data('product',$product);
     
     $this->user_views('users/product_details', $data);
@@ -179,7 +176,6 @@ class User_control extends MY_Controller
                 'product_id'  => $this->input->post('product_id'),
                 'quantity'    => $this->input->post('quantity')
         );
-
         $check = $this->user_model->check_cart('cart', $this->session->userdata('user_id'), $this->input->post('product_id'));
 
         if($check)

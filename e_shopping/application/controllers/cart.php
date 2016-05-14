@@ -56,10 +56,10 @@ class Cart extends MY_Controller
     }
     else
     {
-      $data = array(
-              'quantity' => $this->input->post('quantity')
-      );
-      $result = $this->user_model->update_row('cart', $data, array('cart_id' => $this->input->post('cart_id')));
+        $data = array(
+            'quantity' => $this->input->post('quantity')
+        );
+        $result = $this->user_model->update_row('cart', $data, array('cart_id' => $this->input->post('cart_id')));
       
       if($result)
       {
