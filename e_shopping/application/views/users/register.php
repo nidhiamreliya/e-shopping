@@ -10,7 +10,6 @@
 				            'name'  	=> 'registration',
 				            'id'		=> 'registration',
                           	'class' 	=> 'form-horizontal',
-                          	'onsubmit'  => 'return form_validation()'
                         );
                 ?> 
                 <?php echo form_open('user_control/insert_user', $data);?>

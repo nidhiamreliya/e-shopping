@@ -15,14 +15,18 @@
 						<?php foreach ($products as $row): ?>
 							<div class="products-grd">
 								<div class="p-one simpleCart_shelfItem prd">
-									<a href="<?php echo site_url('products/view').'/'.$row->slug?>">
+									<a href="<?php echo site_url('view'),'/'.$row->slug?>">
 										<img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'.$row->product_img : base_url('assets/images/products/default.jpg') ?>" alt="" class="img-responsive" />
 										<div class="mask">
 											<span>Quick View</span>
 										</div>
 										<h4><?php echo $row->product_name ?></h4>
 									</a>
-									<p><a class="item_add" href="<?php echo site_url('user_control/product_details').'/'.$row->slug?>"><i></i> <span class=" item_price valsa"><?php echo $row->product_price ?><e class="fa fa-inr" aria-hidden="true"></e></span></a></p>
+									<input type="hidden" id="quantity" value="1">
+									<p onclick="cart('<?php echo $row->product_id?>')">
+										<i></i>
+										<span class=" item_price valsa"><?php echo $row->product_price ?><e class="fa fa-inr" aria-hidden="true"></e></span>
+									</p>
 								</div>	
 							</div>
 						<?php endforeach ?>
@@ -41,20 +45,13 @@
 						<div class="row1 scroll-pane">
 						<?php foreach ($category as $row):?>
 							<div class="col col-4">
-								<?php 
-									if($row->slug == $this->uri->segment(2))
-									{
-								?>
+								<?php if($row->slug == $this->uri->segment(2)): ?> 
+
 										<label class="checkbox"><a href="<?php echo site_url('product').'/'.$row->slug ?>"><input type="checkbox" name="checkbox" checked=""><i></i><?php echo $row->category_name ?></a></label>
-								<?php 
-									}
-									else
-									{
-								?>
+
+								<?php else : ?>
 										<label class="checkbox"><a href="<?php echo site_url('product').'/'.$row->slug ?>"><input type="checkbox" name="checkbox"><i></i><?php echo $row->category_name ?></a></label>
-								<?php
-									}
-								?>
+								<?php endif ?>
 							</div>
 						<?php endforeach ?>
 						</div>

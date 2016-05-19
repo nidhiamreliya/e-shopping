@@ -22,12 +22,9 @@ class Admin_control extends MY_Controller
 	//Edit password of admin
 	public function edit_password()
 	{
-		if ($this->form_validation->run() == FALSE )
-		{
+		if ($this->form_validation->run() == FALSE ) {
 			$this->change_password();
-		}
-		else
-		{
+		} else {
 			$password = create_password($this->input->post('password'));
 
 			$data = array(
@@ -39,8 +36,7 @@ class Admin_control extends MY_Controller
 			);
 
 			$result = $this->user_model->update_row('users', $data, $condition);
-			if($result)
-			{
+			if($result) {
 				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
 				redirect('admin_control/change_password');
 			}			
@@ -56,15 +52,11 @@ class Admin_control extends MY_Controller
 		$user_id	= $this->session->userdata('user_id');
 		$result		= $this->user_model->get_fields('users', array('password'), array('user_id' => $user_id));
 		
-		if ($result['password'] == $password)
-		{
+		if ($result['password'] == $password) {
 			return TRUE;
-		}
-		else
-		{
+		} else {
 			$this->form_validation->set_message('password_check', 'old password not match');
 			return FALSE;
 		}
 	}
 }
-?>

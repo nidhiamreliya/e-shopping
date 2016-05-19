@@ -15,18 +15,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="<?php echo base_url("assets/fonts/css/font-awesome.min.css") ?>" rel="stylesheet">
 <!-- js -->
 <script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url("assets/js/validate_user.js"); ?>"></script>  
+<script type="text/javascript" src="<?php echo base_url("assets/js/jquery.validate.js"); ?>"></script>  
+
+<script type="text/javascript" src="<?php echo base_url("assets/js/form_validation.js"); ?>"></script>  
+
 <!-- //js -->
 <!-- start-smoth-scrolling -->
 <script type="text/javascript" src="<?php echo base_url('assets/js/move-top.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/easing.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/cart_data.js')?>"></script>
+
 <script type="text/javascript">
-  jQuery(document).ready(function($) {
-    $(".scroll").click(function(event){   
-      event.preventDefault();
-      $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event){   
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+        });
     });
-  });
 </script>
 <!-- start-smoth-scrolling -->
 <!-- start menu -->
@@ -44,79 +49,131 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //header -->
 <!-- top-header -->
 <div class="top_bg">
-  <div class="container">
-    <div class="header_top-sec">
-      <div class="top_right">
-        <ul>
-          <li>Contact</li>|
-          <li><a href="<?php echo site_url('user/orders') ?>">Track Order</a></li>
-        </ul>
-      </div>
-      <div class="top_left">
-        <ul>
-          <?php
-            if($this->session->userdata('user_id') !== FALSE)
-            {
-          ?>
-              <li class="top_link"><a href="<?php echo site_url('user/orders') ?>"><?php echo $this->session->userdata('first_name');?></a></li>
-              <li>|</li>
-              <li class="top_link"><a href="<?php echo site_url('user_control/logout')?>">Log Out</a></li> 
-          <?php  
-            }
-            else
-            {
-          ?>
-              <li class="top_link"><a href="<?php echo site_url('login')?>">Log In</a></li> 
-          <?php
-            }
-          ?>        
-        </ul>
-      </div>
-      <div class="clearfix"> </div>
+    <div class="container">
+        <div class="header_top-sec">
+            <div class="top_right">
+                <ul>
+                    <li>Contact</li>|
+                    <li><a href="<?php echo site_url('user/orders') ?>">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="top_left">
+                <ul>
+                  <?php
+                      if($this->session->userdata('user_id') !== FALSE)
+                      {
+                  ?>
+                          <li class="top_link"><a href="<?php echo site_url('user/orders') ?>"><?php echo $this->session->userdata('first_name');?></a></li>
+                          <li>|</li>
+                          <li class="top_link"><a href="<?php echo site_url('user_control/logout')?>">Log Out </a></li> 
+                  <?php  
+                      }
+                      else
+                      {
+                  ?>
+                          <li class="top_link"><a href="<?php echo site_url('login')?>">Log In</a></li> 
+                  <?php
+                      }
+                  ?>        
+              </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
     </div>
-  </div>
 </div>
 <!-- top-header -->
 <!-- logo-cart -->
 <div class="header_top">
-  <div class="container">
-    <div class="logo">
-      <a href="<?php echo site_url() ?>">Pendent Store</a>       
+    <div class="container">
+        <div class="logo">
+            <a href="<?php echo site_url() ?>">Pendent Store</a>       
+        </div>
+        <div class="header_right">
+            <div class="cart box_1">
+                <a href="<?php echo site_url('cart')?>">
+                <h3> <div class="total">
+                    (<span id="total_items"></span> items)</div>
+                    <img src="<?php echo base_url('assets/images/cart1.png')?>" alt=""/></h3>
+                </a>
+                <div class="clearfix"> </div>
+            </div>         
+        </div>
+        <div class="clearfix"></div>  
     </div>
-    <div class="header_right">
-      <div class="cart box_1">
-        <a href="<?php echo site_url('cart')?>">
-        <h3> 
-          <img src="<?php echo base_url('assets/images/cart1.png')?>" alt=""/> Cart</h3>
-        </a>
-        <div class="clearfix"> </div>
-      </div>         
-    </div>
-    <div class="clearfix"></div>  
-  </div>
 </div>
 <!-- //logo-cart -->
 <!------>
 <div class="mega_nav">
-  <div class="container">
-    <div class="menu_sec">
-     <!-- start header menu -->
-    <ul class="megamenu skyblue">
-      <li class="<?php echo $this->uri->segment(1) == '' ? 'active grid' : '' ?>"><a class="color1" href="<?php echo site_url() ?>">Home</a></li>
-      <li class="<?php echo $this->uri->segment(1) == 'product' ? 'active grid' : '' ?>"><a class="color1" href="#">category</a>
-        <div class="megapanel">
-          <div class="h_nav">
-            <ul>
-            <?php foreach ($category as $row):?>
-              <li><a href="<?php echo site_url('product').'/'.$row->slug ?>"><?php echo $row->category_name ?></a></li>
-            <?php endforeach ?>
+    <div class="container">
+        <div class="menu_sec">
+            <!-- start header menu -->
+            <ul class="megamenu skyblue">
+                <li class="<?php echo $this->uri->segment(1) == '' ? 'active grid' : '' ?>"><a class="color1" href="<?php echo site_url() ?>">Home</a></li>
+                <li class="<?php echo $this->uri->segment(1) == 'product' ? 'active grid' : '' ?>"><a class="color1" href="<?php echo site_url('product')?>">category</a>
+                    <div class="megapanel">
+                        <div class="h_nav">
+                            <ul>
+                            <?php foreach ($category as $row):?>
+                                <li><a href="<?php echo site_url('product').'/'.$row->slug ?>"><?php echo $row->category_name ?></a></li>
+                            <?php endforeach ?>
+                            </ul> 
+                        </div>              
+                    </div>
+                </li>       
             </ul> 
-          </div>              
+            <div class="clearfix"></div>
         </div>
-      </li>       
-    </ul> 
-    <div class="clearfix"></div>
     </div>
-  </div>
 </div>
 <!---->
+<script type="text/javascript">
+$(document).ready(function(){
+    $.ajax({
+        type: 'post',
+        url: "<?php echo base_url(); ?>" + "index.php/cart/items_in_cart",
+        data:{
+            total_cart_items:"total"
+        },
+        dataType: 'JSON',
+        success:function(response) {
+            if(response.status){
+                $('#total_items').html(response.msg);
+            } else {
+                $('#total_items').html(0);
+            }
+        }
+    });
+});
+function cart(id)
+{
+    var product= id;
+    var user = "<?php echo $this->session->userdata('user_id') ?>";
+    var quantity = $('#quantity').val();
+    
+    $.ajax({
+        url:  "<?php echo base_url(); ?>" + "index.php/cart/add_to_cart",   
+        type: "POST",
+        dataType: "json",
+        
+        data:{
+            product_id:product,
+            user_id:user,
+            quantity:quantity
+        },
+
+        success: function(response) {
+            if(response.status)
+            {
+                alert(response.msg);
+                var count = $('#total_items').text();
+                count++;
+                $('#total_items').text(count);
+            }
+            else
+            {
+                alert(response.msg);
+            }
+        }
+    });
+}
+</script>

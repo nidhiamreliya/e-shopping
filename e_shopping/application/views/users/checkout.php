@@ -5,7 +5,7 @@
 			<table id="datatable" class="table table-striped table-bordered">
 	            <thead>
 	              <tr>
-	                <th>Product Id</th>
+	                <th>No.</th>
 	                <th>Product name</th>
 	                <th>quantity</th>
 	                <th>Price</th>
@@ -47,8 +47,8 @@
 					<span><?php echo $user['address'] ?>,<br/>
 					<?php echo $user['city'] ?>,
 					<?php echo $user['zip_code'] ?>,<br/>
-					<?php echo $user['state'] ?>,<br/>
-					<?php echo $user['country'] ?></span>
+					<?php echo $user['state'] ?>,
+					<?php echo $user['country'] ?>.</span>
 				</div>
 		    </div>
 		    <div class="col-md-6 ">
@@ -72,41 +72,41 @@
 						<input type="hidden" id="amount" name="amount" value="<?php echo $total ?>">
 						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">Shipping address: </li>
 						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_address" name="sh_address" value="<?php echo set_value('sh_address')?>">
-						<label class="text-danger">
-                          <?php echo form_error('sh_address'); ?>
-                        </label>
+							<label class="text-danger">
+	                          <?php echo form_error('sh_address'); ?>
+	                        </label>
                         </li>
 					</ul>
 					<ul>
 						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">city: </li>
 						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_city" name="sh_city" value="<?php echo set_value('sh_city')?>">
-						<label class="text-danger">
-                          <?php echo form_error('sh_city'); ?>
-                        </label>
+							<label class="text-danger">
+	                          <?php echo form_error('sh_city'); ?>
+	                        </label>
                         </li>
 					</ul>
 					<ul>
 						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">Zip code: </li>
 						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_zipcode" name="sh_zipcode" value="<?php echo set_value('sh_zipcode')?>">
-						<label class="text-danger">
-                          <?php echo form_error('sh_zipcode'); ?>
-                        </label>
+							<label class="text-danger">
+	                          <?php echo form_error('sh_zipcode'); ?>
+	                        </label>
                         </li>
 					</ul>
 					<ul>
 						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">State: </li>
 						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_state" name="sh_state" value="<?php echo set_value('sh_state')?>">
-						<label class="text-danger">
-                          <?php echo form_error('sh_state'); ?>
-                        </label>
+							<label class="text-danger">
+	                          <?php echo form_error('sh_state'); ?>
+	                        </label>
                         </li>
 					</ul>
 					<ul>
 						<li class="control-label2 col-md-6 col-sm-6 col-xs-12">Country: </li>
 						<li class="col-md-12 col-sm-12 col-xs-12" style="margine:0"><input type="text" id="sh_country" name="sh_country" value="<?php echo set_value('sh_country')?>">
-						<label class="text-danger">
-                          <?php echo form_error('sh_country'); ?>
-                        </label>
+							<label class="text-danger">
+	                          <?php echo form_error('sh_country'); ?>
+	                        </label>
                         </li>
 					</ul>
 					<ul>
@@ -129,7 +129,12 @@
 	    	$('#sh_zipcode').val("<?php echo $user['zip_code'] ?>");
 	    	$('#sh_state').val("<?php echo $user['state'] ?>");
 	    	$('#sh_country').val("<?php echo $user['country'] ?>");
+	  	} else {
+	    	$('#sh_address').val(" ");
+	    	$('#sh_city').val(" ");
+	    	$('#sh_zipcode').val(" ");
+	    	$('#sh_state').val(" ");
+	    	$('#sh_country').val(" ");
 	  	}
 	});
-
 </script>

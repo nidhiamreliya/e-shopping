@@ -12,7 +12,7 @@ class Admin_users extends MY_Controller
     //Show users list
 	public function index()
 	{
-		$data['users'] 	= $this->user_model->get_rows('users', array('privilege' => 1));
+		$data['users'] = $this->user_model->get_rows('users', array('privilege' => 1));
 		
 		$this->admin_views('admin/users', $data);
 	}
@@ -43,20 +43,14 @@ class Admin_users extends MY_Controller
 	//Update user data
 	public function update_user()
 	{
-		if($this->input->post('password'))
-		{
+		if($this->input->post('password')) {
 			$run = 'edit_user';
-		}
-		else
-		{
+		} else {
 			$run = 'update_user';
 		}
-		if($this->form_validation->run($run) == FALSE)
-		{
+		if($this->form_validation->run($run) == FALSE) {
 			$this->edit_user($this->input->post('slug'));
-		}
-		else
-		{
+		} else {
 			$slug = url_title($this->input->post('first_name').'-'.$this->input->post('last_name').'-'.$this->input->post('user_id'), 'dash', TRUE);
 			$data = array(
 					'first_name' => $this->input->post('first_name'),
@@ -70,18 +64,16 @@ class Admin_users extends MY_Controller
 					'country' 	 => $this->input->post('country'),
 					'slug' 	 	 => $slug
 				);
-			if($this->input->post('password'))
-			{
-				$password 		  = create_password($this->input->post('password'));
+			if($this->input->post('password')) {
+				$password = create_password($this->input->post('password'));
 				$data['password'] = $password;
 			}
-			$condition 	= array(
+			$condition = array(
 						'user_id' => $this->input->post('user_id'),
 					);
 
-			$result		= $this->user_model->update_row('users', $data, $condition);
-			if($result)
-			{
+			$result	= $this->user_model->update_row('users', $data, $condition);
+			if($result) {
 				$this->session->set_flashdata('successful', 'Your data inserted successfully.');
 				redirect('user/edit/'.$slug);
 			}
@@ -93,13 +85,10 @@ class Admin_users extends MY_Controller
 	{
 		$result = $this->user_model->check_duplicate($this->input->post('user_id'), $email);
 
-		if ($result)
-		{
+		if ($result) {
 			$this->form_validation->set_message('email_check', 'This email id already exist');
 			return FALSE;
-		}
-		else
-		{
+		} else {
 			return true;
 		}
 	}

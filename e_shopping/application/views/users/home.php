@@ -20,41 +20,13 @@
 					</li>
 				<?php endforeach ?>
 				</ul>
+			</div>
 	<?php
 		}
 	?>
-		<script type="text/javascript">
-				$(window).load(function() {
-					$("#flexiselDemo1").flexisel({
-						visibleItems: 4,
-						animationSpeed: 1000,
-						autoPlay: true,
-						autoPlaySpeed: 3000,    		
-						pauseOnHover: true,
-						enableResponsiveBreakpoints: true,
-						responsiveBreakpoints: { 
-							portrait: { 
-								changePoint:480,
-								visibleItems: 3
-							}, 
-							landscape: { 
-								changePoint:640,
-								visibleItems:4
-							},
-							tablet: { 
-								changePoint:768,
-								visibleItems: 3
-							}
-						}
-					});
-					
-				});
-		</script>
-			<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.flexisel.js')?>"></script>
-		</div>
 		<!-- //slider -->
-			<div class="clearfix"> </div>
-			</div>
+		<div class="clearfix"> </div>
+	</div>
 	<!-- //cate -->
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
@@ -64,29 +36,24 @@
 					<h3>Our New products <i class="glyphicon glyphicon-menu-down" aria-hidden="true"></i></h3>
 				</div>
 				<div class="catalog">
-				<?php 
-					foreach ($products as $row) 
-					{
-				?>
-						<div class="col-md-2 product-left"> 
-							<div class="p-two simpleCart_shelfItem jwe">							
-								<a href="<?php echo site_url('products/view').'/'.$row->slug?>">
-									<img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'.$row->product_img : base_url('assets/images/products/default.jpg')?>" alt="" class="img-responsive" />
-									<div class="mask">
-										<span>Quick View</span>
-									</div>
-								</a>
-								<div class="product-left-cart">
-									<div class="product-left-cart-l text-center">
-										<p><a class="item_add" href="#"><span class=" item_price"><i class="fa fa-inr" aria-hidden="true"></i><?php echo $row->product_price?></span></a></p>
-									</div>
-									<div class="clearfix"> </div>
+				<?php foreach ($products as $row) :?>
+					<div class="col-md-2 product-left"> 
+						<div class="p-two simpleCart_shelfItem jwe">							
+							<a href="<?php echo site_url('view').'/'.$row->slug?>">
+								<img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'.$row->product_img : base_url('assets/images/products/default.jpg')?>" alt="" class="img-responsive" />
+								<div class="mask">
+									<span>Quick View</span>
 								</div>
+							</a>
+							<div class="product-left-cart">
+								<div class="product-left-cart-l text-center">
+									<p><a class="item_add" href="#"><span class=" item_price"><i class="fa fa-inr" aria-hidden="true"></i><?php echo $row->product_price?></span></a></p>
+								</div>
+								<div class="clearfix"> </div>
 							</div>
 						</div>
-				<?php
-					}
-				?>
+					</div>
+				<?php endforeach ?>
 				</div>
 			</div>
 			<div class="row">
@@ -107,3 +74,31 @@
 	</div>
 </div>
 <!-- //banner-bottom -->
+<script type="text/javascript">
+		$(window).load(function() {
+			$("#flexiselDemo1").flexisel({
+				visibleItems: 4,
+				animationSpeed: 1000,
+				autoPlay: true,
+				autoPlaySpeed: 3000,    		
+				pauseOnHover: true,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: { 
+					portrait: { 
+						changePoint:480,
+						visibleItems: 3
+					}, 
+					landscape: { 
+						changePoint:640,
+						visibleItems:4
+					},
+					tablet: { 
+						changePoint:768,
+						visibleItems: 3
+					}
+				}
+			});
+			
+		});
+</script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.flexisel.js')?>"></script>

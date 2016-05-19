@@ -68,7 +68,7 @@ $config = array(
 		    				array(
 							    'field' => 'quantity',
 							    'label' => 'quantity',
-							    'rules' => 'trim|required|greater_than[0]|less_than[11]|xss_clean'
+							    'rules' => 'trim|required|greater_than[0]|less_than[11]'
 							)
 		    ),
 		    'order/place_order' => array(

@@ -35,4 +35,3 @@ class Admin_orders extends MY_Controller
 		redirect('orders');
 	}
 }
-?>

@@ -2,14 +2,8 @@
 <div class="single">
 <div class="container">
 	<div class="single-page">
-		<div clas="col-md-6">
-		<?php
-            $data = array(
-                  'name'  => 'add_to_cart',
-                  'id' => 'add_to_cart',
-                );
-        ?> 
-        <?php echo form_open('add_cart', $data);?>	
+		<div clas="col-md-6"> 
+		
         <?php 
         	if(!$product)
         	{
@@ -42,6 +36,7 @@
 			});
 			</script>
 		</div>
+
 		<div class="col-md-5 col-md-offset-1">
 		<div class="details-left-info">
 			<h3><?php echo $product['product_name'] ?></h3>
@@ -54,16 +49,8 @@
                 	<?php echo form_error('quantity'); ?>
                 </p>
 				<div class="single-but item_add">
-					<input type="hidden" name="product_id" id="product_id" value="<?php echo $product['product_id']?>">
-					<input type="hidden" name="slug" id="slug" value="<?php echo $product['slug']?>">
-					<input type="submit" value="add to cart">
+					<input type="submit"  value="add to cart" onclick="cart('<?php echo $product['product_id']?>')">
 				</div>
-				<?php
-					if($this->session->flashdata('alredy_exist'))
-					{
-						echo '<p><span class="item_price" style="color: #1B6D85;">' . $this->session->flashdata('alredy_exist') . '</span></p>';
-					}
-				?>
 			</div>
 		</div>
 		 <?php echo form_close();?>

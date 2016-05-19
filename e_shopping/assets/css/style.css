@@ -1162,6 +1162,7 @@ ul.total_price li.last_price span{
   color: #000;
 }
 .price-details{
+	width: 100%;
 	border-bottom: 1px solid #DDD9D9;
   padding-bottom: 10px;
 }
@@ -1174,7 +1175,7 @@ ul.total_price li.last_price span{
 	width: 50%;
   float: left;
  
-  font-size: 0.8125em;
+  font-size: 1.0em;
   color: #000;
   line-height: 1.8em;
 }
@@ -3374,4 +3375,11 @@ label.radio {
 		background: url(../images/1.png) no-repeat 47px 2px;
 		background-size: 11%;
 	}
+}
+form label.error {
+		margin-left: 10px;
+		width: auto;
+		display: inline;
+		color: red;
+		font-size: 13px
 }
