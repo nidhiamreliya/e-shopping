@@ -16,7 +16,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- js -->
 <script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url("assets/js/jquery.validate.js"); ?>"></script>  
-
 <script type="text/javascript" src="<?php echo base_url("assets/js/form_validation.js"); ?>"></script>  
 
 <!-- //js -->
@@ -130,7 +129,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 $(document).ready(function(){
     $.ajax({
         type: 'post',
-        url: "<?php echo base_url(); ?>" + "index.php/cart/items_in_cart",
+        url: "<?php echo base_url(); ?>" + "e_shopping/index.php/cart/items_in_cart",
         data:{
             total_cart_items:"total"
         },
@@ -142,38 +141,38 @@ $(document).ready(function(){
                 $('#total_items').html(0);
             }
         }
+    }),
+    $('.additem').click(function(){
+        var product= $(this).attr('data-id');
+        var user = "<?php echo $this->session->userdata('user_id') ?>";
+        var quantity = $('#quantity').val();
+        
+        $.ajax({
+            url:  "<?php echo base_url(); ?>" + "e_shopping/index.php/cart/add_to_cart",   
+            type: "POST",
+            dataType: "json",
+            
+            data:{
+                product_id:product,
+                user_id:user,
+                quantity:quantity
+            },
+
+            success: function(response) {
+                if(response.status)
+                {
+                    alert(response.msg);
+                    var count = $('#total_items').text();
+                    count++;
+                    $('#total_items').text(count);
+                }
+                else
+                {
+                    alert(response.msg);
+                }
+            }
+        });
     });
 });
-function cart(id)
-{
-    var product= id;
-    var user = "<?php echo $this->session->userdata('user_id') ?>";
-    var quantity = $('#quantity').val();
-    
-    $.ajax({
-        url:  "<?php echo base_url(); ?>" + "index.php/cart/add_to_cart",   
-        type: "POST",
-        dataType: "json",
-        
-        data:{
-            product_id:product,
-            user_id:user,
-            quantity:quantity
-        },
 
-        success: function(response) {
-            if(response.status)
-            {
-                alert(response.msg);
-                var count = $('#total_items').text();
-                count++;
-                $('#total_items').text(count);
-            }
-            else
-            {
-                alert(response.msg);
-            }
-        }
-    });
-}
 </script>

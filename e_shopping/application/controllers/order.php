@@ -4,24 +4,18 @@ class Order extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        if (!$this->session->userdata('user_id')) redirect('user_control/logout');
+        if (!$this->session->userdata('user_id') || $this->session->userdata('privilege') != 1) redirect('login');
     }
 
     //Checkout form for place order
     public function checkout()
     {
-        $data['checkout'] = $this->user_model->cart_details($this->session->userdata('session_id'));
+        $data['checkout'] = $this->user_model->cart_details($this->session->userdata('user_id'));
         $condition = array('user_id' => $this->session->userdata('user_id'));
         $data['user'] = $this->user_model->getwhere_data('users', $condition);
         $this->user_views('users/checkout', $data);
     }
-
-    public function datatable()
-    {
-        $totalRecord;
-        $row;
-    }
-
+    
     //Display order details
     public function order_details($order_no = null)
     {
@@ -49,7 +43,7 @@ class Order extends MY_Controller
                 );
                 $order_no = $this->user_model->insert_row('order', $data);
 
-                $products = $this->user_model->cart_data($this->session->userdata('session_id'));
+                $products = $this->user_model->cart_data($this->session->userdata('user_id'));
                 if($products) {
                     foreach ($products as $row) 
                     {
@@ -61,7 +55,7 @@ class Order extends MY_Controller
                         $detail_id = $this->user_model->insert_row('order_details', $data);
                     }
                     if($detail_id) {
-                        $data   = array('session_id' => $this->session->userdata('session_id'));
+                        $data   = array('user_id' => $this->session->userdata('user_id'));
                         $result = $this->user_model->delete_row('cart',$data);
                     }
                     

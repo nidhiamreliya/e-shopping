@@ -15,7 +15,11 @@ class Cart extends MY_Controller
     //show details of cart
     public function cart_details()
     {
-        $data['cart'] = $this->user_model->cart_details($this->session->userdata('session_id'));
+        if($this->session->userdata('user_id')){        
+            $data['cart'] = $this->user_model->cart_details($this->session->userdata('user_id'));
+        } else {
+            $data['cart'] = $this->user_model->cart_details(null, $this->session->userdata('session_id'));
+        }
       
         $total = 0;
         if($data['cart'])
@@ -41,27 +45,27 @@ class Cart extends MY_Controller
             echo json_encode(
                 array( 
                 "status"=>false,
-                "msg"=> "you entered invalid quentity",
+                "msg"=> "you entered invalid quantity",
             ));
             exit;
         }
         else
-        {
-            if($this->session->userdata('user_id'))
-            {
-                $data['user_id'] = $this->session->userdata('user_id');
-            } 
+        {   
             $data = array(
                     'session_id'  => $this->session->userdata('session_id'),
                     'product_id'  => $this->input->post('product_id'),
                     'quantity'    => $this->input->post('quantity')
             );
-            $check = $this->user_model->check_cart('cart', $this->session->userdata('session_id'), $this->input->post('product_id'));
+            if($this->session->userdata('user_id'))
+            {
+                $data['user_id'] = $this->session->userdata('user_id');
+            } 
+            $check = $this->user_model->check_cart('cart', array('session_id' => $this->session->userdata('session_id')), $this->input->post('product_id'));
 
             if($check)
             {
                 echo json_encode( array(
-                    "status"=>TRUE,
+                    "status"=>false,
                     "msg"   => "This product is already exist in your cart.",
                 ));
                 exit;
@@ -93,7 +97,12 @@ class Cart extends MY_Controller
     {
         if($this->input->post('total_cart_items'))
         {
-            $count = $this->user_model->record_count('cart', array('session_id'=>$this->session->userdata('session_id')));
+            if($this->session->userdata('user_id'))
+            {
+                $count = $this->user_model->record_count('cart', array('user_id' => $this->session->userdata('user_id')));
+            } else {
+                $count = $this->user_model->record_count('cart', array('session_id' => $this->session->userdata('session_id'), 'user_id' => null));
+            }
             echo json_encode(array(
                         "status"=>true,
                         "msg"   => $count,
@@ -128,7 +137,12 @@ class Cart extends MY_Controller
     {
         if ($this->form_validation->run('check_qty') == FALSE )
         {
-            $this->cart_details();
+            echo json_encode(
+                array( 
+                "status"=>false,
+                "msg"=> "you entered invalid quentity",
+            ));
+            exit;
         }
         else
         {

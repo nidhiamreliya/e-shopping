@@ -49,7 +49,7 @@
                 	<?php echo form_error('quantity'); ?>
                 </p>
 				<div class="single-but item_add">
-					<input type="submit"  value="add to cart" onclick="cart('<?php echo $product['product_id']?>')">
+					<input type="submit"  value="add to cart" data-id="<?php echo $product['product_id']?>" class="additem">
 				</div>
 			</div>
 		</div>

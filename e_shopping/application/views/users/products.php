@@ -23,7 +23,7 @@
 										<h4><?php echo $row->product_name ?></h4>
 									</a>
 									<input type="hidden" id="quantity" value="1">
-									<p onclick="cart('<?php echo $row->product_id?>')">
+									<p data-id="<?php echo $row->product_id?>" class="additem">
 										<i></i>
 										<span class=" item_price valsa"><?php echo $row->product_price ?><e class="fa fa-inr" aria-hidden="true"></e></span>
 									</p>

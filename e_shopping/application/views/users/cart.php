@@ -1,78 +1,78 @@
 <!-- check-out -->
 <div class="container">
-	<div class="check">	 
-		<div class="col-md-4 cart-total">
-			<a class="continue" href="<?php echo site_url('product')?>">Continue to basket</a>
-			<?php if($cart == null): ?>
+	<div class="check">
+		<?php if($cart == null): ?>
 			<div class="col-md-6" id="no_data">
+				<a class="continue" href="<?php echo site_url('product')?>">Continue to basket</a>
 				<span> Currently you don't have any item in your cart. </span>
 				<br/>
 				<span> First add some items in your cart. </span>
+
 			</div>
-			<?php else : ?>
+		<?php else: ?>
+			<div class="col-md-4 cart-total">
 				<div id="price" class="col-md-12 cart-total">
-				<?php echo form_open('checkout');?>
-				<div class="price-details" >
-					<h3>Price Details</h3>
-					<span>Total</span>
-					<span class="total1" id="total_cost"><?php echo $total ?></span>
-					<span>Delivery Charges</span>
-					<span class="total1">00.00</span>
-					<div class="clearfix"></div>				 
-				</div>	
-				<ul class="total_price">
-				   <li class="last_price"> <h4>TOTAL</h4></li>	
-				   <li class="last_price"><span id="pay"><?php echo $ltotal= $total + 00.00 ?></span></li>
-				   <div class="clearfix"> </div>
-				</ul> 
-				<div class="clearfix"></div>
-				<div class="fgh">
-					<input type="submit" class="btn-block" value="Place Order">
-				</div>
+					<?php echo form_open('checkout');?>
+					<a class="continue" href="<?php echo site_url('product')?>">Continue to basket</a>					
+					<div class="price-details" >
+						<h3>Price Details</h3>
+						<span>Total</span>
+						<span class="total1" id="total_cost"><?php echo $total ?></span>
+						<span>Delivery Charges</span>
+						<span class="total1">00.00</span>
+						<div class="clearfix"></div>				 
+					</div>	
+					<ul class="total_price">
+					   <li class="last_price"> <h4>TOTAL</h4></li>	
+					   <li class="last_price"><span id="pay"><?php echo $ltotal= $total + 00.00 ?></span></li>
+					   <div class="clearfix"> </div>
+					</ul> 
+					<div class="clearfix"></div>
+					<div class="fgh">
+						<input type="submit" class="btn-block" value="Place Order">
+					</div>
 				</div>
 				<?php echo form_close();?>
-				</div>
-				<div class="col-md-8 cart-items">
-					<label><h1>Cart Items</h1></label>
-					<label class="text-danger" style="font-size: 13px;">
-					   	<?php echo form_error('quantity'); ?>
-					</label>
+			</div>
+		
+			<div class="col-md-8 col-sm-12 col-xs-12 cart-items">
+				<label><h1>Cart Items</h1></label>
 					
-					<?php foreach($cart as $row):?>
-					<div id="cart<?php echo $row->cart_id?>">
-						<div class="cart-header">
-							<div class="cart-sec simpleCart_shelfItem">
-								<div class="col-md-4 col-sm-4 col-xs-12 cart_img">
-									<img src="<?php echo base_url('assets/images/products') .'/'. $row->product_img ?>" class="img-responsive" alt="" style=" height: 100%; width:90%"/>
-								</div>
-								<div class="col-md-8 col-sm-8 col-md-8 col-xs-12">
-								   <div class="cart-item-info">
-								   		<w class="details-left-info">
-								   			<h3><?php echo $row->product_name ?></h3>
-								   		</w>
-								   		<br/><br/><br/>
-								   		<p>Price :<span id="cost<?php echo $row->cart_id?>" value="<?php echo $row->product_price?>"><?php echo $row->product_price?></span></p>
-								   		
-										<ul class="qty">
-											<li><p>Qty :<input max="10" min="1" type="number" id="quantity<?php echo $row->cart_id?>" name="quantity" class="form-control input-small" value="<?php echo $row->quantity?>"></p></li>
-											<input type="hidden" id="oqty<?php echo $row->cart_id?>" value="<?php echo $row->quantity?>" />
+				<?php foreach($cart as $row):?>
+				<div id="cart<?php echo $row->cart_id?>">
+					<div class="cart-header">
+						<div class="cart-sec simpleCart_shelfItem">
+							<div class="col-md-4 col-sm-4 col-xs-12 cart_img">
+								<img src="<?php echo base_url('assets/images/products') .'/'. $row->product_img ?>" class="img-responsive" alt="" style=" height: 100%; width:100%"/>
+							</div>
+							<div class="col-md-8 col-sm-8 col-xs-12">
+							   <div class="cart-item-info">
+							   		<w class="details-left-info">
+							   			<h3><?php echo $row->product_name ?></h3>
+							   		</w>
+							   		<br/><br/><br/>
+							   		<p>Price :<span id="cost<?php echo $row->cart_id?>" value="<?php echo $row->product_price?>"><?php echo $row->product_price?></span></p>
+							   		
+									<ul class="qty">
+										<li><p>Qty :<input max="10" min="1" type="number" id="quantity<?php echo $row->cart_id?>" name="quantity" class="form-control input-small" value="<?php echo $row->quantity?>"></p></li>
+										<input type="hidden" id="oqty<?php echo $row->cart_id?>" value="<?php echo $row->quantity?>" />
 
-										</ul>
-										<div class="delivery">
-											<span>Delivered in 2-3 bussiness days</span>
-										</div>	
-										<div class="fgh">
-											<a data-id="<?php echo $row->cart_id?>" class="updateitem">Update</a>
-											<a data-id="<?php echo $row->cart_id?>" class="removeitem">Remove</a>
-										</div>
+									</ul>
+									<div class="delivery">
+										<span>Delivered in 2-3 bussiness days</span>
+									</div>	
+									<div class="fgh">
+										<a data-id="<?php echo $row->cart_id?>" class="updateitem">Update</a>
+										<a data-id="<?php echo $row->cart_id?>" class="removeitem">Remove</a>
 									</div>
 								</div>
-						   		<div class="clearfix"></div>
 							</div>
-				 		</div>
-				 	</div>
-					<?php endforeach ?>
-				</div>
+					   		<div class="clearfix"></div>
+						</div>
+			 		</div>
+			 	</div>
+				<?php endforeach ?>
+			</div>
 		<?php endif ?>
 		<div class="clearfix"> </div>
 	</div>
@@ -87,7 +87,7 @@
     		{
     			var id = $(this).attr('data-id');
     			$.ajax({
-		            url:  "<?php echo base_url(); ?>" + "index.php/cart/remove",   
+		            url:  "<?php echo base_url(); ?>" + "e_shopping/index.php/cart/remove",   
 		            type: "POST",
 		            dataType : "json",
 		            data:{
@@ -96,8 +96,7 @@
 		           
 		            success: function(response) {
 		                if (response.status) {
-		                	alert(response.msg);
-
+		                	
 		                	var total = $('#total_cost').text();
 			                var price = $('#cost'+id).text();
 			                var qty = $('#quantity'+id).val();
@@ -110,6 +109,7 @@
 			                if(count == 0)
 			                {
 			                	$('#price').remove();
+			                	$('.cart-items').remove();
 			                }
 			                $('#total_items').text(count);
 			                $('#cart'+id).remove();
@@ -125,7 +125,7 @@
 	    $('.updateitem').click(function(){
 	        var id = $(this).attr('data-id');
 	        $.ajax({
-	            url:  "<?php echo base_url(); ?>" + "index.php/cart/update_cart",   
+	            url:  "<?php echo base_url(); ?>" + "e_shopping/index.php/cart/update_cart",   
 	            type: "POST",
 	            dataType : "json",
 	            data:{

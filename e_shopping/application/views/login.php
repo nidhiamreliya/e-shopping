@@ -12,7 +12,7 @@
             $data = array(
                   'name'      => 'login',
                   'id'        => 'login',
-                  'onsubmit'  => 'return login_check()'
+                  //'onsubmit'  => 'return login_check()'
                 );
           ?> 
           <?php echo form_open('login/error', $data);?>

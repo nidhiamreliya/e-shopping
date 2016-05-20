@@ -485,7 +485,6 @@ a.simpleCart_empty {
 }
 .cart_img{
 	margin-top: 20px;
-	height: 100%;
 }
 .slider-top ul.social-slide{
 	display:inline-flex;
@@ -1009,7 +1008,6 @@ p.non span{
 }
 .cart-sec{
 	margin-bottom:1em;
-	height: 250px;
 	overflow: hidden;
 }
 .delivery{
@@ -1025,7 +1023,7 @@ p.non span{
 	width:100%;
 }
 .cart-item-info{
-	width:75%;
+	width:100%;
 	float:left;
 }
 .check{

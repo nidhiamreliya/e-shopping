@@ -80,8 +80,8 @@ class Admin_categorys extends MY_Controller
 
 		
 		$is_ordered = $this->user_model->get_category($category['category_id']);
-
-		if($is_ordered) {
+		
+		if(!$is_ordered) {
 			$result = $this->user_model->delete_row('category', $category);
 			if($result) {
 				$this->session->set_flashdata('successful', 'Your data deleted successfully.');

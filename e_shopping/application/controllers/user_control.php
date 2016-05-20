@@ -21,15 +21,36 @@ class User_control extends MY_Controller
         } else {
             $password = create_password($this->input->post('password'));
             $user = $this->user_model->user_login($this->input->post('email_id'), $password);
+            
             if($user) {
                 $user_data = array('user_id' => $user['user_id'],'privilege' => $user['privilege'], 'first_name' => $user['first_name']);
                 $this->session->set_userdata($user_data);
 
-              if($this->session->userdata('privilege') == 1) {
-                  redirect('home');
-              } else if($this->session->userdata('privilege') == 2) {
+                if($this->session->userdata('privilege') == 1) {
+                    
+                    $cart = $this->user_model->get_rows('cart', array( 'session_id' => $this->session->userdata('session_id'), 'user_id'=> null));
+                    if($cart)
+                    {
+                        $condition = array( 'session_id' => $this->session->userdata('session_id'), 'user_id'=> null);
+                        $data = array('user_id' => $this->session->userdata('user_id'));
+
+                        foreach ($cart as $row) {
+                            $check = $this->user_model->check_cart('cart', array('user_id' =>$this->session->userdata('user_id')), $row->product_id);
+                            if($check)
+                            {
+                                $this->user_model->delete_row('cart', $check);
+                            }
+                        }
+                        
+
+                        $this->user_model->update_row('cart', $data, $condition);
+                    }
+
+                    redirect('home');
+                
+                } else if($this->session->userdata('privilege') == 2) {
                   redirect('admin_control');
-              }
+                }
             } else {
                 $data['err_message'] = 'Invalid user name or password.';
              
@@ -44,6 +65,7 @@ class User_control extends MY_Controller
         $this->session->unset_userdata('user_id');
         $this->session->unset_userdata('privilege');
         $this->session->unset_userdata('first_name');
+        $this->session->sess_destroy();
         redirect('login');
     }
 
@@ -53,14 +75,14 @@ class User_control extends MY_Controller
         $this->load->library('pagination');
 
         $values = $this->config->config;
-        $values["base_url"] = site_url("/user_control/home");
+        $values["base_url"] = site_url("/home");
         $total_row = $this->user_model->record_count('product');
         $values["total_rows"] = $total_row;
         $values['num_links'] = ceil($total_row / $values["per_page"]);
 
         $this->pagination->initialize($values);
 
-        $page_no = $this->uri->segment(3);
+        $page_no = $this->uri->segment(2);
 
         if($page_no > 0 && $page_no <= $values['num_links']) {
             $page = ($page_no-1) * $values["per_page"];

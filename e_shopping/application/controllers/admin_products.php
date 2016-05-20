@@ -37,7 +37,7 @@ class Admin_products extends MY_Controller
 			$data['category'] = $this->user_model->get_data('category');
 		} else {
 			$data['product'] = null;
-			$data['category'] = $this->user_model->get_data('category');
+			$data['category'] = $this->user_model->get_rows('category', array('status' => 1));
 		}
 		
 		$this->admin_views('admin/edit_product', $data);
@@ -102,8 +102,6 @@ class Admin_products extends MY_Controller
 			} else {
 				$result = $this->duplicate_check($this->input->post('product_name'));
 
-				print_r($result);
-				exit;
 				if($result) {	
 					$result = $this->user_model->insert_row('product', $data);
 					$product_id = $result;

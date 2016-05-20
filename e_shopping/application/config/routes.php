@@ -43,6 +43,7 @@ $route['product/(:any)'] 	 	= "user_products/index/$1";
 $route['login'] 			 	= "user_control";
 $route['login/error'] 		 	= "user_control/check_user";
 $route['home']				   	= "user_control/home";
+$route['home/(:any)']			= "user_control/home/$1";
 $route['registration'] 		   	= "user_control/registration";
 $route['product']              	= "user_products/index";
 $route['view/(:any)'] 			= "user_control/product_details/$1";
