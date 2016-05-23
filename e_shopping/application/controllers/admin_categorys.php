@@ -77,7 +77,6 @@ class Admin_categorys extends MY_Controller
 	public function delete_category($slug)
 	{
 		$category = $this->user_model->get_fields('category', array('category_id'), array('slug' => $slug));
-
 		
 		$is_ordered = $this->user_model->get_category($category['category_id']);
 		

@@ -485,6 +485,7 @@ a.simpleCart_empty {
 }
 .cart_img{
 	margin-top: 20px;
+	margin-bottom: 30px;
 }
 .slider-top ul.social-slide{
 	display:inline-flex;
@@ -1009,6 +1010,11 @@ p.non span{
 .cart-sec{
 	margin-bottom:1em;
 	overflow: hidden;
+	box-shadow: 1px 1px 10px #CCCBCB;
+}
+.items-block
+{
+	height: 250px;
 }
 .delivery{
 	height: 50px;

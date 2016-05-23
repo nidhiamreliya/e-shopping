@@ -55,6 +55,9 @@ $route['checkout'] 				= "order/checkout";
 $route['order'] 				= "order/place_order";
 $route['order/(:any)'] 			= "order/order_details/$1";
 $route['user/orders'] 			= "order/order_details";
+$route['forgot_password'] 		= "user_control/forgot_psw";
+$route['forgot_password/error'] = "user_control/check_email";
+$route['password/change/(:any)'] = "user_control/change_password/$1";
 
 $route['admin_home'] 	 		= "admin_control";
 $route['categorys'] 			= "admin_categorys";

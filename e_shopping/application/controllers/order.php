@@ -27,7 +27,7 @@ class Order extends MY_Controller
         $this->user_views('users/order_details', $data);
     }
 
-     //Insert order in to database
+    //Insert order in to database
     public function place_order()
     {
         if($this->session->userdata('user_id')) {

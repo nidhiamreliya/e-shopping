@@ -157,7 +157,7 @@ $config = array(
 							array(
 							    'field' => 'confirm_password',
 							    'label' => 'Confirm password',
-							    'rules' => 'required|matches[password]|xss_clean'
+							    'rules' => 'required|min_length[6]|matches[password]|xss_clean'
 							)
 			),
 			'check_duplicate' =>array(
@@ -165,6 +165,13 @@ $config = array(
 							    'field' => 'email_id',
 							    'label' => 'email_id',
 							    'rules' => 'trim|required|valid_email|xss_clean|callback_email_check'
+							)
+			),
+			'email_id' =>array(
+							array(
+							    'field' => 'email_id',
+							    'label' => 'email_id',
+							    'rules' => 'required|valid_email|xss_clean'
 							)
 			)
 );

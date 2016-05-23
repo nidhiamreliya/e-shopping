@@ -49,20 +49,19 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group ">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Visible <span class="required">*</span>
                                 </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12 radio_group">
                                     <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                                         <input type="radio" name="visible" <?php echo isset($category['status']) && $category['status'] == 1 ? 'checked': ''?> value="1"> &nbsp; Visible &nbsp;
                                     </label>
                                     <label class="btn btn-primary active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                                         <input type="radio" name="visible" <?php echo isset($category['status']) && $category['status'] == 0 ? 'checked' : ''?> value="0"> Not visible
                                     </label>
-                                    <label class="col-md-8 text-danger">
+                                    <label class="col-md-8 text-danger ">
                                     <?php echo form_error('visible'); ?>
                                     </label>
-                                    
                                 </div>
                             </div>
 

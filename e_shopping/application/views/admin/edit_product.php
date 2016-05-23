@@ -99,7 +99,7 @@
 
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Visible <span class="required">*</span></label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-8 col-sm-8 col-xs-12 radio_group">
                                             <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                                                 <input type="radio" name="visible" id="visible" <?php echo isset($product['visible']) && $product['visible'] == 1 ? 'checked': ''?> value="1"> Visible 
                                             </label>

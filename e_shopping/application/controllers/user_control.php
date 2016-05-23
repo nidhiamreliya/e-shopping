@@ -4,6 +4,7 @@ class User_control extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library('encrypt');
         $this->load->helper('function_helper');
     }
 
@@ -121,17 +122,17 @@ class User_control extends MY_Controller
         } else {
             $password = create_password($this->input->post('password'));
             $data = array(
-                        'privilege'   => 1,
-                        'first_name'  => $this->input->post('first_name'),
-                        'last_name'   =>  $this->input->post('last_name'),
-                        'email_id'    => $this->input->post('email_id'),
-                        'password'    => $password,
-                        'contact_no'  => $this->input->post('contact_no'),
-                        'address'     => $this->input->post('address'),
-                        'city'        => $this->input->post('city'),
-                        'zip_code'    => $this->input->post('zip_code'),
-                        'state'       => $this->input->post('state'),
-                        'country'     => $this->input->post('country')
+                    'privilege'   => 1,
+                    'first_name'  => $this->input->post('first_name'),
+                    'last_name'   =>  $this->input->post('last_name'),
+                    'email_id'    => $this->input->post('email_id'),
+                    'password'    => $password,
+                    'contact_no'  => $this->input->post('contact_no'),
+                    'address'     => $this->input->post('address'),
+                    'city'        => $this->input->post('city'),
+                    'zip_code'    => $this->input->post('zip_code'),
+                    'state'       => $this->input->post('state'),
+                    'country'     => $this->input->post('country')
             );
 
             $result = $this->user_model->insert_row('users', $data);
@@ -147,7 +148,7 @@ class User_control extends MY_Controller
             }
         }
     }
-    
+
     //Display details of given product
     public function product_details($slug)
     {
@@ -158,5 +159,61 @@ class User_control extends MY_Controller
         $this->user_views('users/product_details', $data);
     }
 
-    
+    //Show forgot password form
+    public function forgot_psw()
+    {
+        $this->user_views('forgot_password', null);
+    }
+
+
+    //Show check for valid email id for change password of user
+    public function check_email()
+    {
+        if($this->form_validation->run('email_id') == FALSE ) {
+            $this->forgot_psw();
+        } else {
+
+            $valid = $this->user_model->get_fields('users', array('user_id'), array('email_id' => $this->input->post('email_id')));
+            if($valid)
+            {
+                $user = $this->encrypt->encode($valid['user_id']);
+                $user_id = str_replace("/", ".", $user);
+
+                redirect('password/change/' . $user_id);
+            } else {
+                $data['err_message'] = 'Email id not exist.';
+                $this->user_views('forgot_password', $data);
+            }
+            
+        }
+    }
+
+    //Show change password view of user
+    public function change_password($user)
+    {
+        $data['user_id'] = $user;
+        
+        if($this->form_validation->run('password') == FALSE ) {
+            $this->user_views('change_psw', $data);
+        } else {
+
+            $user_id = str_replace(".", "/", $user);
+            $user = $this->encrypt->decode($user_id);
+            $password = create_password($this->input->post('password'));
+            
+            $result = $this->user_model->update_row(
+                'users', 
+                array('password' => $password),
+                array('user_id' => $user)
+            );
+            if($result)
+            {
+                $this->session->set_flashdata('psw_success', 'Your password update successfully');
+                redirect('login');
+            } else {
+                $this->user_views('change_psw', $data);
+            }
+
+        }
+    }
 }

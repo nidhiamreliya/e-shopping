@@ -2,18 +2,17 @@
 <div class="container">
 	<div class="check">
 		<?php if($cart == null): ?>
-			<div class="col-md-6" id="no_data">
+			<div class="col-md-4" id="no_data">
 				<a class="continue" href="<?php echo site_url('product')?>">Continue to basket</a>
 				<span> Currently you don't have any item in your cart. </span>
 				<br/>
 				<span> First add some items in your cart. </span>
-
 			</div>
 		<?php else: ?>
 			<div class="col-md-4 cart-total">
+				<a class="continue" href="<?php echo site_url('product')?>">Continue to basket</a>
 				<div id="price" class="col-md-12 cart-total">
-					<?php echo form_open('checkout');?>
-					<a class="continue" href="<?php echo site_url('product')?>">Continue to basket</a>					
+					<?php echo form_open('checkout');?>				
 					<div class="price-details" >
 						<h3>Price Details</h3>
 						<span>Total</span>
@@ -36,39 +35,38 @@
 			</div>
 		
 			<div class="col-md-8 col-sm-12 col-xs-12 cart-items">
-				<label><h1>Cart Items</h1></label>
+				<div class="cart-header">
+					<label><h2 style="margin-top: 0;">Cart Items</h2></label>
+				</div>
 					
 				<?php foreach($cart as $row):?>
 				<div id="cart<?php echo $row->cart_id?>">
-					<div class="cart-header">
-						<div class="cart-sec simpleCart_shelfItem">
-							<div class="col-md-4 col-sm-4 col-xs-12 cart_img">
-								<img src="<?php echo base_url('assets/images/products') .'/'. $row->product_img ?>" class="img-responsive" alt="" style=" height: 100%; width:100%"/>
-							</div>
-							<div class="col-md-8 col-sm-8 col-xs-12">
-							   <div class="cart-item-info">
-							   		<w class="details-left-info">
-							   			<h3><?php echo $row->product_name ?></h3>
-							   		</w>
-							   		<br/><br/><br/>
-							   		<p>Price :<span id="cost<?php echo $row->cart_id?>" value="<?php echo $row->product_price?>"><?php echo $row->product_price?></span></p>
-							   		
-									<ul class="qty">
-										<li><p>Qty :<input max="10" min="1" type="number" id="quantity<?php echo $row->cart_id?>" name="quantity" class="form-control input-small" value="<?php echo $row->quantity?>"></p></li>
-										<input type="hidden" id="oqty<?php echo $row->cart_id?>" value="<?php echo $row->quantity?>" />
-
-									</ul>
-									<div class="delivery">
-										<span>Delivered in 2-3 bussiness days</span>
-									</div>	
-									<div class="fgh">
-										<a data-id="<?php echo $row->cart_id?>" class="updateitem">Update</a>
-										<a data-id="<?php echo $row->cart_id?>" class="removeitem">Remove</a>
-									</div>
+					<div class="cart-sec simpleCart_shelfItem ">
+						<div class="col-md-4 col-sm-4 col-xs-12 cart_img">
+							<img src="<?php echo base_url('assets/images/products') .'/'. $row->product_img ?>" class="img-responsive" alt="" style=" height: 100%; width:100%"/>
+						</div>
+						<div class="col-md-8 col-sm-8 col-xs-12 items-block">
+						   <div class="cart-item-info">
+						   		<w class="details-left-info">
+						   			<h3><?php echo $row->product_name ?></h3>
+						   		</w>
+						   		<br/><br/>
+						   		<p>Price :<span id="cost<?php echo $row->cart_id?>" value="<?php echo $row->product_price?>"><?php echo $row->product_price?></span></p>
+						   		
+								<ul class="qty">
+									<li><p>Qty :<input max="10" min="1" type="number" id="quantity<?php echo $row->cart_id?>" name="quantity" class="form-control input-small" value="<?php echo $row->quantity?>"></p></li>
+									<input type="hidden" id="oqty<?php echo $row->cart_id?>" value="<?php echo $row->quantity?>" />
+								</ul>
+								<div class="delivery">
+									<span>Delivered in 2-3 bussiness days</span>
+								</div>	
+								<div class="fgh">
+									<a data-id="<?php echo $row->cart_id?>" class="updateitem">Update</a>
+									<a data-id="<?php echo $row->cart_id?>" class="removeitem">Remove</a>
 								</div>
 							</div>
-					   		<div class="clearfix"></div>
 						</div>
+				   		<div class="clearfix"></div>
 			 		</div>
 			 	</div>
 				<?php endforeach ?>
