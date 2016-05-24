@@ -45,7 +45,9 @@ class Admin_control extends MY_Controller
 		$this->admin_views('admin/change_password', null);
 	}
 
-	//Check password to change
+	/*Check password match with old password or not
+	 *@Param string $password 
+	*/
 	public function password_check($password)
 	{
 		$password 	= create_password($password);

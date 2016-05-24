@@ -35,7 +35,7 @@ $config = array(
 							    'rules' => 'trim|required|xss_clean'
 							)
 		    ),
-		    'admin_categorys/insert_category' => array(
+		    'admin_category/insert_category' => array(
 							array(
 							    'field' => 'category_name',
 							    'label' => 'category name',

@@ -108,13 +108,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <!-- start header menu -->
             <ul class="megamenu skyblue">
                 <li class="<?php echo $this->uri->segment(1) == '' ? 'active grid' : '' ?>"><a class="color1" href="<?php echo site_url() ?>">Home</a></li>
-                <li class="<?php echo $this->uri->segment(1) == 'product' ? 'active grid' : '' ?>"><a class="color1" href="<?php echo site_url('product')?>">category</a>
+                <li class="<?php echo $this->uri->segment(1) == 'catalog' ? 'active grid' : '' ?>"><a class="color1" href="<?php echo site_url('catalog')?>">category</a>
                     <div class="megapanel">
                         <div class="h_nav">
                             <ul>
-                            <?php foreach ($category as $row):?>
-                                <li><a href="<?php echo site_url('product').'/'.$row->slug ?>"><?php echo $row->category_name ?></a></li>
-                            <?php endforeach ?>
+                            <?php
+                                if(!$category){
+                                    echo 'No Data available';
+                                } else {
+                            ?>
+                                <?php foreach ($category as $row):?>
+                                    <li><a href="<?php echo site_url('catalog').'/'.$row->slug ?>"><?php echo $row->category_name ?></a></li>
+                                <?php endforeach ?>
+                            <?php
+                                }
+                            ?>
                             </ul> 
                         </div>              
                     </div>

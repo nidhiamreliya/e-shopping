@@ -31,7 +31,7 @@
                             <thead>
                                 <tr>
                                 <th>Product id</th>
-                                <th>category id</th>
+                                <th>category</th>
                                 <th>Product name</th>
                                 <th>Description</th>
                                 <th>Price</th>
@@ -48,7 +48,7 @@
                                 <?php foreach($products as $row):?>
                                 <tr>
                                     <td><?php echo $row->product_id ?></td>
-                                    <td><?php echo $row->category_id ?></td>
+                                    <td><?php echo $row->category_name ?></td>
                                     <td><?php echo $row->product_name ?></td>
                                     <td><?php echo $row->description ?></td>
                                     <td><?php echo $row->product_price ?></td>

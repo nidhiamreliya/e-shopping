@@ -10,12 +10,14 @@ class Admin_orders extends MY_Controller
     //Show order list
 	public function index()
 	{
-		$data['orders'] = $this->user_model->get_data('order');
+		$data['orders'] = $this->user_model->get_orders('order');
 		
 		$this->admin_views('admin/orders', $data);
 	}
 
-	//Show details of order
+	/*Show details of order
+		*@Param int $order_no optional
+    */
 	public function order_details($order_no = null)
 	{
 		$data['order_details'] 	= $this->user_model->order_details($order_no);
@@ -23,7 +25,10 @@ class Admin_orders extends MY_Controller
 		$this->admin_views('admin/order_details', $data);
 	}
 
-	//Change status of order
+	/*Change status of order
+		*@Param string $status status to change
+		*@Param int $order_no
+    */
 	public function mark_as($status,$order_no)
 	{
 		$condition 	= array('order_no' => $order_no);

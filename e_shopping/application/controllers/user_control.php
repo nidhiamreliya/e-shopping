@@ -11,6 +11,9 @@ class User_control extends MY_Controller
     //Show login form
     public function index()
     {
+        if($this->session->userdata('user_id')){
+            $this->logout();
+        }
         $this->user_views('login', null);
     }
 
@@ -24,31 +27,44 @@ class User_control extends MY_Controller
             $user = $this->user_model->user_login($this->input->post('email_id'), $password);
             
             if($user) {
-                $user_data = array('user_id' => $user['user_id'],'privilege' => $user['privilege'], 'first_name' => $user['first_name']);
+                $user_data = array(
+                    'user_id' => $user['user_id'],
+                    'privilege' => $user['privilege'], 
+                    'first_name' => $user['first_name']
+                );
                 $this->session->set_userdata($user_data);
 
                 if($this->session->userdata('privilege') == 1) {
                     
-                    $cart = $this->user_model->get_rows('cart', array( 'session_id' => $this->session->userdata('session_id'), 'user_id'=> null));
+                    $cart = $this->user_model->get_rows(
+                                'cart', 
+                                array(
+                                    'session_id' => $this->session->userdata('session_id'), 
+                                    'user_id'=> null
+                                )
+                        );
                     if($cart)
                     {
-                        $condition = array( 'session_id' => $this->session->userdata('session_id'), 'user_id'=> null);
+                        $condition = array(
+                                'session_id' => $this->session->userdata('session_id'), 
+                                'user_id'=> null
+                            );
                         $data = array('user_id' => $this->session->userdata('user_id'));
 
                         foreach ($cart as $row) {
-                            $check = $this->user_model->check_cart('cart', array('user_id' =>$this->session->userdata('user_id')), $row->product_id);
+                            $check = $this->user_model->check_cart(
+                                        'cart', 
+                                        array('user_id' =>$this->session->userdata('user_id')), 
+                                        $row->product_id
+                                    );
                             if($check)
                             {
                                 $this->user_model->delete_row('cart', $check);
                             }
                         }
-                        
-
                         $this->user_model->update_row('cart', $data, $condition);
                     }
-
                     redirect('home');
-                
                 } else if($this->session->userdata('privilege') == 2) {
                   redirect('admin_control');
                 }
@@ -95,7 +111,13 @@ class User_control extends MY_Controller
 
         $fields = array('product_id', 'product_price', 'product_img', 'slug');
         $condition = array('visible' => 1);
-        $data['products'] = $this->user_model->fetch_data($page, $values["per_page"], 'product', $fields, $condition);
+        $data['products'] = $this->user_model->fetch_data(
+                                $page, 
+                                $values["per_page"], 
+                                'product', 
+                                $fields, 
+                                $condition
+                            );
         if($data) {
             $str_links = $this->pagination->create_links();
             $data["links"] = explode('&nbsp;',$str_links );
@@ -137,24 +159,67 @@ class User_control extends MY_Controller
 
             $result = $this->user_model->insert_row('users', $data);
             if($result) {
-                $user_data = array('user_id' => $result,'privilege' => 1, 'first_name' => $this->input->post('first_name'));    
+                $user_data = array(
+                                'user_id' => $result,
+                                'privilege' => 1, 
+                                'first_name' => $this->input->post('first_name')
+                            );    
                 $this->session->set_userdata($user_data);
-                $slug = url_title($this->input->post('first_name').'-'.$this->input->post('last_name').'-'.$this->session->userdata('user_id'), 'dash', TRUE);
-                $result = $this->user_model->update_row('users', array('slug' => $slug), array('user_id' => $this->session->userdata('user_id')));
+                
+                $slug = url_title(
+                            $this->input->post('first_name').'-'.$this->input->post('last_name').'-'.$this->session->userdata('user_id'), 
+                            'dash', 
+                            TRUE
+                        );
+                $result = $this->user_model->update_row(
+                            'users', 
+                            array('slug' => $slug), 
+                            array('user_id' => $this->session->userdata('user_id'))
+                        );
 
-                redirect('user_control/home');
+                $cart = $this->user_model->get_rows(
+                            'cart', 
+                            array( 'session_id' => $this->session->userdata('session_id'), 
+                            'user_id'=> null)
+                        );
+                if($cart)
+                {
+                    $condition = array( 
+                                    'session_id' => $this->session->userdata('session_id'), 
+                                    'user_id'=> null
+                                );
+                    $data = array('user_id' => $this->session->userdata('user_id'));
+
+                    foreach ($cart as $row) {
+                        $check = $this->user_model->check_cart(
+                                    'cart', 
+                                    array(
+                                        'user_id' =>$this->session->userdata('user_id')), 
+                                        $row->product_id
+                                    );
+                        if($check)
+                        {
+                            $this->user_model->delete_row('cart', $check);
+                        }
+                    }
+                    $this->user_model->update_row('cart', $data, $condition);
+                }
+                redirect('home');
             } else {
-                redirect('user_control/registration');
+                redirect('registration');
             }
         }
     }
 
-    //Display details of given product
+    /*Display details of given product
+        *@Param string $slug
+    */
     public function product_details($slug)
     {
         $product = array('slug' => $slug);
         $product = $this->user_model->get_fields('product', array('product_id'), $product);
-        $data['product'] = $this->user_model->getwhere_data('product',$product);
+        $condition = array('product_id' => $product['product_id'], 'visible' => 1);
+        $data['product'] = $this->user_model->getwhere_data('product',$condition);
         
         $this->user_views('users/product_details', $data);
     }
@@ -173,7 +238,11 @@ class User_control extends MY_Controller
             $this->forgot_psw();
         } else {
 
-            $valid = $this->user_model->get_fields('users', array('user_id'), array('email_id' => $this->input->post('email_id')));
+            $valid = $this->user_model->get_fields(
+                        'users', 
+                        array('user_id'), 
+                        array('email_id' => $this->input->post('email_id'))
+                    );
             if($valid)
             {
                 $user = $this->encrypt->encode($valid['user_id']);
@@ -188,7 +257,9 @@ class User_control extends MY_Controller
         }
     }
 
-    //Show change password view of user
+    /*Show change password view of user
+        *@Param string $user encrypted user id
+    */
     public function change_password($user)
     {
         $data['user_id'] = $user;
@@ -202,10 +273,10 @@ class User_control extends MY_Controller
             $password = create_password($this->input->post('password'));
             
             $result = $this->user_model->update_row(
-                'users', 
-                array('password' => $password),
-                array('user_id' => $user)
-            );
+                        'users', 
+                        array('password' => $password),
+                        array('user_id' => $user)
+                    );
             if($result)
             {
                 $this->session->set_flashdata('psw_success', 'Your password update successfully');

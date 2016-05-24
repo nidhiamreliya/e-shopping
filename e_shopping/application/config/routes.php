@@ -38,40 +38,40 @@
 |
 */
 
-$route['default_controller'] 	= "user_control/home";
-$route['product/(:any)'] 	 	= "user_products/index/$1";
-$route['login'] 			 	= "user_control";
-$route['login/error'] 		 	= "user_control/check_user";
-$route['home']				   	= "user_control/home";
-$route['home/(:any)']			= "user_control/home/$1";
-$route['registration'] 		   	= "user_control/registration";
-$route['product']              	= "user_products/index";
-$route['view/(:any)'] 			= "user_control/product_details/$1";
-$route['add_cart'] 				= "user_control/add_to_cart";
-$route['cart'] 					= "cart/cart_details";
-$route['cart/update'] 			= "cart/update_cart";
-$route['remove/(:num)'] 		= "cart/remove/$1";
-$route['checkout'] 				= "order/checkout";
-$route['order'] 				= "order/place_order";
-$route['order/(:any)'] 			= "order/order_details/$1";
-$route['user/orders'] 			= "order/order_details";
-$route['forgot_password'] 		= "user_control/forgot_psw";
-$route['forgot_password/error'] = "user_control/check_email";
+$route['default_controller'] 	 = "user_control/home";
+$route['catalog/(:any)']		 = "user_products/index/$1";
+$route['login'] 			 	 = "user_control";
+$route['login/error'] 		 	 = "user_control/check_user";
+$route['home']					 = "user_control/home";
+$route['home/(:any)']			 = "user_control/home/$1";
+$route['registration']			 = "user_control/registration";
+$route['catalog']				 = "user_products/index";
+$route['product/(:any)'] 		 = "user_control/product_details/$1";
+$route['add_cart'] 				 = "user_control/add_to_cart";
+$route['cart'] 					 = "cart/cart_details";
+$route['cart/update'] 			 = "cart/update_cart";
+$route['remove/(:num)'] 		 = "cart/remove/$1";
+$route['checkout'] 				 = "order/checkout";
+$route['order'] 				 = "order/place_order";
+$route['order/(:any)'] 			 = "order/order_details/$1";
+$route['user/orders'] 			 = "order/order_details";
+$route['forgot_password'] 		 = "user_control/forgot_psw";
+$route['forgot_password/error']  = "user_control/check_email";
 $route['password/change/(:any)'] = "user_control/change_password/$1";
 
-$route['admin_home'] 	 		= "admin_control";
-$route['categorys'] 			= "admin_categorys";
-$route['products'] 		 		= "admin_products";
-$route['orders']				= "admin_orders";
-$route['users']				   	= "admin_users";
-$route['change_password']		= "admin_control/change_password";
-$route['products/(:any)']		= "admin_products/index/$1";
-$route['category/edit/(:any)']	= "admin_categorys/edit_category/$1";
-$route['category']				= "admin_categorys/edit_category";
-$route['admin/product/(:any)']	= "admin_products/edit_products/$1";
-$route['admin/product']			= "admin_products/edit_products";
-$route['order_details/(:any)']	= "admin_orders/order_details/$1";
-$route['user/edit/(:any)']		= "admin_users/edit_user/$1";
+$route['admin_home'] 	 		 = "admin_control";
+$route['categories'] 			 = "admin_category";
+$route['products'] 		 		 = "admin_products";
+$route['orders']				 = "admin_orders";
+$route['users']					 = "admin_users";
+$route['change_password']		 = "admin_control/change_password";
+$route['products/(:any)']		 = "admin_products/index/$1";
+$route['category/edit/(:any)']	 = "admin_category/edit_category/$1";
+$route['category']				 = "admin_category/edit_category";
+$route['admin/product/(:any)']	 = "admin_products/edit_products/$1";
+$route['admin/product']			 = "admin_products/edit_products";
+$route['order_details/(:any)']	 = "admin_orders/order_details/$1";
+$route['user/edit/(:any)']		 = "admin_users/edit_user/$1";
 
 $route['404_override'] = '';
 

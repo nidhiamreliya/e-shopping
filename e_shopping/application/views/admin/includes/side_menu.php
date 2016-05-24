@@ -24,12 +24,12 @@
                         <div class="menu_section">
                             <h3>General</h3>
                             <ul class="nav side-menu">
-                                <li><a href="<?php echo site_url("admin_home") ?>"><i class="fa fa-home"> </i> Home <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="<?php echo site_url("categorys") ?>"><i class="fa fa-list"> </i> Category <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="<?php echo site_url("products") ?>"><i class="fa fa-shopping-basket"> </i> Products <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="<?php echo site_url("orders") ?>"><i class="fa fa-shopping-cart"> </i> Orders <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="<?php echo site_url("users") ?>"><i class="fa fa-users"> </i> Users <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="<?php echo site_url("change_password") ?>"><i class="fa fa-key"> </i> Change password <span class="fa fa-chevron-right"></span></a></li>
+                                <li><a href="<?php echo site_url("admin_home") ?>"><i class="fa fa-home"> </i> Home </a></li>
+                                <li><a href="<?php echo site_url("categories") ?>"><i class="fa fa-list"> </i> Category</a></li>
+                                <li><a href="<?php echo site_url("products") ?>"><i class="fa fa-shopping-basket"> </i> Products </a></li>
+                                <li><a href="<?php echo site_url("orders") ?>"><i class="fa fa-shopping-cart"> </i> Orders </a></li>
+                                <li><a href="<?php echo site_url("users") ?>"><i class="fa fa-users"> </i> Users </a></li>
+                                <li><a href="<?php echo site_url("change_password") ?>"><i class="fa fa-key"> </i> Change password </a></li>
                             </ul>
                         </div>
                     </div>

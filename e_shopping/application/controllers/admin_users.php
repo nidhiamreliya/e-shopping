@@ -17,7 +17,9 @@ class Admin_users extends MY_Controller
 		$this->admin_views('admin/users', $data);
 	}
 
-	//Show user information for edit
+	/*Show user information for edit
+		*@Param string $slug
+    */
 	public function edit_user($slug)
 	{
 		$user = array('slug' => $slug);
@@ -28,7 +30,9 @@ class Admin_users extends MY_Controller
 		$this->admin_views('admin/edit_user', $data);
 	}
 
-	//Delete user from list
+	/*Delete user from list
+		*@Param int $user_id
+    */
 	public function delete_user($user_id)
 	{
 		$data 	= array('user_id' => $user_id);
@@ -80,7 +84,9 @@ class Admin_users extends MY_Controller
 		}
 	}
 
-	//Check email id is already exist or not
+	/*Check email id is already exist or not
+		*@Param string $email
+    */
 	public function email_check($email)
 	{
 		$result = $this->user_model->check_duplicate($this->input->post('user_id'), $email);

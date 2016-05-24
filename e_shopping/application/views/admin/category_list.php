@@ -4,7 +4,7 @@
         <div class="clearfix"></div>
         <div class="page-title">
             <div class="title_left">
-                <h3>Categorys</h3>
+                <h3>Categories</h3>
             </div>
         </div>      
         <div class="clearfix"></div>
@@ -45,7 +45,7 @@
                                     <td><a href="<?php echo site_url('products').'/'.$row->slug ?>">View products</a></td>
                                     <td><?php echo $row->status == 1 ? 'Visible' : 'Not Visible' ?> </td>
                                     <td><a class="fa fa-pencil-square-o fa-2x" href="<?php echo site_url('category/edit').'/'. $row->slug ?>"></a>&nbsp&nbsp
-                                        <a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->category_name ?> \'?');" href="<?php echo site_url('admin_categorys/delete_category'). '/' . $row->slug?>"></a></td>
+                                        <a class="fa fa-trash fa-2x" onclick="return confirm('Are you sure you want to delete \'<?php echo $row->category_name ?> \'?');" href="<?php echo site_url('admin_category/delete_category'). '/' . $row->slug?>"></a></td>
                                 </tr>
                             <?php endforeach ?>                     
                             </tbody>

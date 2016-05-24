@@ -3,14 +3,14 @@
 	<div class="check">
 		<?php if($cart == null): ?>
 			<div class="col-md-4" id="no_data">
-				<a class="continue" href="<?php echo site_url('product')?>">Continue to basket</a>
+				<a class="continue" href="<?php echo site_url('catalog')?>">Continue to basket</a>
 				<span> Currently you don't have any item in your cart. </span>
 				<br/>
 				<span> First add some items in your cart. </span>
 			</div>
 		<?php else: ?>
 			<div class="col-md-4 cart-total">
-				<a class="continue" href="<?php echo site_url('product')?>">Continue to basket</a>
+				<a class="continue" href="<?php echo site_url('catalog')?>">Continue to basket</a>
 				<div id="price" class="col-md-12 cart-total">
 					<?php echo form_open('checkout');?>				
 					<div class="price-details" >

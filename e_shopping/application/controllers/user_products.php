@@ -6,17 +6,26 @@ class User_products extends MY_Controller
         parent::__construct();
     }
 
-    //Show product list to users
+    /*Show product list to users
+    	*@Param string $slug optional
+    */
 	public function index($slug = NULL)
 	{
 		if($slug) {
 			$category  = array('slug' => $slug);
 			$category  = $this->user_model->get_fields('category', array('category_id'), $category);
-			
-			$condition = array('category_id' => $category['category_id'], 'visible' => 1);
-			$data['products'] = $this->user_model->get_rows('product', $condition);
 			$data['category'] = $this->user_model->get_rows('category', array('status' => 1));
-			$this->user_views('users/products', $data);
+
+			foreach ($data['category'] as $value) {
+				if($category['category_id'] == $value->category_id){
+					$condition = array('category_id' => $category['category_id'], 'visible' => 1);
+					$data['products'] = $this->user_model->get_rows('product', $condition);
+
+					$this->user_views('users/products', $data);
+					return;
+				}
+			}
+			show_404();
 		} else {
 			$condition = array('visible' => 1);
 			$data['products'] = $this->user_model->get_rows('product', $condition);

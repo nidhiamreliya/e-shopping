@@ -7,7 +7,7 @@
         <?php 
         	if(!$product)
         	{
-        		redirect('user_products');
+        		show_404();
         	}
         ?>				 
 		<div class="flexslider details-lft-inf">

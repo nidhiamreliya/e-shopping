@@ -32,6 +32,9 @@
 	<div class="banner-bottom">
 		<div class="container catelog">
 			<div class="row">
+				<?php if(!$products):?>
+						<span>Sorry no products available</span>
+				<?php else: ?>
 				<div class="cate-hed">
 					<h3>Our New products <i class="glyphicon glyphicon-menu-down" aria-hidden="true"></i></h3>
 				</div>
@@ -39,7 +42,7 @@
 				<?php foreach ($products as $row) :?>
 					<div class="col-md-2 product-left"> 
 						<div class="p-two simpleCart_shelfItem jwe">							
-							<a href="<?php echo site_url('view').'/'.$row->slug?>">
+							<a href="<?php echo site_url('product').'/'.$row->slug?>">
 								<img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'.$row->product_img : base_url('assets/images/products/default.jpg')?>" alt="" class="img-responsive" />
 								<div class="mask">
 									<span>Quick View</span>
@@ -70,6 +73,7 @@
 	  				</ul>
 	  			</div>
 	  		</div>
+	  		<?php endif ?>
 		</div>
 	</div>
 </div>

@@ -37,6 +37,8 @@ class Cart extends MY_Controller
             $this->user_views('users/cart', $data);
         }
     }
+
+    //Add product into cart
     public function add_to_cart()
     {
 
@@ -93,15 +95,16 @@ class Cart extends MY_Controller
         }
     }
 
+    //Count total items in cart
     public function items_in_cart()
     {
         if($this->input->post('total_cart_items'))
         {
             if($this->session->userdata('user_id'))
             {
-                $count = $this->user_model->record_count('cart', array('user_id' => $this->session->userdata('user_id')));
+                $count = $this->user_model->cart_count(array('user_id' => $this->session->userdata('user_id')));
             } else {
-                $count = $this->user_model->record_count('cart', array('session_id' => $this->session->userdata('session_id'), 'user_id' => null));
+                $count = $this->user_model->cart_count(array('session_id' => $this->session->userdata('session_id'), 'user_id' => null));
             }
             echo json_encode(array(
                         "status"=>true,
@@ -110,6 +113,7 @@ class Cart extends MY_Controller
             exit;
         }
     }
+    
     //Remove item from cart
     public function remove()
     {

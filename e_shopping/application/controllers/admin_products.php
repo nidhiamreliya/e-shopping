@@ -8,25 +8,29 @@ class Admin_products extends MY_Controller
         if ($this->session->userdata('privilege') != 2) redirect('user_control/logout');
     }
 
-    //Show product list
-	public function index($category_slug = NULL)
+    /*Show product list
+    	*@param string $slug optional
+    */
+	public function index($slug = NULL)
 	{
-		if($category_slug)
+		if($slug)
 		{
-			$category = array('slug' => $category_slug);
+			$category = array('slug' => $slug);
 			$category_id = $this->user_model->get_fields('category', array('category_id'), $category);
 			
 			$category = array('category_id' => $category_id['category_id']);
-			$data['products'] = $this->user_model->get_rows('product', $category);
+			$data['products'] = $this->user_model->get_products($category);
 		}
 		else
 		{
-			$data['products'] = $this->user_model->get_data('product');
+			$data['products'] = $this->user_model->get_products();
 		}
 		$this->admin_views('admin/products', $data);
 	}
 
-	//Show product details for update
+	/*Show product details for update
+		*@Param string $slug optional
+    */
 	public function edit_products($slug = NULL)
 	{
 		if($slug) {
@@ -43,7 +47,9 @@ class Admin_products extends MY_Controller
 		$this->admin_views('admin/edit_product', $data);
 	}
 
-	//Delete product from list
+	/*Delete product from list
+		*@Param int $product_id
+    */
 	public function delete_product($product_id)
 	{
 		$data = array('product_id' => $product_id);
@@ -122,7 +128,9 @@ class Admin_products extends MY_Controller
 		}
 	}
 
-	//check product name is already exist or not
+	/*check product name is already exist or not
+		*@Param string $product_name
+    */
 	public function duplicate_check($product_name)
 	{
 		if($this->input->post('product_id') != null) {

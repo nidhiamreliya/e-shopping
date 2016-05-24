@@ -16,13 +16,15 @@ class Order extends MY_Controller
         $this->user_views('users/checkout', $data);
     }
     
-    //Display order details
+    /*Display order details
+        *@Param string $order_no optional
+    */
     public function order_details($order_no = null)
     {
         if($order_no) {
-            $data['order'] = $this->user_model->get_rows('order', array('order_no' => $order_no, 'user_id' => $this->session->userdata('user_id')));
+            $data['order'] = $this->user_model->user_orders(array('order_no' => $order_no, 'user_id' => $this->session->userdata('user_id')));
         } else {
-            $data['order'] = $this->user_model->get_rows('order', array('user_id' => $this->session->userdata('user_id')));
+            $data['order'] = $this->user_model->user_orders(array('user_id' => $this->session->userdata('user_id')));
         }
         $this->user_views('users/order_details', $data);
     }
@@ -68,5 +70,5 @@ class Order extends MY_Controller
         } else {
           redirect('login');
         }
-  } 
+    } 
 }

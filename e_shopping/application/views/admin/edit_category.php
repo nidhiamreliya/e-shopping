@@ -5,7 +5,7 @@
             <div class="clearfix"></div>
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Categorys</h3>
+                    <h3>Category</h3>
                 </div>
             </div>
         <div class="clearfix"></div>
@@ -34,7 +34,7 @@
                                     'class'     => "form-horizontal form-label-left"
                                 );
                             ?> 
-                            <?php echo form_open('admin_categorys/insert_category', $data);?>
+                            <?php echo form_open('admin_category/insert_category', $data);?>
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Category Name <span class="required">*</span>
@@ -73,7 +73,7 @@
                             </div>
                             <?php echo form_close();?>
                         </div>
-                        <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo site_url('categorys'); ?>'"><i class="fa fa-backward">  Back</i></button>
+                        <button type="submit" class="btn btn-primary " onclick="window.location='<?php echo site_url('categories'); ?>'"><i class="fa fa-backward">  Back</i></button>
                     </div>
                 </div>
             </div>

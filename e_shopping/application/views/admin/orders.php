@@ -20,7 +20,7 @@
                             <thead>
                                 <tr>
                                     <th>Order No</th>
-                                    <th>User id</th>
+                                    <th>User</th>
                                     <th>Order date</th>
                                     <th>Shipping address</th>
                                     <th>Amount</th>
@@ -36,7 +36,7 @@
                             ?>
                                     <?php foreach($orders as $row):?>
                                     <td><?php echo $row->order_no ?></td>
-                                    <td><?php echo $row->user_id ?></td>
+                                    <td><?php echo $row->email_id ?></td>
                                     <td><?php echo $row->order_date ?></td>
                                     <td><?php echo $row->shipping_address ?></td>
                                     <td><?php echo $row->amount ?></td>
