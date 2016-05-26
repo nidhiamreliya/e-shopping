@@ -3,36 +3,16 @@
 	<div class="container">
 		<div class="products-grids">
 			<div class="col-md-8 products-grid-left">
-				<div class="products-grid-lft">
-				<?php
-					if(!$products)
-					{
-						echo "Sorry no products available for this category";
-					}
-					else
-					{
-				?>
-						<?php foreach ($products as $row): ?>
-							<div class="products-grd">
-								<div class="p-one simpleCart_shelfItem prd">
-									<a href="<?php echo site_url('product'),'/'.$row->slug?>">
-										<img src="<?php echo $row->product_img != null ? base_url('assets/images/products').'/'.$row->product_img : base_url('assets/images/products/default.jpg') ?>" alt="" class="img-responsive" />
-										<div class="mask">
-											<span>Quick View</span>
-										</div>
-										<h4><?php echo $row->product_name ?></h4>
-									</a>
-									<input type="hidden" id="quantity" value="1">
-									<p data-id="<?php echo $row->product_id?>" class="additem">
-										<i></i>
-										<span class=" item_price valsa"><?php echo $row->product_price ?><e class="fa fa-inr" aria-hidden="true"></e></span>
-									</p>
-								</div>	
-							</div>
-						<?php endforeach ?>
-				<?php 
-					}
-				?>
+				<div class="products-grid-lft" id="products">
+					
+					<div class="row">
+						<div class="text-center">
+							<font color="#F65A5B">
+							<ul class="pagination pagination-md">
+								<a class="btn btn-block continue" id="view_more" val="1">View More</a>
+			  				</ul>
+			  			</div>
+			  		</div>
 				</div>
 			</div>
 			<div class="col-md-4 products-grid-right">
@@ -43,25 +23,6 @@
 					<section  class="sky-form">
 						<h4>catogories</h4>
 						<div class="row1 scroll-pane">
-						<?php 
-							if(!$category){
-								echo "<span>sorry no data available</span>";
-							} else {
-						?>
-						<?php foreach ($category as $row):?>
-							<div class="col col-4">
-								<?php if($row->slug == $this->uri->segment(2)): ?> 
-
-										<label class="checkbox"><a href="<?php echo site_url('catalog').'/'.$row->slug ?>"><input type="checkbox" name="checkbox" checked=""><i></i><?php echo $row->category_name ?></a></label>
-
-								<?php else : ?>
-										<label class="checkbox"><a href="<?php echo site_url('catalog').'/'.$row->slug ?>"><input type="checkbox" name="checkbox"><i></i><?php echo $row->category_name ?></a></label>
-								<?php endif ?>
-							</div>
-						<?php endforeach ?>
-						<?php 
-							}
-						?>
 						</div>
 					</section>
 				</div>
@@ -71,3 +32,48 @@
 	</div>
 </div>
 <!-- //products -->
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$.ajax({
+	            url:  "<?php echo base_url(); ?>" + "e_shopping/index.php/user_products/products",   
+	            type: "POST",
+	            data:{
+	                page: $("#view_more").attr("val")
+	            },
+
+	            success: function(response) {
+	                if (response) {
+	                  	$("#products").prepend(response);
+	                  	count = $("#view_more").attr("val");
+	                  	count++;
+	                  	$("#view_more").attr("val", count);
+	                } else {
+	                	alert(response.msg);
+	                }
+	            }
+	        });
+
+	    /*$("#view_more").click(function()
+	        $.ajax({
+	            url:  "<?php echo base_url(); ?>" + "e_shopping/index.php/user_products/products",   
+	            type: "POST",
+	            data:{
+	                page: $(#view_more).attr("val");
+	            },
+
+	            success: function(response) {
+	                if (response) {
+	                  	$("#products").prepend(response);
+	                  	count = $("#view_more").attr("val");
+	                  	count++;
+	                  	$("#view_more").attr("val", count);
+
+	                } else {
+	                	alert(response);
+	                }
+	            }
+	        });
+	    });*/
+	});
+</script>

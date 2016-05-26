@@ -19,4 +19,5 @@ $config['cur_tag_open'] = '&nbsp;<a class="current"><strong><u>';
 $config['cur_tag_close'] = '</u></strong></a>';
 $config['next_link'] = 'Next';
 $config['prev_link'] = 'Previous';
+$config["per_page_product"] = 6;
 ?>
