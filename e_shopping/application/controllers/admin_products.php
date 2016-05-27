@@ -18,7 +18,7 @@ class Admin_products extends MY_Controller
 			$category = array('slug' => $slug);
 			$category_id = $this->user_model->get_fields('category', array('category_id'), $category);
 			
-			$category = array('category_id' => $category_id['category_id']);
+			$category = array('p.category_id' => $category_id['category_id']);
 			$data['products'] = $this->user_model->get_products($category);
 		}
 		else

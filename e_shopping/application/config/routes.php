@@ -39,15 +39,13 @@
 */
 
 $route['default_controller'] 	 = "user_control/home";
-$route['catalog/(:any)']		 = "user_products/index/$1";
 $route['login'] 			 	 = "user_control";
 $route['login/error'] 		 	 = "user_control/check_user";
 $route['home']					 = "user_control/home";
 $route['home/(:any)']			 = "user_control/home/$1";
 $route['registration']			 = "user_control/registration";
 $route['catalog']				 = "user_products/index";
-$route['catalog/(:num)']		 = "user_products/index/$1";
-$route['filter/(:any)']		 	 = "user_products/category/$1";
+$route['catalog/(:any)']		 = "user_products/category/$1";
 
 $route['product/(:any)'] 		 = "user_control/product_details/$1";
 $route['add_cart'] 				 = "user_control/add_to_cart";

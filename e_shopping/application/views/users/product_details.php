@@ -53,9 +53,44 @@
 				</div>
 			</div>
 		</div>
-		 <?php echo form_close();?>
 		</div>
 		<div class="clearfix"></div>				 	
 	</div>
 </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.additem').click(function(){
+        var product= $(this).attr('data-id');
+        var user = "<?php echo $this->session->userdata('user_id') ?>";
+        var quantity = $('#quantity').val();
+        
+        $.ajax({
+            url:  "<?php echo base_url(); ?>" + "e_shopping/index.php/cart/add_to_cart",   
+            type: "POST",
+            dataType: "json",
+            
+            data:{
+                product_id:product,
+                user_id:user,
+                quantity:quantity
+            },
+
+            success: function(response) {
+                if(response.status)
+                {
+                    alert(response.msg);
+                    var count = $('#total_items').text();
+                    count++;
+                    $('#total_items').text(count);
+                }
+                else
+                {
+                    alert(response.msg);
+                }
+            }
+        });
+    });
+});
+
+</script>

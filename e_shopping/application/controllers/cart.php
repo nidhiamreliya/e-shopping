@@ -61,8 +61,11 @@ class Cart extends MY_Controller
             if($this->session->userdata('user_id'))
             {
                 $data['user_id'] = $this->session->userdata('user_id');
-            } 
-            $check = $this->user_model->check_cart('cart', array('session_id' => $this->session->userdata('session_id')), $this->input->post('product_id'));
+                $condition = array('user_id' => $data['user_id']);
+            } else {
+                $condition = array('session_id' => $this->session->userdata('session_id'));
+            }
+            $check = $this->user_model->check_cart($condition, $this->input->post('product_id'));
 
             if($check)
             {

@@ -192,13 +192,12 @@ class User_control extends MY_Controller
 
                     foreach ($cart as $row) {
                         $check = $this->user_model->check_cart(
-                                    'cart', 
-                                    array(
-                                        'user_id' =>$this->session->userdata('user_id')), 
-                                        $row->product_id
+                                    array('user_id' => $this->session->userdata('user_id')),
+                                    $row->product_id
                                     );
                         if($check)
                         {
+                            print_r($check);
                             $this->user_model->delete_row('cart', $check);
                         }
                     }
