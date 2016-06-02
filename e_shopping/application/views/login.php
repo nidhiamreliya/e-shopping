@@ -59,3 +59,14 @@
     </div>
 </div>
 <!-- //login-page -->
+<script type="text/javascript">
+    $("#login").on("submit", function(e){
+    var isValid = $("#login").valid();
+
+    if(isValid){
+        teturn true;
+    }
+
+    return false;
+});
+</script>

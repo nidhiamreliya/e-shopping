@@ -111,3 +111,14 @@
 			</div>
 		</div>
 	</div>
+<script type="text/javascript">
+    $("#registration").on("submit", function(e){
+    var isValid = $("#registration").valid();
+
+    if(isValid){
+        teturn true;
+    }
+
+    return false;
+});
+</script>

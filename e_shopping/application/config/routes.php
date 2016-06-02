@@ -46,7 +46,6 @@ $route['home/(:any)']			 = "user_control/home/$1";
 $route['registration']			 = "user_control/registration";
 $route['catalog']				 = "user_products/index";
 $route['catalog/(:any)']		 = "user_products/category/$1";
-
 $route['product/(:any)'] 		 = "user_control/product_details/$1";
 $route['add_cart'] 				 = "user_control/add_to_cart";
 $route['cart'] 					 = "cart/cart_details";
@@ -59,6 +58,7 @@ $route['user/orders'] 			 = "order/order_details";
 $route['forgot_password'] 		 = "user_control/forgot_psw";
 $route['forgot_password/error']  = "user_control/check_email";
 $route['password/change/(:any)'] = "user_control/change_password/$1";
+$route['user/profile'] 			 = "user_profile";
 
 $route['admin_home'] 	 		 = "admin_control";
 $route['categories'] 			 = "admin_category";

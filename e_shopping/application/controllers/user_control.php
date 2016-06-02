@@ -33,7 +33,6 @@ class User_control extends MY_Controller
                     'first_name' => $user['first_name']
                 );
                 $this->session->set_userdata($user_data);
-
                 if($this->session->userdata('privilege') == 1) {
                     
                     $cart = $this->user_model->get_rows(
@@ -219,8 +218,12 @@ class User_control extends MY_Controller
         $product = $this->user_model->get_fields('product', array('product_id'), $product);
         $condition = array('product_id' => $product['product_id'], 'visible' => 1);
         $data['product'] = $this->user_model->getwhere_data('product',$condition);
-        
-        $this->user_views('users/product_details', $data);
+        if($data['product'])
+        {
+            $this->user_views('users/product_details', $data);
+        } else {
+            show_404();
+        }
     }
 
     //Show forgot password form
@@ -233,6 +236,7 @@ class User_control extends MY_Controller
     //Show check for valid email id for change password of user
     public function check_email()
     {
+        $this->load->helper('string');
         if($this->form_validation->run('email_id') == FALSE ) {
             $this->forgot_psw();
         } else {
@@ -244,10 +248,14 @@ class User_control extends MY_Controller
                     );
             if($valid)
             {
-                $user = $this->encrypt->encode($valid['user_id']);
-                $user_id = str_replace("/", ".", $user);
-
-                redirect('password/change/' . $user_id);
+                $tokan = random_string('alnum', 16);
+                $valid = $this->user_model->update_row('users', array('change_psw'=> $tokan), array('email_id'=>$this->input->post('email_id')));
+                if($valid){
+                    redirect('password/change/' . $tokan);
+                } else {
+                    $data['err_message'] = 'Email id not exist.';
+                    $this->user_views('forgot_password', $data);
+                }
             } else {
                 $data['err_message'] = 'Email id not exist.';
                 $this->user_views('forgot_password', $data);
@@ -259,31 +267,35 @@ class User_control extends MY_Controller
     /*Show change password view of user
         *@Param string $user encrypted user id
     */
-    public function change_password($user)
-    {
-        $data['user_id'] = $user;
-        
+    public function change_password($tokan)
+    {   
         if($this->form_validation->run('password') == FALSE ) {
             $this->user_views('change_psw', $data);
         } else {
+           
+            $update = $this->user_model->getwhere_data('users', array('change_psw'=>$tokan));   
 
-            $user_id = str_replace(".", "/", $user);
-            $user = $this->encrypt->decode($user_id);
-            $password = create_password($this->input->post('password'));
+            if($update){
+                $password = create_password($this->input->post('password'));
             
-            $result = $this->user_model->update_row(
-                        'users', 
-                        array('password' => $password),
-                        array('user_id' => $user)
-                    );
-            if($result)
-            {
-                $this->session->set_flashdata('psw_success', 'Your password update successfully');
-                redirect('login');
+                $result = $this->user_model->update_row(
+                            'users', 
+                            array('password' => $password),
+                            array('change_psw' => $tokan)
+                        );
+                if($result)
+                {
+                    $this->user_model->update_row('users', array('change_psw'=> null), array('change_psw' => $tokan));
+                    $this->session->set_flashdata('psw_success', 'Your password update successfully');
+                    redirect('login');
+                } else {
+                    $data['err_message'] = 'invalid user.';
+                    $this->user_views('change_psw', $data);
+                }
             } else {
+                $data['err_message'] = 'invalid user.';
                 $this->user_views('change_psw', $data);
             }
-
         }
     }
 }

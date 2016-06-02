@@ -3,7 +3,7 @@
     <div class="right_col" role="main">
         <div class="">
             <div class="page-title">
-                <div class="title_left">
+                    <div class="title_left">
                     <h3>Products</h3>
                 </div>
             </div>
@@ -123,8 +123,7 @@
                                 $data = array(
                                     'name'      => 'product_img',
                                     'id'        => 'product_img',
-                                    'class'     => 'form-horizontal form-label-left',
-                                    'onsubmit'  => 'return check_pic()'
+                                    'class'     => 'form-horizontal form-label-left'
                                 );
                             ?> 
                             <?php echo form_open_multipart('admin_products/product_pic', $data);?>

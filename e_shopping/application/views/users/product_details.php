@@ -2,39 +2,23 @@
 <div class="single">
 <div class="container">
 	<div class="single-page">
-		<div clas="col-md-6"> 
-		
-        <?php 
-        	if(!$product)
-        	{
-        		show_404();
-        	}
-        ?>				 
-		<div class="flexslider details-lft-inf">
-			<ul class="slides">
-				<li>
-					<img class="preview" src="<?php echo $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/products/default.jpg') ?>" />
-				</li>
-				<li>
-					<img class="preview" src="<?php echo $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/products/default.jpg') ?>" />
-				</li>
-				<li>
-					<img class="preview" src="<?php echo $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/products/default.jpg') ?>" />
-				</li>
-			</ul>
-		</div>
-			<!-- FlexSlider -->
-			  <script defer src="<?php echo base_url('assets/js/jquery.flexslider.js')?>"></script>
-			<link rel="stylesheet" href="<?php echo base_url('assets/css/flexslider.css')?>" type="text/css" media="screen" />
-
-				<script>
-			// Can also be used with $(document).ready()
-			$(window).load(function() {
-			  $('.flexslider').flexslider({
-				animation: "slide",
-			  });
-			});
-			</script>
+		<?php if(!$product): ?>
+        		<span> No data available for this product</span>
+   		<?php else: ?>				
+		<div clas="col-md-6">  
+			<div class="flexslider details-lft-inf">
+				<ul class="slides">
+					<li>
+						<img class="preview" src="<?php echo $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/products/default.jpg') ?>" />
+					</li>
+					<li>
+						<img class="preview" src="<?php echo $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/products/default.jpg') ?>" />
+					</li>
+					<li>
+						<img class="preview" src="<?php echo $product['product_img'] != null ? base_url('assets/images/products').'/'.$product['product_img'] : base_url('assets/images/products/default.jpg') ?>" />
+					</li>
+				</ul>
+			</div>
 		</div>
 
 		<div class="col-md-5 col-md-offset-1">
@@ -54,26 +38,29 @@
 			</div>
 		</div>
 		</div>
+		<?php endif ?>
 		<div class="clearfix"></div>				 	
 	</div>
 </div>
 </div>
+<!-- FlexSlider -->
+<script defer src="<?php echo base_url('assets/js/jquery.flexslider.js')?>"></script>
+<link rel="stylesheet" href="<?php echo base_url('assets/css/flexslider.css')?>" type="text/css" media="screen" />
 <script type="text/javascript">
 $(document).ready(function(){
-    $('.additem').click(function(){
-        var product= $(this).attr('data-id');
-        var user = "<?php echo $this->session->userdata('user_id') ?>";
-        var quantity = $('#quantity').val();
-        
+	$('.flexslider').flexslider({
+				animation: "slide",
+			  });
+    $('.additem').click(function(){        
         $.ajax({
             url:  "<?php echo base_url(); ?>" + "e_shopping/index.php/cart/add_to_cart",   
             type: "POST",
             dataType: "json",
             
             data:{
-                product_id:product,
-                user_id:user,
-                quantity:quantity
+                product_id: $(this).attr('data-id'),
+                user_id: "<?php echo $this->session->userdata('user_id') ?>",
+                quantity: $('#quantity').val()
             },
 
             success: function(response) {
@@ -92,5 +79,4 @@ $(document).ready(function(){
         });
     });
 });
-
 </script>

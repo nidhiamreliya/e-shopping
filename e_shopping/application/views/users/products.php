@@ -10,6 +10,7 @@
 							<font color="#F65A5B">
 							<ul class="pagination pagination-md">
 								<a class="btn btn-block continue" id="view_more" val="1" max="<?php echo $links ?>">View More</a>
+			  					<img id="loading" src="<?php echo base_url('assets/images').'/pg.gif'?>"/>
 			  				</ul>
 			  			</div>
 			  		</div>
@@ -47,6 +48,8 @@
 <!-- //products -->
 <script type="text/javascript">
 $(document).ready(function(){
+		$('#loading').show();
+		$("#view_more").hide();
 		$.ajax({
             url:  "<?php echo base_url(); ?>" + "e_shopping/index.php/user_products/products",   
             type: "POST",
@@ -55,6 +58,8 @@ $(document).ready(function(){
             },
             success: function(response) {
                 if (response) {
+                	$('#loading').hide();
+                	$("#view_more").show();
                   	$("#products").prepend(response);
                   	count = $("#view_more").attr("val");
                   	count++;
@@ -69,6 +74,8 @@ $(document).ready(function(){
         });
 
 	    $("#view_more").click(function(){
+	    	$("#view_more").hide();
+	    	$('#loading').show();
 	        $.ajax({
 	            url:  "<?php echo base_url(); ?>" + "e_shopping/index.php/user_products/products",   
 	            type: "POST",
@@ -78,6 +85,8 @@ $(document).ready(function(){
 
 	            success: function(response) {
 	                if (response) {
+	                	$('#loading').hide();
+				    	$("#view_more").show();
 	                  	$("#products").append(response);
 	                  	count = $("#view_more").attr("val");
 	                  	count++;

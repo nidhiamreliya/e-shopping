@@ -38,6 +38,7 @@ class User_products extends MY_Controller
 	//load list of products
 	public function products()
 	{
+        sleep(1);
 		$values = $this->config->config;
 		$values["base_url"] = site_url("catalog");
     	$total_row = $this->user_model->record_count('product', array('visible'=> 1));
@@ -81,6 +82,7 @@ class User_products extends MY_Controller
     //load list of products category wise
     public function cat_product()
 	{
+        sleep(1);
 		$product = array('slug' => $this->input->post('slug'), 'status'=> 1);
 		$product = $this->user_model->get_fields('category', array('category_id'), $product);
 		$condition = array('category_id'=> $product['category_id'],'visible'=> 1);
